@@ -16,7 +16,7 @@ class CreateCampaignsTable extends Migration {
             $table->string('campaign_name');
             $table->foreignId('user_id')->constrained();
             $table->string('offer_id')->nullable();
-            $table->foreignId('rotator_id')->nullable()->constrained();
+            $table->foreignId('rotator_id');
             $table->string('platform')->nullable();
             $table->integer('status');
             $table->timestamps();
