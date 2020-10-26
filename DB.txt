@@ -1,0 +1,38 @@
+Leads table - id => auto increment
+              unique_id => leads_params unique_id - response from first request - key index
+              network_id => integer - key index
+              email => form email string
+              first_name => name string
+              last_name => string
+              password => string
+              prefix => string
+              phone => long int
+              country => string
+              status => integer - represents the lead event type 1 = lead
+              event => integer - represents the event sending type postback = 1 redirect = 2
+
+leads_params - id => auto increment
+               ua => long string
+               ip => varchar(128) - for IPv6 + IPv4
+               url_params => JSON object
+               offer_id => integer
+               status => integer - represents the click of the lead 1 = click
+
+users - id => auto increment
+        username => string
+        email => string
+        password => string
+        permission_level => integer
+
+
+Offers table - id => auto increment
+               unique_id => generate unique string
+               weight => integer
+               network_id => integer - key index
+               status => small integer - represent if the offer is active or not 0 = no active, 1 = available, 2 = active with traffic
+               created_by(user_id) => integer - key index
+
+Networks table - id => auto increment
+                 network_name => string(64)
+                 api_key => string(128)
+                 status => small integer - 0 = not active, 1 = active
