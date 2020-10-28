@@ -33,6 +33,51 @@
                 <span class="info">Select platform associated with the campaign</span>
             </vs-col>
         </vs-row>
+        <vs-divider/>
+        <div class="mt-3 mb-3">
+            <p class="info">Select form fields you wish to display for this campaign</p>
+            <p class="mb-3 info">By default all fields will be displayed</p>
+            <vs-row vs-w="12" vs-type="flex" vs-justify="space-between">
+                <vs-col vs-w="3">
+                    <ul class="centerx">
+                        <li class="mt-2 mb-2">
+                            <vs-checkbox v-model="form_fields.settings.first_name">First Name</vs-checkbox>
+                        </li>
+                        <li class="mt-2 mb-2">
+                            <vs-checkbox v-model="form_fields.settings.last_name">Last Name</vs-checkbox>
+                        </li>
+                        <li class="mt-2 mb-2">
+                            <vs-checkbox v-model="form_fields.settings.country">Country</vs-checkbox>
+                        </li>
+                        <li class="mt-2 mb-2">
+                            <vs-checkbox v-model="form_fields.settings.phone">Phone</vs-checkbox>
+                        </li>
+                        <li class="mt-2 mb-2">
+                            <vs-checkbox v-model="form_fields.settings.email">Email</vs-checkbox>
+                        </li>
+                        <li class="mt-2 mb-2">
+                            <vs-checkbox v-model="form_fields.settings.password">Password</vs-checkbox>
+                        </li>
+                    </ul>
+                </vs-col>
+                <vs-col vs-w="9">
+                    <p class="input_like--label" v-if="form_fields.settings.first_name">First Name:</p>
+                    <p class="input_like--p" v-if="form_fields.settings.first_name"></p>
+                    <p class="input_like--label" v-if="form_fields.settings.last_name">Last Name:</p>
+                    <p class="input_like--p" v-if="form_fields.settings.last_name"></p>
+                    <p class="input_like--label" v-if="form_fields.settings.country">Country:</p>
+                    <p class="input_like--p" v-if="form_fields.settings.country"></p>
+                    <p class="input_like--label" v-if="form_fields.settings.phone">Phone:</p>
+                    <p class="input_like--p" v-if="form_fields.settings.phone"></p>
+                    <p class="input_like--label" v-if="form_fields.settings.email">Email:</p>
+                    <p class="input_like--p" v-if="form_fields.settings.email"></p>
+                    <p class="input_like--label" v-if="form_fields.settings.password">Password:</p>
+                    <p class="input_like--p" v-if="form_fields.settings.password"></p>
+                    <p class="input_like--submit">Submit</p>
+                </vs-col>
+            </vs-row>
+
+        </div>
         <vs-row vs-w="12" class="mt-5">
             <vs-col>
                 <vs-button @click="save" color="success" type="filled">Save</vs-button>
@@ -60,6 +105,14 @@
                     rotator_id: '',
                     platform: '',
                     ci: null,
+                    settings: {
+                        first_name: true,
+                        last_name: true,
+                        country: true,
+                        phone: true,
+                        email: true,
+                        password: true,
+                    }
                 },
                 offers_list: [],
                 rotators_list: [],
@@ -80,7 +133,7 @@
                 this.form_fields.ci = this.ci == null ? 0 : this.ci;
                 axios.post('campaigns/store', this.form_fields)
                     .then((response) => {
-                        if (!response.data) {
+                        if (!response.data.status) {
                             throw response.data;
                         }
                         // if ("status" in response.data && !response.data.status) {
@@ -182,5 +235,27 @@
     .info {
         color: #ff9f43;
         font-weight: 600;
+    }
+
+    .input_like--label {
+
+    }
+
+    .input_like--p {
+        max-width: 200px;
+        width: 100%;
+        height: 30px;
+        border: 1px solid;
+        border-radius: 5px;
+    }
+
+    .input_like--submit {
+        max-width: 80px;
+        width: 100%;
+        text-align: center;
+        padding: 3px 5px;
+        border: 1px solid;
+        border-radius: 5px;
+        margin-top: 5px;
     }
 </style>

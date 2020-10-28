@@ -38,6 +38,7 @@ class Networks {
             case 5:
                 break;
             default:
+                $res = json_encode(['status' => true, 'msg' => 'https://www.google.com']);
                 break;
         }
         return $res;

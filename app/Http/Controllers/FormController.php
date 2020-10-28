@@ -21,6 +21,7 @@ class FormController extends Controller {
         if (!isset($ci) || empty($ci)) {
             return base64_encode(json_encode(['status' => false, 'msg' => 'Campaign not found!']));
         }
+        $campaign_settings = $this->getCampaignSettings($ci);
         try {
             $referrer = $_SERVER['HTTP_REFERER'];
             $host = $_SERVER['HTTP_HOST'];
@@ -130,6 +131,10 @@ class FormController extends Controller {
         }
         $network = new Networks();
         return $network->networksMap($network_id, $lead_params);
+    }
+
+    protected function getCampaignSettings($ci) {
+        
     }
 
     protected static function v4() {
