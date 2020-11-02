@@ -62,8 +62,7 @@ class Networks {
             ]
         ]);
         if ($res->getStatusCode() === 200) {
-            $res_data = $res->getBody()->getContents();
-            return $res_data['ref_link'] . $res_data['token'];
+            return $res->getBody()->getContents();
         }
         return response()->json(['message' => 'Not found!'], 404);
     }
