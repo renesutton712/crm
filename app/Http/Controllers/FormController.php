@@ -135,6 +135,9 @@ class FormController extends Controller {
         }
         $params_arr = $lead_params->attributesToArray();
         $country_name = $this->getFullCountryName($params_arr['country']);
+        if (empty($country_name)) {
+            return json_encode(['status' => false, 'msg' => 'country is missing!']);
+        }
         $params_arr['country_full'] = $country_name->country_name;
         $network = new Networks();
 

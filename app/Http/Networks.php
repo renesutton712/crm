@@ -24,18 +24,12 @@ class Networks {
     }
 
     public function networksMap($network_id, $params) {
-        $res = '';
         switch ($network_id) {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
+            case 4:
                 return $this->Trafficon($params);
                 break;
-            case 4:
-                break;
             case 5:
+                return $this->SuperMedia($params);
                 break;
             default:
                 return json_encode(['status' => true, 'msg' => 'https://www.google.com']);
@@ -84,9 +78,10 @@ class Networks {
                 ]
             ],
             'json' => [
-                'first_name' => '', 'last_name' => '', 'email' => '',
-                'password' => '', 'phone' => '', 'ip' => '', 'country_code' => '',
-                'aff_sub' => 'our_unique_id', 'source' => 'Optional'
+                'first_name' => $params['first_name'], 'last_name' => $params['last_name'], 'email' => $params['email'],
+                'password' => $params['password'], 'phone' => $params['prefix'] . $params['phone'], 'ip' => $params['ip'],
+                'country_code' => $params['country'],
+                'aff_sub' => $params['unique_id']
             ]
         ]);
         if ($res->getStatusCode() === 200) {
