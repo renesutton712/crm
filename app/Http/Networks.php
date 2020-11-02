@@ -43,6 +43,11 @@ class Networks {
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     protected function Trafficon(array $params) {
+//        Example response:
+//        ref_link: "https://yuan-pay-newapp.com/api/v1/secured-auto-login/"
+//        status: "success"
+//        tid: "1026f80704573cc14277fa86a39243"
+//        token: "YXR4U3h3L2diVDZpZHBWZU5HUzVrdWhnQ0RKZzFFSXFoekZwTGpOTGdMYlVTR0FQR1JOdnRBejJHVGF6WlVVSjJhbnVMV2pvUmRRdVdEZURSQkVrc2IxWWYvdXgyVkNpbHhnVEdielR0d3M9"
         $client = new Client();
         self::setUrl('https://trafficon-api.com/secured-registration');
 
@@ -57,7 +62,8 @@ class Networks {
             ]
         ]);
         if ($res->getStatusCode() === 200) {
-            return $res->getBody()->getContents();
+            $res_data = $res->getBody()->getContents();
+            return $res_data['ref_link'] . $res_data['token'];
         }
         return response()->json(['message' => 'Not found!'], 404);
     }
