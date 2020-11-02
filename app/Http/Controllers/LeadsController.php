@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 class LeadsController extends Controller {
 
     public function get() {
-        return Lead::with(['network', 'campaign', 'offer'])->get();
+        return Lead::with(['network', 'campaign', 'rotator'])->get();
     }
-
 }

@@ -17,7 +17,7 @@
                         <vs-th sort-key="unique_id">ID</vs-th>
                         <vs-th sort-key="campaign_name">Campaign Name</vs-th>
                         <vs-th sort-key="network.network_name">Network Name</vs-th>
-                        <vs-th sort-key="offer.offer_name">Offer Name</vs-th>
+                        <!--                        <vs-th sort-key="offer.offer_name">Offer Name</vs-th>-->
                         <vs-th sort-key="country">Country</vs-th>
                         <vs-th sort-key="first_name">First Name</vs-th>
                         <vs-th sort-key="last_name">Last Name</vs-th>
@@ -39,10 +39,10 @@
                                 {{data[indextr].network.network_name}}
                             </vs-td>
                             <vs-td v-else>No Network found</vs-td>
-                            <vs-td v-if="data[indextr].offer !== null" :data="data[indextr].offer.offer_name">
-                                {{data[indextr].offer.offer_name}}
-                            </vs-td>
-                            <vs-td v-else>No Offer Found!</vs-td>
+                            <!--                            <vs-td v-if="data[indextr].offer !== null" :data="data[indextr].offer.offer_name">-->
+                            <!--                                {{data[indextr].offer.offer_name}}-->
+                            <!--                            </vs-td>-->
+                            <!--                            <vs-td v-else>No Offer Found!</vs-td>-->
                             <vs-td :data="data[indextr].country">{{data[indextr].country}}</vs-td>
                             <vs-td :data="data[indextr].first_name">{{data[indextr].first_name}}</vs-td>
                             <vs-td :data="data[indextr].last_name">{{data[indextr].last_name}}</vs-td>

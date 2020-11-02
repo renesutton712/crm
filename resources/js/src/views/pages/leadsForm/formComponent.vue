@@ -297,15 +297,6 @@
             return "";
         }
 
-        function firePixel() {
-
-        }
-
-        function setFormParams(formParams) {
-
-        }
-
-
         function setUserClientCountry() {
             $.ajax({
                 url: 'https://ipinfo.io',

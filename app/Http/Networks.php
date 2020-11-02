@@ -31,17 +31,16 @@ class Networks {
             case 2:
                 break;
             case 3:
-                $res = $this->Trafficon($params);
+                return $this->Trafficon($params);
                 break;
             case 4:
                 break;
             case 5:
                 break;
             default:
-                $res = json_encode(['status' => true, 'msg' => 'https://www.google.com']);
+                return json_encode(['status' => true, 'msg' => 'https://www.google.com']);
                 break;
         }
-        return $res;
     }
 
     /**
@@ -51,13 +50,43 @@ class Networks {
      */
     protected function Trafficon(array $params) {
         $client = new Client();
-        self::setUrl('http://trafficon-api.com/secured-registration');
+        self::setUrl('https://trafficon-api.com/secured-registration');
 
         $res = $client->request('POST', self::getUrl(), [
             'json' => [
-                'offer_id' => '', 'aff_id' => '', 'first_name' => '', 'last_name' => '', 'email' => '',
-                'password' => '', 'area_code' => '', 'phone' => '', 'ip' => '', 'country' => '', 'iso' => '',
-                'aff_sub1' => 'our_unique_id'
+                'offer_id' => 310, 'aff_id' => 2123, 'first_name' => "{$params['first_name']}",
+                'last_name' => "{$params['last_name']}", 'email' => "{$params['email']}",
+                'password' => "{$params['password']}", 'area_code' => "{$params['prefix']}", 'phone' => "{$params['phone']}",
+                'ip' => "{$params['ip']}",
+                'country' => "{$params['country_full']}", 'iso' => "{$params['country']}",
+                'aff_sub1' => "{$params['unique_id']}"
+            ]
+        ]);
+        if ($res->getStatusCode() === 200) {
+            return $res->getBody()->getContents();
+        }
+        return response()->json(['message' => 'Not found!'], 404);
+    }
+
+    /**
+     * @param array $params
+     * @return \Illuminate\Http\JsonResponse|string
+     * @throws GuzzleException
+     */
+    protected function SuperMedia(array $params) {
+        $client = new Client();
+        self::setUrl('https://api.rhkoco.com/v2/affiliates/lead/create');
+
+        $res = $client->request('POST', self::getUrl(), [
+            [
+                'headers' => [
+                    'Token' => $params['token']
+                ]
+            ],
+            'json' => [
+                'first_name' => '', 'last_name' => '', 'email' => '',
+                'password' => '', 'phone' => '', 'ip' => '', 'country_code' => '',
+                'aff_sub' => 'our_unique_id', 'source' => 'Optional'
             ]
         ]);
         if ($res->getStatusCode() === 200) {

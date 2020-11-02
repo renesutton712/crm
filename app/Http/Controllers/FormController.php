@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\country;
 use App\Http\Networks;
 use App\Lead;
 use App\Network;
@@ -58,12 +59,14 @@ class FormController extends Controller {
      * @return false|string
      */
     public function lead(Request $request) {
+        $phone_arr = explode(" ", $request->input('phone'), 2);
         $unique_id = filter_var(strip_tags($request->input('user')), FILTER_SANITIZE_STRING);
         $fn = filter_var(strip_tags($request->input('fn')), FILTER_SANITIZE_STRING);
         $ln = filter_var(strip_tags($request->input('ln')), FILTER_SANITIZE_STRING);
         $email = filter_var(strip_tags($request->input('email')), FILTER_SANITIZE_URL);
         $country = filter_var(strip_tags($request->input('country')), FILTER_SANITIZE_STRING);
-        $phone = filter_var(strip_tags($request->input('phone')), FILTER_SANITIZE_NUMBER_INT);
+        $prefix = filter_var(strip_tags($phone_arr[0]), FILTER_SANITIZE_STRING);
+        $phone = filter_var(strip_tags(str_replace(' ', '', $phone_arr[1])), FILTER_SANITIZE_STRING);
         $pwd = filter_var(strip_tags($request->input('pwd')), FILTER_SANITIZE_STRING);
         $ci = filter_var(strip_tags($request->input('ci')), FILTER_SANITIZE_STRING);
         $ri = filter_var(strip_tags($request->input('ri')), FILTER_SANITIZE_STRING);
@@ -74,7 +77,7 @@ class FormController extends Controller {
             ['unique_id' => $unique_id],
             [
                 'country' => $country, 'network_id' => $network_id, 'email' => $email, 'first_name' => $fn, 'last_name' => $ln,
-                'phone' => $phone,
+                'prefix' => $prefix, 'phone' => $phone,
                 'password' => $pwd, 'status' => 2
             ]
         );
@@ -83,7 +86,8 @@ class FormController extends Controller {
             return json_encode(['status' => false, 'msg' => 'An error has occurred, please try again later']);
         }
 
-        $network = $this->getNetwork($network_id, $model::latest()->first());
+//        $network_response = $this->getNetwork($network_id, $model::latest()->first());
+        echo $this->getNetwork($network_id, $model::latest()->first());
     }
 
     /**
@@ -101,7 +105,7 @@ class FormController extends Controller {
         $leads_sum = Lead::where('campaign_id', '=', $ci)->where('status', '=', '2')->count();
         foreach ($networks as $network) {
             $network_leads_amount = Lead::where('network_id', '=', $network->network_id)->where('status', '=', '2')->count();
-            if ($network_leads_amount < ceil(($network->weight / 100) * $leads_sum)) {
+            if ($network_leads_amount <= ceil(($network->weight / 100) * $leads_sum)) {
                 $this->updatedLeadWithSelectedNetwork($unique_id, $network->id);
                 $rotator_network = $network;
                 break;
@@ -129,8 +133,12 @@ class FormController extends Controller {
         if (is_null($network_id) || empty($network_id)) {
             return false;
         }
+        $params_arr = $lead_params->attributesToArray();
+        $country_name = $this->getFullCountryName($params_arr['country']);
+        $params_arr['country_full'] = $country_name->country_name;
         $network = new Networks();
-        return $network->networksMap($network_id, $lead_params);
+
+        return $network->networksMap($network_id, $params_arr);
     }
 
     protected function getCampaignSettings($ci) {
@@ -158,6 +166,10 @@ class FormController extends Controller {
             // 48 bits for "node"
             mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
         );
+    }
+
+    protected function getFullCountryName($country_iso) {
+        return country::where('country_iso_code', '=', $country_iso)->first();
     }
 
 }

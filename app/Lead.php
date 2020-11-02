@@ -20,4 +20,9 @@ class Lead extends Model {
     public function campaign() {
         return $this->belongsTo('App\Campaign');
     }
+
+    public function rotator() {
+        return $this->hasManyThrough('App\RotatorGroup', 'App\Rotator');
+    }
+
 }

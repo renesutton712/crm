@@ -29,7 +29,7 @@ class CreateLeadsTable extends Migration {
             $table->string('last_name')->nullable();
             $table->string('password')->nullable();
             $table->string('prefix')->nullable();
-            $table->bigInteger('phone')->nullable();
+            $table->string('phone')->nullable();
             $table->smallInteger('status');
             $table->integer('event')->nullable();
             $table->timestamps();
