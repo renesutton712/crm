@@ -25,11 +25,12 @@ class FormController extends Controller {
         $campaign_settings = $this->getCampaignSettings($ci);
         try {
             $referrer = $_SERVER['HTTP_REFERER'];
-            $host = $_SERVER['HTTP_HOST'];
+            $host = $_SERVER['REMOTE_ADDR'];
             $unique_id = $this->v4();
             $ua = $request->input('ua');
             $url_params = json_encode($request->input('url_params'));
-            $ip = empty($client_ip) ? $_SERVER['REMOTE_ADDR'] : $client_ip;
+//            $ip = empty($client_ip) ? $_SERVER['REMOTE_ADDR'] : $client_ip;
+            $ip = $client_ip;
             $model = new Lead();
             $model->unique_id = $unique_id;
             $model->campaign_id = $ci;
@@ -85,9 +86,15 @@ class FormController extends Controller {
         if (!$network_id || !is_int($network_id)) {
             return json_encode(['status' => false, 'msg' => 'An error has occurred, please try again later']);
         }
-
-//        $network_response = $this->getNetwork($network_id, $model::latest()->first());
-        echo $this->getNetwork($network_id, $model::latest()->first());
+        $lead_data = $model::latest()->first();
+//        $network_response = $this->getNetwork($network_id, $lead_data);
+        return $this->getNetwork($network_id, $lead_data);
+//        $network_response = json_decode($network_response, true);
+//        if ($network_response['status'] !== 'success') {
+//            $this->storeNetworkResponse($lead_data->unique_id, $network_response['message']);
+//            return json_encode(['status' => false, 'msg' => 'Error from host']);
+//        }
+//        return json_encode(['status' => true, 'msg' => $network_response]);
     }
 
     /**
@@ -174,5 +181,22 @@ class FormController extends Controller {
     protected function getFullCountryName($country_iso) {
         return country::where('country_iso_code', '=', $country_iso)->first();
     }
+
+//    /**
+//     * @param $unique_id
+//     * @param $msg
+//     * @return bool
+//     */
+//    protected function storeNetworkResponse($unique_id, $msg) {
+//        if (empty($unique_id)) {
+//            return false;
+//        }
+//        $model = Lead::where('unique_id', '=', $unique_id)->first();
+//        $model->network_response = $msg;
+//        if (!$model->save()) {
+//            return false;
+//        }
+//        return true;
+//    }
 
 }

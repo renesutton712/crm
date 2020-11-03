@@ -144,9 +144,13 @@
                 },
                 // dataType: 'json',
             }).done((response) => {
-                console.log(response);
+                let res = JSON.parse(response);
+                if (!res.status) {
+                    throw res.msg;
+                }
+
             }).fail((jqXHR, textStatus, errorThrown) => {
-                alert(textStatus)
+                alert(errorThrown)
             })
         })
 

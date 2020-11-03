@@ -32,6 +32,7 @@ class CreateLeadsTable extends Migration {
             $table->string('phone')->nullable();
             $table->smallInteger('status');
             $table->integer('event')->nullable();
+            $table->text('network_response')->nullable();
             $table->timestamps();
         });
     }
