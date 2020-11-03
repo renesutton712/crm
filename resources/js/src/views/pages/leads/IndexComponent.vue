@@ -15,8 +15,9 @@
                     <template slot="header"></template>
                     <template slot="thead">
                         <vs-th sort-key="unique_id">ID</vs-th>
-                        <vs-th sort-key="campaign_name">Campaign Name</vs-th>
-                        <vs-th sort-key="rotator_name">Rotator Name</vs-th>
+                        <vs-th sort-key="campaign_name">Campaign</vs-th>
+                        <vs-th sort-key="rotator_name">Rotator</vs-th>
+                        <vs-th sort-key="network_name">Network</vs-th>
                         <vs-th sort-key="country">Country</vs-th>
                         <vs-th sort-key="first_name">First Name</vs-th>
                         <vs-th sort-key="last_name">Last Name</vs-th>
@@ -37,7 +38,11 @@
                             <vs-td v-if="data[indextr].rotator_name !== null" :data="data[indextr].rotator_name">
                                 {{data[indextr].rotator_name}}
                             </vs-td>
-                            <vs-td v-else>No Rotator found</vs-td>
+                            <vs-td v-else>Rotator not found</vs-td>
+                            <vs-td v-if="data[indextr].network_name !== null" :data="data[indextr].network_name">
+                                {{data[indextr].network_name}}
+                            </vs-td>
+                            <vs-td v-else>Network not found</vs-td>
                             <vs-td :data="data[indextr].country">{{data[indextr].country}}</vs-td>
                             <vs-td :data="data[indextr].first_name">{{data[indextr].first_name}}</vs-td>
                             <vs-td :data="data[indextr].last_name">{{data[indextr].last_name}}</vs-td>
