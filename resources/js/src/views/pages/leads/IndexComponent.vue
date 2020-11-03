@@ -16,8 +16,7 @@
                     <template slot="thead">
                         <vs-th sort-key="unique_id">ID</vs-th>
                         <vs-th sort-key="campaign_name">Campaign Name</vs-th>
-                        <vs-th sort-key="network.network_name">Network Name</vs-th>
-                        <!--                        <vs-th sort-key="offer.offer_name">Offer Name</vs-th>-->
+                        <vs-th sort-key="rotator_name">Rotator Name</vs-th>
                         <vs-th sort-key="country">Country</vs-th>
                         <vs-th sort-key="first_name">First Name</vs-th>
                         <vs-th sort-key="last_name">Last Name</vs-th>
@@ -31,18 +30,14 @@
                     <template slot-scope="{data}">
                         <vs-tr :data="tr" :key="indextr" v-for="(tr,indextr) in data">
                             <vs-td :data="data[indextr].unique_id">{{data[indextr].unique_id}}</vs-td>
-                            <vs-td v-if="data[indextr].campaign !== null" :data="data[indextr].campaign.campaign_name">
-                                {{data[indextr].campaign.campaign_name}}
+                            <vs-td v-if="data[indextr].campaign !== null" :data="data[indextr].campaign_name">
+                                {{data[indextr].campaign_name}}
                             </vs-td>
                             <vs-td v-else>Campaign not found!</vs-td>
-                            <vs-td v-if="data[indextr].network !== null" :data="data[indextr].network.network_name">
-                                {{data[indextr].network.network_name}}
+                            <vs-td v-if="data[indextr].rotator_name !== null" :data="data[indextr].rotator_name">
+                                {{data[indextr].rotator_name}}
                             </vs-td>
-                            <vs-td v-else>No Network found</vs-td>
-                            <!--                            <vs-td v-if="data[indextr].offer !== null" :data="data[indextr].offer.offer_name">-->
-                            <!--                                {{data[indextr].offer.offer_name}}-->
-                            <!--                            </vs-td>-->
-                            <!--                            <vs-td v-else>No Offer Found!</vs-td>-->
+                            <vs-td v-else>No Rotator found</vs-td>
                             <vs-td :data="data[indextr].country">{{data[indextr].country}}</vs-td>
                             <vs-td :data="data[indextr].first_name">{{data[indextr].first_name}}</vs-td>
                             <vs-td :data="data[indextr].last_name">{{data[indextr].last_name}}</vs-td>

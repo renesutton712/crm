@@ -22,7 +22,17 @@ class Lead extends Model {
     }
 
     public function rotator() {
-        return $this->hasManyThrough('App\RotatorGroup', 'App\Rotator');
+//        return $this->hasManyThrough('App\RotatorGroup', 'App\Rotator');
+        return $this->hasOne('App\Rotator');
+    }
+
+    public static function leadsWithAllRelations() {
+        return DB::table('leads AS l')
+            ->select('l.unique_id', 'l.country', 'l.first_name', 'l.last_name', 'l.email', 'l.prefix', 'l.phone', 'l.ip', 'l.ua', 'l.status', 'l.url_params', 'c.campaign_name', 'ro.rotator_name')
+            ->join('rotators AS ro', 'l.rotator_id', '=', 'ro.id')
+            ->join('campaigns AS c', 'l.campaign_id', '=', 'c.id')
+            ->orderBy('l.id', 'DESC')
+            ->get();
     }
 
 }

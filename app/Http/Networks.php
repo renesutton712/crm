@@ -33,6 +33,9 @@ class Networks {
             case 5:
                 return $this->SuperMedia($params);
                 break;
+            case 6:
+                return $this->COD($params);
+                break;
             default:
                 return json_encode(['status' => true, 'msg' => 'https://www.google.com']);
                 break;
@@ -44,7 +47,7 @@ class Networks {
      * @return \Illuminate\Http\JsonResponse|string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    protected function Trafficon(array $params) {
+    private function Trafficon(array $params) {
 //        Example response:
 //        ref_link: "https://yuan-pay-newapp.com/api/v1/secured-auto-login/"
 //        status: "success"
@@ -67,16 +70,16 @@ class Networks {
                 'aff_sub1' => "{$params['unique_id']}"
             ]
         ]);
-        if ($res->getStatusCode() === 200) {
-            $data = json_decode($res->getBody()->getContents(), true);
-            if ($data['status'] !== 'success') {
-                $this->storeNetworkResponse($params['unique_id'], $data['message']);
-                return json_encode(['status' => false, 'msg' => 'Error from host']);
-            }
-            return json_encode(['status' => true, 'msg' => $data['ref_link'] . $data['token']]);
-//            return $res->getBody()->getContents();
+        if ($res->getStatusCode() !== 200) {
+            return json_encode(['status' => false, 'msg' => 'Not found']);
         }
-        return response()->json(['message' => 'Not found!'], 404);
+        $data = json_decode($res->getBody()->getContents(), true);
+        if ($data['status'] !== 'success') {
+            $this->storeNetworkResponse($params['unique_id'], $data['message']);
+            return json_encode(['status' => false, 'msg' => 'Error from host']);
+        }
+        return json_encode(['status' => true, 'msg' => $data['ref_link'] . $data['token']]);
+//        return response()->json(['message' => 'Not found!'], 404);
     }
 
     /**
@@ -84,7 +87,7 @@ class Networks {
      * @return \Illuminate\Http\JsonResponse|string
      * @throws GuzzleException
      */
-    protected function SuperMedia(array $params) {
+    private function SuperMedia(array $params) {
         $client = new Client();
         self::setUrl('https://api.rhkoco.com/v2/affiliates/lead/create');
 
@@ -101,6 +104,29 @@ class Networks {
                 'aff_sub' => $params['unique_id']
             ]
         ]);
+        if ($res->getStatusCode() === 200) {
+            return $res->getBody()->getContents();
+        }
+        return response()->json(['message' => 'Not found!'], 404);
+    }
+
+    private function COD(array $params) {
+        $client = new Client();
+        self::setUrl('https://api.adcombo.com/api/v2/order/create/');
+        $api_key = "3d439aa6f8da838348b303f5f6f02d28";
+        $args = [
+            'api_key' => $api_key,
+            'name' => $params['first_name'] . ' ' . $params['last_name'],
+            'phone' => $params['prefix'] . ' ' . $params['phone'],
+            'offer_id' => 'Offer id sent order from',
+            'country_code' => $params['country'],
+            'base_url' => 'URL, where order has been placed',
+            'price' => 'price on landing page??',
+            'referrer' => $params['referrer'],
+            'ip' => $params['ip'],
+            'ext_in_id' => $params['unique_id'],
+        ];
+        $res = $client->request('GET', self::getUrl() . '?' . http_build_query($args));
         if ($res->getStatusCode() === 200) {
             return $res->getBody()->getContents();
         }

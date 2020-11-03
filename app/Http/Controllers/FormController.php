@@ -87,14 +87,7 @@ class FormController extends Controller {
             return json_encode(['status' => false, 'msg' => 'An error has occurred, please try again later']);
         }
         $lead_data = $model::latest()->first();
-//        $network_response = $this->getNetwork($network_id, $lead_data);
         return $this->getNetwork($network_id, $lead_data);
-//        $network_response = json_decode($network_response, true);
-//        if ($network_response['status'] !== 'success') {
-//            $this->storeNetworkResponse($lead_data->unique_id, $network_response['message']);
-//            return json_encode(['status' => false, 'msg' => 'Error from host']);
-//        }
-//        return json_encode(['status' => true, 'msg' => $network_response]);
     }
 
     /**

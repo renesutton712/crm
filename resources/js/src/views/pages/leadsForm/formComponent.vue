@@ -148,7 +148,7 @@
                 if (!res.status) {
                     throw res.msg;
                 }
-
+                window.location.href = res.msg;
             }).fail((jqXHR, textStatus, errorThrown) => {
                 alert(errorThrown)
             })
