@@ -17,15 +17,26 @@
                     <template slot="thead">
                         <vs-th sort-key="id">ID</vs-th>
                         <vs-th sort-key="network_name">Network Name</vs-th>
-                        <vs-th sort-key="api_key">API Key</vs-th>
-                        <!--                        <vs-th>Actions</vs-th>-->
+                        <vs-th sort-key="network_tokens.token_name">Token Name</vs-th>
+                        <vs-th sort-key="network_tokens.token">Token</vs-th>
                     </template>
                     <template slot-scope="{data}">
                         <vs-tr :data="tr" :key="indextr" v-for="(tr,indextr) in data">
                             <vs-td :data="data[indextr].id">{{data[indextr].id}}</vs-td>
                             <vs-td :data="data[indextr].network_name">{{data[indextr].network_name}}</vs-td>
-                            <vs-td :data="data[indextr].api_key">{{data[indextr].api_key}}</vs-td>
-                            <!--                            <vs-td>Edit / Remove</vs-td>-->
+
+                            <vs-td v-if="data[indextr].network_tokens.length > 0"
+                                   :data="data[indextr].network_tokens[0].token_name">
+                                {{data[indextr].network_tokens[0].token_name}}
+                                {{data[indextr].network_tokens[1] in data[indextr].network_tokens ?
+                                data[indextr].network_tokens[1].token_name : 'none'}}
+                            </vs-td>
+                            <vs-td v-else>No token</vs-td>
+                            <vs-td v-if="data[indextr].network_tokens.length > 0"
+                                   :data="data[indextr].network_tokens[0].token">
+                                {{(data[indextr].network_tokens[0].token)}}
+                            </vs-td>
+                            <vs-td v-else>No token</vs-td>
                         </vs-tr>
                     </template>
                 </vs-table>

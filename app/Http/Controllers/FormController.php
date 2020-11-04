@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CampaignSetting;
 use App\country;
 use App\Http\Networks;
 use App\Lead;
@@ -23,6 +24,7 @@ class FormController extends Controller {
             return base64_encode(json_encode(['status' => false, 'msg' => 'Campaign not found!']));
         }
         $campaign_settings = $this->getCampaignSettings($ci);
+
         try {
             $referrer = $_SERVER['HTTP_REFERER'];
             $host = $_SERVER['REMOTE_ADDR'];
@@ -49,6 +51,7 @@ class FormController extends Controller {
                 'ri' => $click_data['rotator_id'],
                 'oi' => $click_data['offer_id'],
                 'ci' => $click_data['campaign_id'],
+                'settings' => $campaign_settings->attributesToArray()
             ]));
         } catch (\Exception $e) {
             return $e->getMessage();
@@ -71,6 +74,10 @@ class FormController extends Controller {
         $pwd = filter_var(strip_tags($request->input('pwd')), FILTER_SANITIZE_STRING);
         $ci = filter_var(strip_tags($request->input('ci')), FILTER_SANITIZE_STRING);
         $ri = filter_var(strip_tags($request->input('ri')), FILTER_SANITIZE_STRING);
+
+        if (empty($ci)) {
+            return json_encode(['status' => false, 'Missing Campaign']);
+        }
 
         $network_id = $this->setRotator($ci, $ri, $unique_id);
 
@@ -145,7 +152,8 @@ class FormController extends Controller {
     }
 
     protected function getCampaignSettings($ci) {
-
+//        return CampaignSetting::where('campaign_id', '=', $ci)->first();
+        return CampaignSetting::select('first_name', 'last_name', 'country', 'phone', 'email', 'password')->where('campaign_id', '=', $ci)->first();
     }
 
     protected static function v4() {

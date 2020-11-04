@@ -25,6 +25,12 @@
                 ap: 0,
                 rt: 0,
             },
+            form_vals = {
+                user_id: '',
+                ri: '',
+                oi: '',
+                ci: '',
+            },
             form_errors = {
                 first_name: 'First name is required',
                 last_name: 'Last name is required',
@@ -33,6 +39,7 @@
                 email: 'Please enter valid email',
                 password: 'Password must contain 1 lowercase 1 uppercase and be at least 8 characters long',
             },
+            form_settings = '',
             fullUrlParams = [],
             country = '',
             ip = '',
@@ -44,9 +51,10 @@
 
         //Utilities
         loadScripts()
+        sendClick();
         formElements();
         setUserClientCountry();
-        sendClick();
+        appendReturnedValues(form_vals);
         loadCustomCss();
 
         //inputs validation before submit
@@ -122,8 +130,6 @@
                 pwd = $(this).find('.pwd').val(),
                 unique_id = $(this).find('.user').val(),
                 ri = urlParams.has('ri') ? urlParams.get('ri') : $(this).find('.ri').val(),
-                oi = $(this).find('.oi').val(),
-                ap = $(this).find('.ap').val(),
                 ci = urlParams.has('ci') ? urlParams.get('ci') : $(this).find('.ci').val();
             if (!validateFormInputs($(this), fn, ln, country, phone, email, pwd, unique_id)) {
                 return;
@@ -132,6 +138,7 @@
                 url: 'api/form/lead',
                 method: 'POST',
                 data: {
+
                     fn: fn,
                     ln: ln,
                     country: country,
@@ -142,7 +149,6 @@
                     ci: ci,
                     ri: ri,
                 },
-                // dataType: 'json',
             }).done((response) => {
                 let res = JSON.parse(response);
                 if (!res.status) {
@@ -155,26 +161,27 @@
         })
 
         function formElements() {
+            let fn = form_settings.first_name === 'off' ? '' : "<label for='First_Name'>First Name:</label>" +
+                "<input value='' type='text' class='form-control fn' id='First_Name' placeholder='First Name:' />" +
+                "<span class='error-block fn-error'></span>",
+                ln = form_settings.last_name === 'off' ? '' : "<label for='Last_Name'>Last Name:</label>" +
+                    "<input value='' type='text' class='form-control ln' id='Last_Name' placeholder='Last Name:' />" +
+                    "<span class='error-block ln-error'></span>",
+                country = form_settings.country === 'off' ? '' : "<label for='Country'>Country:</label> " +
+                    "<select id='countries_phone1' class='form-control bfh-countries country'></select>" +
+                    "<span class='error-block country-error'></span>",
+                phone = form_settings.phone === 'off' ? '' : "<label for='Phone'>Phone:</label>" +
+                    "<input value='' type='text' class='form-control bfh-phone phone' data-country='countries_phone1' />" +
+                    "<span class='error-block phone-error'></span>",
+                email = form_settings.email === 'off' ? '' : "<label for='Email'>Email:</label> " +
+                    "<input value='' type='email' id='Email' class='form-control email' placeholder='Email:' />" +
+                    "<span class='error-block email-error'></span>",
+                password = form_settings.password === 'off' ? '' : "<label for='PWD'>Password:</label>" +
+                    "<input value='' type='password' id='PWD' class='form-control pwd'/>" +
+                    "<span class='error-block pwd-error'></span>";
 
             let form = "<form id='user-form-lp'>" +
-                "<label for='First_Name'>First Name:</label>" +
-                "<input value='' type='text' class='form-control fn' id='First_Name' placeholder='First Name:' />" +
-                "<span class='error-block fn-error'></span>" +
-                "<label for='Last_Name'>Last Name:</label>" +
-                "<input value='' type='text' class='form-control ln' id='Last_Name' placeholder='Last Name:' />" +
-                "<span class='error-block ln-error'></span>" +
-                "<label for='Country'>Country:</label> " +
-                "<select id='countries_phone1' class='form-control bfh-countries country'></select>" +
-                "<span class='error-block country-error'></span>" +
-                "<label for='Phone'>Phone:</label>" +
-                "<input value='' type='text' class='form-control bfh-phone phone' data-country='countries_phone1' />" +
-                "<span class='error-block phone-error'></span>" +
-                "<label for='Email'>Email:</label> " +
-                "<input value='' type='email' id='Email' class='form-control email' placeholder='Email:' />" +
-                "<span class='error-block email-error'></span>" +
-                "<label for='PWD'>Password:</label>" +
-                "<input value='' type='password' id='PWD' class='form-control pwd'/>" +
-                "<span class='error-block pwd-error'></span>" +
+                fn + ln + country + phone + email + password +
                 "<input type='submit' class='btn btn-default mt-4' value='Submit'/>" +
                 "<input type='hidden' class='user' value='' /> " +
                 "<input type='hidden' class='ri' value='' /> " +
@@ -182,15 +189,16 @@
                 "<input type='hidden' class='ap' value='' /> " +
                 "<input type='hidden' class='ci' value='' /> " +
                 "<input type='hidden' class='client_ip' value='' /> " +
-                "</form>" +
-                "<div style='display:none;z-index: 999;position: fixed;width: 100%; height: 100%;background: rgb(0 0 0 / 0.6); top: 0;' class='form-layover'>" +
-                "  <div class='spinner-border' style='width: 3rem; height: 3rem;' role='status'>" +
-                "    <span class='sr-only'></span>" +
-                "  </div>" +
-                "</div>"
+                "</form>",
+                loader = "<div style='display:none;z-index: 99999;position: fixed;width: 100%; height: 100%;background: rgb(0 0 0 / 0.6); top: 0;' class='form-layover'>" +
+                    "  <div class='spinner-border' style='width: 3rem; height: 3rem;' role='status'>" +
+                    "    <span class='sr-only'></span>" +
+                    "  </div>" +
+                    "</div>";
             $.each(availableFromPlaces, function (i, el) {
                 $(el).append(form);
-            })
+            });
+            $('body').append(loader);
         }
 
         function loadCustomCss() {
@@ -204,7 +212,8 @@
 
         function sendClick() {
             if (getCookie('user') !== '') {
-                $('.user').val(getCookie('user'));
+                form_vals.user_id = getCookie('user');
+                // $('.user').val(getCookie('user'));
                 return;
             }
             $.ajax({
@@ -222,15 +231,14 @@
                     ua: window.navigator.userAgent,
                     url_params: fullUrlParams,
                 },
-                // dataType: 'json',
             }).done((response) => {
                 const data = JSON.parse(atob(response));
-
+                form_settings = data.settings;
                 setCookie('user', data.unique_id, 1);
-                $('.user').val(data.unique_id);
-                $('.ri').val(data.ri);
-                $('.oi').val(data.oi);
-                $('.ci').val(data.ci);
+                form_vals.user_id = data.unique_id;
+                form_vals.ci = data.ci;
+                form_vals.oi = data.oi;
+                form_vals.ri = data.ri;
             }).fail((jqXHR, textStatus, errorThrown) => {
                 alert(textStatus)
             })
@@ -266,6 +274,13 @@
                 validateCounter++;
             }
             return validateCounter === 0;
+        }
+
+        function appendReturnedValues(vals) {
+            $('.user').val(vals.user_id);
+            $('.ri').val(vals.ri);
+            $('.oi').val(vals.oi);
+            $('.ci').val(vals.ci);
         }
 
         function urlParamsQuery() {

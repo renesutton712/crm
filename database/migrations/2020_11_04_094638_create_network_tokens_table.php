@@ -4,19 +4,18 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNetworksTable extends Migration {
+class CreateNetworkTokensTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
     public function up() {
-        Schema::create('networks', function (Blueprint $table) {
+        Schema::create('network_tokens', function (Blueprint $table) {
             $table->id();
-            $table->string('network_name');
+            $table->integer('network_id');
             $table->string('token_name');
             $table->string('token');
-            $table->smallInteger('status');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ class CreateNetworksTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::dropIfExists('networks');
+        Schema::dropIfExists('network_tokens');
     }
 }

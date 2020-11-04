@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Network extends Model {
 
+    protected $guarded = [];
+
     public function campaign() {
         return $this->hasOne('App\Campaign');
     }
@@ -20,6 +22,10 @@ class Network extends Model {
 
     public function postback() {
         return $this->hasMany('App\Postback');
+    }
+
+    public function networkTokens() {
+        return $this->hasMany('App\NetworkToken');
     }
 
 }
