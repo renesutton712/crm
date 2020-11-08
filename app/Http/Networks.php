@@ -97,8 +97,8 @@ class Networks {
                     'Token' => $params['token']
                 ]
             ],
-            'json' => [
-                'first_name' => $params['first_name'], 'last_name' => $params['last_name'], 'email' => $params['email'],
+            'form_params' => [
+                'firstname' => $params['first_name'], 'lastname' => $params['last_name'], 'email' => $params['email'],
                 'password' => $params['password'], 'phone' => $params['prefix'] . $params['phone'], 'ip' => $params['ip'],
                 'country_code' => $params['country'],
                 'aff_sub' => $params['unique_id']
