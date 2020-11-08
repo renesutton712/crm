@@ -26,15 +26,24 @@ class Networks {
 
     public function networksMap($network_id, $params) {
         switch ($network_id) {
-            case 4:
+            case 1:
 //            case 3:
-                return $this->Trafficon($params);
+                return $this->COD($params);
+                break;
+            case 2:
+                return $this->SuperMedia($params);
+                break;
+            case 3:
+                return $this->SuperMedia($params);
+                break;
+            case 4:
+                return $this->SuperMedia($params);
                 break;
             case 5:
                 return $this->SuperMedia($params);
                 break;
             case 6:
-                return $this->COD($params);
+                return $this->Trafficon($params);
                 break;
             default:
                 return json_encode(['status' => true, 'msg' => 'https://www.google.com']);
