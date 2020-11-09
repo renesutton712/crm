@@ -9190,12 +9190,19 @@ __webpack_require__.r(__webpack_exports__);
   icon: 'PackageIcon',
   slug: 'Offers',
   i18n: 'Offers'
-}, {
-  url: '/postback',
-  name: 'postback',
+}, // {
+//     url: '/postback',
+//     name: 'postback',
+//     icon: 'ClipboardIcon',
+//     slug: 'Postback',
+//     i18n: 'Postback'
+// },
+{
+  url: '/pixels',
+  name: 'pixels',
   icon: 'ClipboardIcon',
-  slug: 'Postback',
-  i18n: 'Postback'
+  slug: 'Pixels',
+  i18n: 'Pixels'
 }, {
   url: '/leads',
   name: 'leads',

@@ -18,25 +18,25 @@
                         <vs-th sort-key="id">ID</vs-th>
                         <vs-th sort-key="network_name">Network Name</vs-th>
                         <vs-th sort-key="network_tokens.token_name">Token Name</vs-th>
-                        <vs-th sort-key="network_tokens.token">Token</vs-th>
+                        <vs-th sort-key="network_tokens.token">Token Value</vs-th>
                     </template>
                     <template slot-scope="{data}">
                         <vs-tr :data="tr" :key="indextr" v-for="(tr,indextr) in data">
                             <vs-td :data="data[indextr].id">{{data[indextr].id}}</vs-td>
                             <vs-td :data="data[indextr].network_name">{{data[indextr].network_name}}</vs-td>
 
-                            <vs-td v-if="data[indextr].network_tokens.length > 0"
-                                   :data="data[indextr].network_tokens[0].token_name">
-                                {{data[indextr].network_tokens[0].token_name}}
-                                {{data[indextr].network_tokens[1] in data[indextr].network_tokens ?
-                                data[indextr].network_tokens[1].token_name : 'none'}}
+                            <vs-td :data="data[indextr].network_tokens[0].token_name"
+                                   v-if="typeof data[indextr].network_tokens[[1]] !== 'undefined'">
+                                {{data[indextr].network_tokens[0].token_name}},
+                                {{data[indextr].network_tokens[[1]].token_name}}
                             </vs-td>
-                            <vs-td v-else>No token</vs-td>
-                            <vs-td v-if="data[indextr].network_tokens.length > 0"
+                            <vs-td v-else>{{data[indextr].network_tokens[0].token_name}}</vs-td>
+                            <vs-td v-if="typeof data[indextr].network_tokens[[1]] !== 'undefined'"
                                    :data="data[indextr].network_tokens[0].token">
-                                {{(data[indextr].network_tokens[0].token)}}
+                                {{(data[indextr].network_tokens[0].token)}},
+                                {{(data[indextr].network_tokens[1].token)}}
                             </vs-td>
-                            <vs-td v-else>No token</vs-td>
+                            <vs-td v-else>{{(data[indextr].network_tokens[0].token)}}</vs-td>
                         </vs-tr>
                     </template>
                 </vs-table>
@@ -91,6 +91,9 @@
                             color: 'warning'
                         })
                     })
+            },
+            limitString: function (string) {
+                return string.length > 20 ? `${string.substring(0, 20)}...` : string;
             }
         },
         beforeMount() {

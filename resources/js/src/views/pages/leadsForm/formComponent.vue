@@ -41,7 +41,7 @@
             },
             form_settings = '',
             fullUrlParams = [],
-            country = '',
+            country_code = '',
             ip = '',
             urlParams = urlParamsQuery(),
             name = /^[a-z-A-Z^. ]+$/,
@@ -51,9 +51,9 @@
 
         //Utilities
         loadScripts()
+        setUserClientCountry();
         sendClick();
         formElements();
-        setUserClientCountry();
         appendReturnedValues(form_vals);
         loadCustomCss();
 
@@ -135,10 +135,10 @@
                 return;
             }
             $.ajax({
+                // url: 'https://storsleads.club/api/form/lead',
                 url: 'api/form/lead',
                 method: 'POST',
                 data: {
-
                     fn: fn,
                     ln: ln,
                     country: country,
@@ -199,6 +199,8 @@
                 $(el).append(form);
             });
             $('body').append(loader);
+            $('.bfh-countries').attr('data-country', country_code);
+            $('.client_ip').val(ip)
         }
 
         function loadCustomCss() {
@@ -211,12 +213,14 @@
         }
 
         function sendClick() {
+
             if (getCookie('user') !== '') {
                 form_vals.user_id = getCookie('user');
                 // $('.user').val(getCookie('user'));
                 return;
             }
             $.ajax({
+                // url: 'https://storsleads.club/api/form/click',
                 url: 'api/form/click',
                 method: 'POST',
                 async: false,
@@ -226,7 +230,7 @@
                     ri: urlParams.has('ri') ? urlParams.get('ri') : formParams.ri,
                     ci: urlParams.has('ci') ? urlParams.get('ci') : formParams.ci,
                     ap: urlParams.has('ap') ? urlParams.get('ap') : formParams.ap,
-                    client_country: country,
+                    client_country: country_code,
                     client_ip: ip,
                     ua: window.navigator.userAgent,
                     url_params: fullUrlParams,
@@ -234,11 +238,15 @@
             }).done((response) => {
                 const data = JSON.parse(atob(response));
                 form_settings = data.settings;
+                if ('status' in data && !data.status) {
+                    throw data.msg;
+                }
                 setCookie('user', data.unique_id, 1);
                 form_vals.user_id = data.unique_id;
                 form_vals.ci = data.ci;
                 form_vals.oi = data.oi;
                 form_vals.ri = data.ri;
+
             }).fail((jqXHR, textStatus, errorThrown) => {
                 alert(textStatus)
             })
@@ -323,10 +331,8 @@
                 async: false,
                 dataType: 'json',
             }).done((response) => {
-                country = response.country;
-                $('.bfh-countries').attr('data-country', response.country);
+                country_code = response.country;
                 ip = response.ip;
-                $('.client_ip').val(ip)
             })
         }
     }
@@ -347,7 +353,7 @@
         formHelpersJS.src = 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/js/bootstrap-formhelpers.min.js';
         bootstrapJS.type = 'text/javascript';
         bootstrapJS.src = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js';
-        headTag.appendChild(bootstrapCSS);
+        // headTag.appendChild(bootstrapCSS);
         headTag.appendChild(formHelpersCSS);
         headTag.appendChild(bootstrapJS);
         headTag.appendChild(formHelpersJS);

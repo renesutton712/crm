@@ -21,7 +21,7 @@ class CreateLeadsTable extends Migration {
             $table->string('country')->nullable();
             $table->string('host')->nullable();
             $table->string('referrer')->nullable();
-            $table->string('ua', 128);
+            $table->text('ua');
             $table->ipAddress('ip')->nullable();
             $table->json('url_params')->nullable();
             $table->string('email')->nullable();

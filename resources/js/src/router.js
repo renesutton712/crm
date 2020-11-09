@@ -110,6 +110,15 @@ const router = new Router({
                     }
                 },
                 {
+                    path: '/pixels',
+                    name: 'pixels',
+                    component: () => import('./views/pages/pixels/IndexComponent'),
+                    meta: {
+                        rule: 'admin',
+                        authRequired: true,
+                    }
+                },
+                {
                     path: '/rotator',
                     name: 'rotator',
                     component: () => import('./views/pages/rotators/IndexComponent'),

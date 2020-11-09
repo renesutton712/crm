@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class Campaign extends Model {
 
-//    protected $fillable = [
-//        'campaign_name'
-//    ];
     protected $guarded = [];
 
     public function lead() {
@@ -27,6 +24,10 @@ class Campaign extends Model {
 
     public function campaignSettings() {
         return $this->hasOne('App\CampaignSetting');
+    }
+
+    public function pixel() {
+        return $this->hasOne('App\Pixel');
     }
 
     public static function getCampaignWithNetworksAndOffers() {
