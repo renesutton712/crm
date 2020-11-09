@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\DB;
 class CampaignsController extends Controller {
 
     public function get() {
-//        return Campaign::all();
         return Campaign::getCampaignWithNetworksAndOffers();
     }
 
@@ -20,7 +19,7 @@ class CampaignsController extends Controller {
         $user_id = $user->id;
         $ci = filter_var(strip_tags($request->input('ci')), FILTER_SANITIZE_NUMBER_INT);
         $campaign_name = filter_var(strip_tags($request->input('campaign_name'), FILTER_SANITIZE_STRING));
-        $offer_id = filter_var(strip_tags($request->input('offer_id'), FILTER_SANITIZE_STRING));
+        $pixel_id = filter_var(strip_tags($request->input('pixel_id'), FILTER_SANITIZE_STRING));
         $rotator_id = filter_var(strip_tags($request->input('rotator_id'), FILTER_SANITIZE_STRING));
         $platform = filter_var(strip_tags($request->input('platform'), FILTER_SANITIZE_STRING));
         DB::beginTransaction();
@@ -28,9 +27,9 @@ class CampaignsController extends Controller {
             $model = Campaign::updateOrCreate(
                 ['id' => $ci],
                 [
-                    'campaign_name' => $campaign_name, 'user_id' => $user_id, 'offer_id' => $offer_id,
-                    'rotator_id' => $rotator_id,
-                    'platform' => $platform, 'status' => 2
+                    'campaign_name' => $campaign_name, 'user_id' => $user_id, 'pixel_id' => $pixel_id,
+                    'rotator_id' => $rotator_id, 'platform' => $platform,
+                    'status' => 2
                 ]
             );
             $newOrEdit = $model->wasRecentlyCreated || $model->wasChanged();

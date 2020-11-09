@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\DB;
 
 class PixelController extends Controller {
 
+    public function all() {
+        return Pixel::all();
+    }
+
     public function get() {
         return Pixel::with('pixelGroup')->get();
     }

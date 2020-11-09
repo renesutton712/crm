@@ -8,10 +8,10 @@
         </vs-row>
         <vs-row vs-w="12" class="mt-3">
             <vs-col>
-                <label for="Offer">Select Offer(optional):</label>
-                <v-select label="offer_name" id="Offer" :options="offers_list"
-                          v-model="form_fields.offer_id"
-                          :reduce="offer => offer.offer_id"/>
+                <label for="Pixel">Select Pixel(optional):</label>
+                <v-select label="pixel_name" id="Pixel" :options="pixels_list"
+                          v-model="form_fields.pixel_id"
+                          :reduce="pixel => pixel.id"/>
                 <span class="info">Select offer associated with the campaign</span>
             </vs-col>
         </vs-row>
@@ -101,6 +101,7 @@
                 submit: false,
                 form_fields: {
                     campaign_name: '',
+                    pixel_id: '',
                     offer_id: '',
                     rotator_id: '',
                     platform: '',
@@ -114,7 +115,7 @@
                         password: true,
                     }
                 },
-                offers_list: [],
+                pixels_list: [],
                 rotators_list: [],
                 platform_list: [
                     {id: 1, platform_name: 'Facebook'},
@@ -152,13 +153,13 @@
                         })
                     })
             },
-            getOffers: function () {
-                axios.get('offers/get')
+            getPixels: function () {
+                axios.get('pixels/all')
                     .then((response) => {
                         if ("status" in response.data) {
                             throw response.data;
                         }
-                        this.offers_list = response.data;
+                        this.pixels_list = response.data;
                     })
                     .catch(error => {
                         this.$vs.notify({
@@ -196,6 +197,7 @@
                         this.form_fields.offer_id = response.data[0].offer_id;
                         this.form_fields.rotator_id = response.data[0].rotator_id;
                         this.form_fields.platform = Number(response.data[0].platform);
+                        this.form_fields.pixel_id = Number(response.data[0].pixel_id);
                         this.$vs.loading.close();
                     })
                     .catch(error => {
@@ -219,8 +221,8 @@
             }
         },
         beforeMount() {
-            this.getOffers();
             this.getRotators();
+            this.getPixels();
             if (this.ci !== null) {
                 this.getCampaign();
             }

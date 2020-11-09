@@ -42,6 +42,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('rotators/store', 'RotatorController@store');
 
     //Pixels
+    Route::get('pixels/all', 'PixelController@all');
     Route::get('pixels/get', 'PixelController@get');
     Route::post('pixels/store', 'PixelController@store');
 });
