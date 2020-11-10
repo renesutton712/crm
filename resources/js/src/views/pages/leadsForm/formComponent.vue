@@ -289,7 +289,7 @@
                     client_country: country_code,
                     client_ip: ip,
                     ua: window.navigator.userAgent,
-                    url_params: fullUrlParams,
+                    url_params: URLToArray(window.location.search),
                 },
             }).done((response) => {
                 const data = JSON.parse(atob(response));
@@ -361,6 +361,18 @@
                 fullUrlParams.push(`${entry[0]}: ${entry[1]}`);
             }
             return urlParams;
+        }
+
+        function URLToArray(url) {
+            let request = {};
+            let pairs = url.substring(url.indexOf('?') + 1).split('&');
+            for (let i = 0; i < pairs.length; i++) {
+                if (!pairs[i])
+                    continue;
+                let pair = pairs[i].split('=');
+                request[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+            }
+            return request;
         }
 
         function setCookie(cname, cvalue, exdays) {
