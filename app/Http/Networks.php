@@ -167,7 +167,6 @@ class Networks {
         $pixel = PixelGroup::where('pixel_id', '=', "{$camp->pixel_id}")->where('type', '=', 'Lead')->first();
         $pixel = $pixel->url;
         $fire = str_replace('{cid}', $lead_url_params['cid'], $pixel);
-        echo 1;
         $client = new Client();
         $res = $client->request('GET', $fire);
         if ($res->getStatusCode() === 200) {
