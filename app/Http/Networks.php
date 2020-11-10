@@ -2,7 +2,10 @@
 
 namespace App\Http;
 
+use App\Campaign;
 use App\Lead;
+use App\Pixel;
+use App\PixelGroup;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
@@ -68,7 +71,6 @@ class Networks {
 //        token: "NlhKYjVkUmp5K3h1a2JIdHBvdnJ4L2dndklualVwOW1HMXN1WUxCK0xHMEVSeWEyQjlESWl5Szh5eXhLV3FUbHd0NnRRKzVvdUZSZE1tWTBtVFFLamFIVERkZFk1dXNRcFFyT0dHRkVTSFU9"
         $client = new Client();
         self::setUrl('https://trafficon-api.com/secured-registration');
-
         $res = $client->request('POST', self::getUrl(), [
             'json' => [
                 'offer_id' => 310, 'aff_id' => 2123, 'first_name' => "{$params['first_name']}",
@@ -87,8 +89,8 @@ class Networks {
             $this->storeNetworkResponse($params['unique_id'], $data['message']);
             return json_encode(['status' => false, 'msg' => 'Error from host']);
         }
+        $pixel_res = $this->sendPixel($params);
         return json_encode(['status' => true, 'msg' => $data['ref_link'] . $data['token']]);
-//        return response()->json(['message' => 'Not found!'], 404);
     }
 
     /**
@@ -157,6 +159,21 @@ class Networks {
             return false;
         }
         return true;
+    }
+
+    private function sendPixel(array $params) {
+        $lead_url_params = json_decode($params['url_params'], true);
+        $camp = Campaign::where('id', '=', "{$params['campaign_id']}")->first();
+        $pixel = PixelGroup::where('pixel_id', '=', "{$camp->pixel_id}")->where('type', '=', 'Lead')->first();
+        $pixel = $pixel->url;
+        $fire = str_replace('{cid}', $lead_url_params['cid'], $pixel);
+        echo 1;
+        $client = new Client();
+        $res = $client->request('GET', $fire);
+        if ($res->getStatusCode() === 200) {
+            return $res->getBody()->getContents();
+        }
+        return response()->json(['message' => 'Not found!'], 404);
     }
 
 }

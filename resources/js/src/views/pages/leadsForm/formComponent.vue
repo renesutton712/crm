@@ -135,8 +135,7 @@
                 return;
             }
             $.ajax({
-                // url: 'https://storsleads.club/api/form/lead',
-                url: 'api/form/lead',
+                url: 'https://storsleads.club/api/form/lead',
                 method: 'POST',
                 data: {
                     fn: fn,
@@ -161,28 +160,26 @@
         })
 
         function formElements() {
-            let fn = form_settings.first_name === 'off' ? '' : "<label for='First_Name'>First Name:</label>" +
-                "<input value='' type='text' class='form-control fn' id='First_Name' placeholder='First Name:' />" +
+            let fn = form_settings.first_name === 'off' ? '' : "<input value='' autocomplete='off' type='text' class='form-control fn' id='First_Name' placeholder='First Name:' />" +
                 "<span class='error-block fn-error'></span>",
-                ln = form_settings.last_name === 'off' ? '' : "<label for='Last_Name'>Last Name:</label>" +
-                    "<input value='' type='text' class='form-control ln' id='Last_Name' placeholder='Last Name:' />" +
+                ln = form_settings.last_name === 'off' ? '' : "<input value='' autocomplete='off' type='text' class='form-control ln' id='Last_Name' placeholder='Last Name:' />" +
                     "<span class='error-block ln-error'></span>",
-                country = form_settings.country === 'off' ? '' : "<label for='Country'>Country:</label> " +
-                    "<select id='countries_phone1' class='form-control bfh-countries country'></select>" +
+                country = form_settings.country === 'off' ? '' : "<select id='countries_phone1' class='form-control bfh-countries country'></select>" +
                     "<span class='error-block country-error'></span>",
-                phone = form_settings.phone === 'off' ? '' : "<label for='Phone'>Phone:</label>" +
-                    "<input value='' type='text' class='form-control bfh-phone phone' data-country='countries_phone1' />" +
+                phone = form_settings.phone === 'off' ? '' : "<input value='' type='text' class='form-control bfh-phone phone' data-country='countries_phone1' />" +
                     "<span class='error-block phone-error'></span>",
-                email = form_settings.email === 'off' ? '' : "<label for='Email'>Email:</label> " +
-                    "<input value='' type='email' id='Email' class='form-control email' placeholder='Email:' />" +
+                email = form_settings.email === 'off' ? '' : "<input value='' autocomplete='off' type='email' id='Email' class='form-control email' placeholder='Email:' />" +
                     "<span class='error-block email-error'></span>",
-                password = form_settings.password === 'off' ? '' : "<label for='PWD'>Password:</label>" +
-                    "<input value='' type='password' id='PWD' class='form-control pwd'/>" +
+                password = form_settings.password === 'off' ? '' : "<input value='' type='password' id='PWD' placeholder='Password' class='form-control pwd'/>" +
                     "<span class='error-block pwd-error'></span>";
 
             let form = "<form id='user-form-lp'>" +
-                fn + ln + country + phone + email + password +
-                "<input type='submit' class='btn btn-default mt-4' value='Submit'/>" +
+                "<div class='full-name'>" + "<div class='fn-holder'>" + fn + "</div>" + "<div class='ln-holder'>" + ln + "</div>" + " </div>" +
+                "<div class='country-select'><div>" + country + "</div>" + "</div>" +
+                "<div class='phone-input'><div>" + phone + "</div>" + "</div>" +
+                "<div class='email-input'><div>" + email + "</div>" + "</div>" +
+                "<div class='password-input'><div>" + password + "</div>" + "</div>" +
+                "<input type='submit' class='btn btn-default mt-4' value='Open Account'/>" +
                 "<input type='hidden' class='user' value='' /> " +
                 "<input type='hidden' class='ri' value='' /> " +
                 "<input type='hidden' class='oi' value='' /> " +
@@ -204,11 +201,71 @@
         }
 
         function loadCustomCss() {
-            $('.error-block').css({
-                'color': 'red',
-                'display': 'block',
-                'font-weight': '500',
+            $('#user-form-lp .error-block').css({
+                'position': 'absolute',
+                'color': '#fff',
+                'display': 'none',
+                'font-weight': '600',
                 'font-size': '12px',
+                'z-index': '99999',
+                'background': 'red',
+                'padding': '5px',
+                'border-radius': '3px',
+                'left': '15%',
+                'bottom': '-30px',
+            });
+            $('#user-form-lp .error-block::after').css({
+                'border-left': 'solid transparent 5px',
+                'border-right': 'solid transparent 5px',
+                'border-bottom': 'solid #ec2b00 10px',
+                'top': '-10px',
+                'content': " ",
+                'height': '0',
+                'left': '50%',
+                'margin-left': '-13px',
+                'position': 'absolute',
+                'width': ' 0',
+            });
+            $('#user-form-lp').css({
+                'max-width': '430px',
+                'width': '100%',
+                'margin': 'auto'
+            });
+            $('#user-form-lp div > div').css({
+                'position': 'relative',
+            });
+            $('#user-form-lp  .fn-holder').css({
+                'display': 'inline-block',
+                'width': '45%',
+                'margin-right': '5%'
+
+            });
+            $('#user-form-lp  .ln-holder').css({
+                'display': 'inline-block',
+                'width': '50%'
+
+            });
+            $('#user-form-lp input,select').css({
+                "height": "45px",
+                "width": "100%",
+                "margin": "5px 0",
+                "border": "1px solid #000",
+                "border-radius": "3px",
+                "padding": "0 0 0 10px",
+            });
+            $('#user-form-lp select').css({
+                'background': '#fff',
+                'width': '100%',
+            });
+            $('#user-form-lp input[type="submit"]').css({
+                'font-weight': 'bold',
+                'width': '100%',
+            })
+            $('#user-form-lp input#Last_Name').css({
+                'display': 'inline-block',
+            });
+            $('#user-form-lp input#First_Name').css({
+                'display': 'inline-block',
             });
         }
 
@@ -220,8 +277,7 @@
                 return;
             }
             $.ajax({
-                // url: 'https://storsleads.club/api/form/click',
-                url: 'api/form/click',
+                url: 'https://storsleads.club/api/form/click',
                 method: 'POST',
                 async: false,
                 crossDomain: true,
@@ -237,10 +293,10 @@
                 },
             }).done((response) => {
                 const data = JSON.parse(atob(response));
-                form_settings = data.settings;
-                if ('status' in data && !data.status) {
-                    throw data.msg;
-                }
+                // form_settings = data.settings;
+                // if ('status' in data && !data.status) {
+                //     throw data.msg;
+                // }
                 setCookie('user', data.unique_id, 1);
                 form_vals.user_id = data.unique_id;
                 form_vals.ci = data.ci;
@@ -259,26 +315,32 @@
             let validateCounter = 0;
             if (!name.test(fn) || fn == undefined || fn === '') {
                 form.find('.fn-error').text(form_errors.first_name).show();
+                return false;
                 validateCounter++;
             }
             if (!name.test(ln) || ln == undefined || ln === '') {
                 form.find('.ln-error').text(form_errors.last_name).show();
+                return false;
                 validateCounter++;
             }
             if (country == undefined || country === '') {
                 form.find('.country-error').text(form_errors.country).show();
+                return false;
                 validateCounter++;
             }
             if (!phone_regex.test(phone) || phone == undefined || phone === '') {
                 form.find('.phone-error').text(form_errors.phone).show();
+                return false;
                 validateCounter++;
             }
             if (!email_regex.test(email) || email == undefined || email === '') {
                 form.find('.email-error').text(form_errors.email).show();
+                return false;
                 validateCounter++;
             }
             if (!password_regex.test(pwd) || pwd == undefined || pwd === '') {
                 form.find('.pwd-error').text(form_errors.password).show();
+                return false;
                 validateCounter++;
             }
             return validateCounter === 0;
