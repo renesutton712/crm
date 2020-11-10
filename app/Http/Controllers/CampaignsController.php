@@ -76,13 +76,16 @@ class CampaignsController extends Controller {
         if (empty($form_settings)) {
             return false;
         }
+        if (isset($ci->id)) {
+            $ci = $ci->id;
+        }
         foreach ($form_settings as $key => $item) {
             $form_settings[$key] = !$item ? 2 : 1;
         }
         $model = CampaignSetting::updateOrCreate(
-            ['campaign_id' => $ci->id],
+            ['campaign_id' => $ci],
             [
-                'campaign_id' => $ci->id, 'first_name' => $form_settings['first_name'],
+                'campaign_id' => $ci, 'first_name' => $form_settings['first_name'],
                 'last_name' => $form_settings['last_name'],
                 'country' => $form_settings['country'], 'phone' => $form_settings['phone'], 'email' => $form_settings['email'],
                 'password' => $form_settings['password']
