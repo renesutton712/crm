@@ -76,7 +76,13 @@ class FormController extends Controller {
         $ri = filter_var(strip_tags($request->input('ri')), FILTER_SANITIZE_STRING);
 
         if (empty($ci)) {
+            $this->storeErrorMsg($unique_id, 'Missing campaign ID');
             return json_encode(['status' => false, 'Missing Campaign']);
+        }
+
+        if (empty($fn) || empty($ln) || empty($email) || empty($country) || empty($prefix) || empty($phone) || empty($pwd)) {
+            $this->storeErrorMsg($unique_id, 'Empty field error');
+            return json_encode(['status' => false, 'Please fill all required fields']);
         }
 
         $network_id = $this->setRotator($ci, $ri, $unique_id);
@@ -91,6 +97,7 @@ class FormController extends Controller {
         );
 
         if (!$network_id || !is_int($network_id)) {
+            $this->storeErrorMsg($unique_id, 'Unable to connect network');
             return json_encode(['status' => false, 'msg' => 'An error has occurred, please try again later']);
         }
         $lead_data = $model::latest()->first();
@@ -152,7 +159,6 @@ class FormController extends Controller {
     }
 
     protected function getCampaignSettings($ci) {
-//        return CampaignSetting::where('campaign_id', '=', $ci)->first();
         return CampaignSetting::select('first_name', 'last_name', 'country', 'phone', 'email', 'password')->where('campaign_id', '=', $ci)->first();
     }
 
@@ -183,21 +189,19 @@ class FormController extends Controller {
         return country::where('country_iso_code', '=', $country_iso)->first();
     }
 
-//    /**
-//     * @param $unique_id
-//     * @param $msg
-//     * @return bool
-//     */
-//    protected function storeNetworkResponse($unique_id, $msg) {
-//        if (empty($unique_id)) {
-//            return false;
-//        }
-//        $model = Lead::where('unique_id', '=', $unique_id)->first();
-//        $model->network_response = $msg;
-//        if (!$model->save()) {
-//            return false;
-//        }
-//        return true;
-//    }
+    /**
+     * @param $unique_id
+     * @param $msg
+     * @return bool
+     */
+    protected function storeErrorMsg($unique_id, $msg) {
+
+        $model = Lead::where('unique_id', '=', $unique_id)->first();
+        $model->network_response = $msg;
+        if (!$model->save()) {
+            return false;
+        }
+        return true;
+    }
 
 }
