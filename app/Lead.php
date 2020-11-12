@@ -28,7 +28,7 @@ class Lead extends Model {
 
     public static function leadsWithAllRelations() {
         return DB::table('leads AS l')
-            ->select('l.unique_id', 'l.country', 'l.first_name', 'l.last_name', 'l.email', 'l.prefix', 'l.phone', 'l.ip', 'l.ua', 'l.status', 'l.url_params', 'c.campaign_name', 'ro.rotator_name', 'n.network_name')
+            ->select('l.unique_id', 'l.country', 'l.first_name', 'l.last_name', 'l.email', 'l.prefix', 'l.phone', 'l.ip', 'l.ua', 'l.status', 'l.url_params', 'l.network_response', 'c.campaign_name', 'ro.rotator_name', 'n.network_name')
             ->join('rotators AS ro', 'l.rotator_id', '=', 'ro.id')
             ->join('campaigns AS c', 'l.campaign_id', '=', 'c.id')
             ->leftJoin('networks AS n', 'l.network_id', '=', 'n.id')

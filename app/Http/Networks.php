@@ -87,7 +87,8 @@ class Networks {
         $data = json_decode($res->getBody()->getContents(), true);
         if ($data['status'] !== 'success') {
             $this->storeNetworkResponse($params['unique_id'], $data['message']);
-            return json_encode(['status' => false, 'msg' => 'Error from host']);
+//            return json_encode(['status' => false, 'msg' => 'Error from host']);
+            return json_encode(['status' => false, 'msg' => "{$data['message']}"]);
         }
         $pixel_res = $this->sendPixel($params);
         return json_encode(['status' => true, 'msg' => $data['ref_link'] . $data['token']]);
