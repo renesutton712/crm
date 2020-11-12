@@ -64,6 +64,9 @@ class FormController extends Controller {
      */
     public function lead(Request $request) {
         $phone_arr = explode(" ", $request->input('phone'), 2);
+        if (is_array($phone_arr) && !isset($phone_arr[1])) {
+            return json_encode(['status' => false, 'msg' => 'Phone field is required']);
+        }
         $unique_id = filter_var(strip_tags($request->input('user')), FILTER_SANITIZE_STRING);
         $fn = filter_var(strip_tags($request->input('fn')), FILTER_SANITIZE_STRING);
         $ln = filter_var(strip_tags($request->input('ln')), FILTER_SANITIZE_STRING);
