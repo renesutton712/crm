@@ -107,7 +107,7 @@ class FormController extends Controller {
         }
         $lead_data = $model::latest()->first();
         $pixel_res = $this->sendPixel($lead_data, $ci);
-        if (!$pixel_res['status']) {
+        if (isset($pixel_res['status']) && !$pixel_res['status']) {
             return json_encode(['status' => false, 'msg' => "{$pixel_res['msg']}"]);
         }
         return $this->getNetwork($network_id, $lead_data);
