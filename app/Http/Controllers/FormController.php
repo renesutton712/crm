@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Campaign;
 use App\CampaignSetting;
 use App\country;
 use App\Http\Networks;
 use App\Lead;
 use App\Network;
+use App\PixelGroup;
 use App\RotatorGroup;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 class FormController extends Controller {
@@ -84,7 +87,7 @@ class FormController extends Controller {
         }
 
         if (empty($fn) || empty($ln) || empty($email) || empty($country) || empty($prefix) || empty($phone) || empty($pwd)) {
-            $this->storeErrorMsg($unique_id, 'Empty field error');
+            $this->storeErrorMsg($unique_id, 'Empty form field error');
             return json_encode(['status' => false, 'Please fill all required fields']);
         }
 
@@ -98,12 +101,15 @@ class FormController extends Controller {
                 'password' => $pwd, 'status' => 2
             ]
         );
-
         if (!$network_id || !is_int($network_id)) {
             $this->storeErrorMsg($unique_id, 'Unable to connect network');
             return json_encode(['status' => false, 'msg' => 'An error has occurred, please try again later']);
         }
         $lead_data = $model::latest()->first();
+        $pixel_res = $this->sendPixel($lead_data, $ci);
+        if (!$pixel_res['status']) {
+            return json_encode(['status' => false, 'msg' => "{$pixel_res['msg']}"]);
+        }
         return $this->getNetwork($network_id, $lead_data);
     }
 
@@ -205,6 +211,30 @@ class FormController extends Controller {
             return false;
         }
         return true;
+    }
+
+    /**
+     * @param $lead_data
+     * @param $ci
+     * @return array|\Illuminate\Http\JsonResponse|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    private function sendPixel($lead_data, $ci) {
+        $lead_url_params = json_decode($lead_data->url_params, true);
+        if (!isset($lead_url_params['cid'])) {
+            $this->storeErrorMsg($lead_data->unique_id, 'No cid in url_params');
+            return ['status' => false, 'msg' => 'Missing cid'];
+        }
+        $camp = Campaign::where('id', '=', "{$ci}")->first();
+        $pixel = PixelGroup::where('pixel_id', '=', "{$camp->pixel_id}")->where('type', '=', 'Lead')->first();
+        $pixel = $pixel->url;
+        $fire = str_replace('{cid}', $lead_url_params['cid'], $pixel);
+        $client = new Client();
+        $res = $client->request('GET', $fire);
+        if ($res->getStatusCode() === 200) {
+            return $res->getBody()->getContents();
+        }
+        return response()->json(['message' => 'Not found!'], 404);
     }
 
 }

@@ -71,18 +71,18 @@ export default [
         i18n: 'Offers'
     },
     {
-        url: '/postback',
-        name: 'postback',
+        url: '/conversions',
+        name: 'conversions',
         icon: 'BookOpenIcon',
-        slug: 'Postback',
-        i18n: 'Postback'
+        slug: 'Conversions',
+        i18n: 'Conversions'
     },
     {
-        url: '/pixels',
-        name: 'pixels',
+        url: '/postbacks',
+        name: 'postbacks',
         icon: 'ClipboardIcon',
-        slug: 'Pixels',
-        i18n: 'Pixels'
+        slug: 'Postbacks',
+        i18n: 'Postbacks'
     },
     {
         url: '/leads',

@@ -90,7 +90,6 @@ class Networks {
 //            return json_encode(['status' => false, 'msg' => 'Error from host']);
             return json_encode(['status' => false, 'msg' => "{$data['message']}"]);
         }
-        $pixel_res = $this->sendPixel($params);
         return json_encode(['status' => true, 'msg' => $data['ref_link'] . $data['token']]);
     }
 
@@ -161,19 +160,4 @@ class Networks {
         }
         return true;
     }
-
-    private function sendPixel(array $params) {
-        $lead_url_params = json_decode($params['url_params'], true);
-        $camp = Campaign::where('id', '=', "{$params['campaign_id']}")->first();
-        $pixel = PixelGroup::where('pixel_id', '=', "{$camp->pixel_id}")->where('type', '=', 'Lead')->first();
-        $pixel = $pixel->url;
-        $fire = str_replace('{cid}', $lead_url_params['cid'], $pixel);
-        $client = new Client();
-        $res = $client->request('GET', $fire);
-        if ($res->getStatusCode() === 200) {
-            return $res->getBody()->getContents();
-        }
-        return response()->json(['message' => 'Not found!'], 404);
-    }
-
 }

@@ -101,17 +101,8 @@ const router = new Router({
                     }
                 },
                 {
-                    path: '/postback',
-                    name: 'postback',
-                    component: () => import('./views/pages/postback/IndexComponent'),
-                    meta: {
-                        rule: 'admin',
-                        authRequired: true,
-                    }
-                },
-                {
-                    path: '/pixels',
-                    name: 'pixels',
+                    path: '/postbacks',
+                    name: 'postbacks',
                     component: () => import('./views/pages/pixels/IndexComponent'),
                     meta: {
                         rule: 'admin',
@@ -128,8 +119,8 @@ const router = new Router({
                     }
                 },
                 {
-                    path: '/postback',
-                    name: 'postback',
+                    path: '/conversions',
+                    name: 'conversions',
                     component: () => import('./views/pages/postback/IndexComponent'),
                     meta: {
                         rule: 'admin',
