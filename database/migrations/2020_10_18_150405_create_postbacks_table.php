@@ -15,6 +15,7 @@ class CreatePostbacksTable extends Migration {
             $table->id();
             $table->string('unique_id')->unique();
             $table->integer('network_id');
+            $table->string('payout');
             $table->string('event');
             $table->timestamps();
         });

@@ -13,8 +13,8 @@ class Postback extends Model {
 
     public static function postbackWithNetworkAndLeads() {
         return DB::table('postbacks AS p')
-            ->select('p.id', 'p.unique_id', 'p.event', 'p.created_at', 'n.network_name')
-            ->join('networks AS n', 'p.network_id', '=', 'n.id')
+            ->select('p.id', 'p.unique_id', 'p.payout', 'p.event', 'p.created_at', 'n.network_name')
+            ->leftJoin('networks AS n', 'p.network_id', '=', 'n.id')
             ->orderBy('p.id', 'DESC')
             ->get();
     }

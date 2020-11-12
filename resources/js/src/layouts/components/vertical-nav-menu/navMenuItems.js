@@ -70,13 +70,13 @@ export default [
         slug: 'Offers',
         i18n: 'Offers'
     },
-    // {
-    //     url: '/postback',
-    //     name: 'postback',
-    //     icon: 'ClipboardIcon',
-    //     slug: 'Postback',
-    //     i18n: 'Postback'
-    // },
+    {
+        url: '/postback',
+        name: 'postback',
+        icon: 'BookOpenIcon',
+        slug: 'Postback',
+        i18n: 'Postback'
+    },
     {
         url: '/pixels',
         name: 'pixels',

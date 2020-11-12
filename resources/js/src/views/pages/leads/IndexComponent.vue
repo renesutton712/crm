@@ -27,6 +27,7 @@
                         <vs-th sort-key="ua">UA</vs-th>
                         <vs-th sort-key="status">Type</vs-th>
                         <vs-th sort-key="url_params">URL Params</vs-th>
+                        <vs-th sort-key="url_params">Network Response</vs-th>
                     </template>
                     <template slot-scope="{data}">
                         <vs-tr :data="tr" :key="indextr" v-for="(tr,indextr) in data">
@@ -57,6 +58,7 @@
                                    :data="data[indextr].status">{{data[indextr].status === 1 ? 'Click' : 'Lead'}}
                             </vs-td>
                             <vs-td :data="data[indextr].url_params">{{data[indextr].url_params}}</vs-td>
+                            <vs-td :datafld="data[indextr].network_response">{{data[indextr].network_response}}</vs-td>
                         </vs-tr>
                     </template>
                 </vs-table>

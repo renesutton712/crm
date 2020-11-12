@@ -61,61 +61,75 @@
         $('#user-form-lp .fn').on('keyup', function () {
             if (!name.test($(this).val())) {
                 $(this).parent().find('.fn-error').text('First name is not valid!').show();
+                $(this).parent().parent().parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
                 return;
             }
             if ($(this).val().length < 3) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
                 $(this).parent().find('.fn-error').text('First name must be at least 3 characters long').show();
                 return;
             }
-            if ($(this).val().length === 0 || $(this).val().length > 3) {
+            if ($(this).val().length === 0 || $(this).val().length >= 3) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', false);
                 $(this).parent().find('.fn-error').hide();
             }
         });
         $('#user-form-lp .ln').on('keyup', function () {
             if (!name.test($(this).val())) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
                 $(this).parent().find('.ln-error').text('Last name is not valid!').show();
                 return;
             }
-            if ($(this).val().length < 3) {
+            if ($(this).val().length <= 3) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
                 $(this).parent().find('.ln-error').text('Last name must be at least 3 characters long').show();
                 return;
             }
-            if ($(this).val().length === 0 || $(this).val().length > 3) {
+            if ($(this).val().length === 0 || $(this).val().length >= 3) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', false);
                 $(this).parent().find('.ln-error').hide();
             }
         });
         $('#user-form-lp .phone').on('keyup', function () {
             if (!phone_regex.test($(this).val())) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
                 $(this).parent().find('.phone-error').text('Phone is not valid!').show();
                 return;
             }
-            if ($(this).val().length < 6) {
+            if ($(this).val().length <= 6) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
                 $(this).parent().find('.phone-error').text('Please enter a valid phone number').show();
                 return;
             }
-            if ($(this).val().length === 0 || $(this).val().length > 6) {
+            if ($(this).val().length === 0 || $(this).val().length >= 6) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', false);
                 $(this).parent().find('.phone-error').hide();
             }
         });
         $('#user-form-lp .email').on('keyup', function () {
             if (!email_regex.test($(this).val())) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
                 $(this).parent().find('.email-error').text('Email is not valid!').show();
                 return;
             }
-            if ($(this).val().length < 6) {
+            if ($(this).val().length <= 6) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
                 $(this).parent().find('.email-error').text('Please enter a valid email address').show();
                 return;
             }
-            if ($(this).val().length === 0 || $(this).val().length > 6) {
+            if ($(this).val().length === 0 || $(this).val().length >= 6) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', false);
                 $(this).parent().find('.email-error').hide();
             }
         });
         $('#user-form-lp .pwd').on('keyup', function () {
             if (!password_regex.test($(this).val())) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
                 $(this).parent().find('.pwd-error').text('Password must contain 1 lowercase 1 uppercase and be at least 8 characters long').show();
                 return;
             }
-            if ($(this).val().length === 0 || $(this).val().length > 8) {
+            if ($(this).val().length === 0 || $(this).val().length >= 8) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', false);
                 $(this).parent().find('.pwd-error').hide();
             }
         });
@@ -132,10 +146,11 @@
                 ri = urlParams.has('ri') ? urlParams.get('ri') : $(this).find('.ri').val(),
                 ci = urlParams.has('ci') ? urlParams.get('ci') : $(this).find('.ci').val();
             if (!validateFormInputs($(this), fn, ln, country, phone, email, pwd, unique_id)) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
                 return;
             }
             $.ajax({
-                url: 'https://storsleads.club/api/form/lead',
+                url: 'api/form/lead',
                 method: 'POST',
                 data: {
                     fn: fn,
@@ -151,11 +166,13 @@
             }).done((response) => {
                 let res = JSON.parse(response);
                 if (!res.status) {
-                    throw res.msg;
+                    $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+                    alert(res.msg);
+                    return;
                 }
                 window.location.href = res.msg;
             }).fail((jqXHR, textStatus, errorThrown) => {
-                alert(errorThrown)
+                alert(textStatus)
             })
         })
 
@@ -179,7 +196,7 @@
                 "<div class='phone-input'><div>" + phone + "</div>" + "</div>" +
                 "<div class='email-input'><div>" + email + "</div>" + "</div>" +
                 "<div class='password-input'><div>" + password + "</div>" + "</div>" +
-                "<input type='submit' class='btn btn-default mt-4' value='Open Account'/>" +
+                "<input type='submit' class='btn btn-default mt-4' value='Open Account' disabled='disabled'/>" +
                 "<input type='hidden' class='user' value='' /> " +
                 "<input type='hidden' class='ri' value='' /> " +
                 "<input type='hidden' class='oi' value='' /> " +
@@ -258,6 +275,7 @@
                 'width': '100%',
             });
             $('#user-form-lp input[type="submit"]').css({
+                'cursor': 'pointer',
                 'font-weight': 'bold',
                 'width': '100%',
             })
@@ -277,7 +295,7 @@
                 return;
             }
             $.ajax({
-                url: 'https://storsleads.club/api/form/click',
+                url: 'api/form/click',
                 method: 'POST',
                 async: false,
                 crossDomain: true,
@@ -289,7 +307,7 @@
                     client_country: country_code,
                     client_ip: ip,
                     ua: window.navigator.userAgent,
-                    url_params: URLToArray(window.location.search),
+                    url_params: fullUrlParams,
                 },
             }).done((response) => {
                 const data = JSON.parse(atob(response));
@@ -312,38 +330,31 @@
             if (unique_id == undefined || unique_id.length === '') {
                 return false;
             }
-            let validateCounter = 0;
             if (!name.test(fn) || fn == undefined || fn === '') {
                 form.find('.fn-error').text(form_errors.first_name).show();
                 return false;
-                validateCounter++;
             }
             if (!name.test(ln) || ln == undefined || ln === '') {
                 form.find('.ln-error').text(form_errors.last_name).show();
                 return false;
-                validateCounter++;
             }
             if (country == undefined || country === '') {
                 form.find('.country-error').text(form_errors.country).show();
                 return false;
-                validateCounter++;
             }
             if (!phone_regex.test(phone) || phone == undefined || phone === '') {
                 form.find('.phone-error').text(form_errors.phone).show();
                 return false;
-                validateCounter++;
             }
             if (!email_regex.test(email) || email == undefined || email === '') {
                 form.find('.email-error').text(form_errors.email).show();
                 return false;
-                validateCounter++;
             }
             if (!password_regex.test(pwd) || pwd == undefined || pwd === '') {
                 form.find('.pwd-error').text(form_errors.password).show();
                 return false;
-                validateCounter++;
             }
-            return validateCounter === 0;
+            return true;
         }
 
         function appendReturnedValues(vals) {
@@ -361,18 +372,6 @@
                 fullUrlParams.push(`${entry[0]}: ${entry[1]}`);
             }
             return urlParams;
-        }
-
-        function URLToArray(url) {
-            let request = {};
-            let pairs = url.substring(url.indexOf('?') + 1).split('&');
-            for (let i = 0; i < pairs.length; i++) {
-                if (!pairs[i])
-                    continue;
-                let pair = pairs[i].split('=');
-                request[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
-            }
-            return request;
         }
 
         function setCookie(cname, cvalue, exdays) {

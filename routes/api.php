@@ -51,4 +51,4 @@ Route::post('form/click', 'FormController@click');
 Route::post('form/lead', 'FormController@lead');
 
 //Postback reciever
-Route::get('postback/event/{unique_id}', 'PostbackController@store');
+Route::get('postback/event/{unique_id}/{payout}', 'PostbackController@store');

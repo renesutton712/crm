@@ -127,6 +127,15 @@ const router = new Router({
                         authRequired: true,
                     }
                 },
+                {
+                    path: '/postback',
+                    name: 'postback',
+                    component: () => import('./views/pages/postback/IndexComponent'),
+                    meta: {
+                        rule: 'admin',
+                        authRequired: true,
+                    }
+                },
                 // {
                 //     path: '/dashboard/ecommerce',
                 //     name: 'dashboard-ecommerce',

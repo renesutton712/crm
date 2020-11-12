@@ -18,6 +18,7 @@
                         <vs-th sort-key="unique_id">Unique</vs-th>
                         <vs-th sort-key="network_name">Network</vs-th>
                         <vs-th sort-key="event">Event</vs-th>
+                        <vs-th sort-key="payout">Payout</vs-th>
                         <vs-th sort-key="created_at">Created</vs-th>
                     </template>
                     <template slot-scope="{data}">
@@ -28,6 +29,7 @@
                             <vs-td :class="[data[indextr].event === 'FTD' ? 'text-primary font-bold' : 'text-success font-bold']"
                                    :data="data[indextr].event">{{data[indextr].event}}
                             </vs-td>
+                            <vs-td :data="data[indextr].payout">{{'$' + data[indextr].payout}}</vs-td>
                             <vs-td :data="data[indextr].created_at">{{data[indextr].created_at}}</vs-td>
                         </vs-tr>
                     </template>
