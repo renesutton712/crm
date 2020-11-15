@@ -24,13 +24,8 @@
                         <vs-th sort-key="email">Email</vs-th>
                         <vs-th sort-key="prefix">Prefix</vs-th>
                         <vs-th sort-key="phone">Phone</vs-th>
-                        <!--                        <vs-th sort-key="ip">IP</vs-th>-->
-                        <!--                        <vs-th sort-key="ua">UA</vs-th>-->
                         <vs-th sort-key="status">Type</vs-th>
-                        <!--                        <vs-th sort-key="url_params">URL Params</vs-th>-->
                         <vs-th sort-key="network_response">Network Error</vs-th>
-                        <!--                        <vs-th sort-key="created_at">Created</vs-th>-->
-                        <!--                        <vs-th sort-key="updated_at">Updated</vs-th>-->
                     </template>
                     <template slot-scope="{data}">
                         <vs-tr :data="tr" :key="indextr" v-for="(tr,indextr) in data">
@@ -53,22 +48,22 @@
                             <vs-td :data="data[indextr].email">{{data[indextr].email}}</vs-td>
                             <vs-td :data="data[indextr].prefix">{{data[indextr].prefix}}</vs-td>
                             <vs-td :data="data[indextr].phone">{{data[indextr].phone}}</vs-td>
-                            <!--                            <vs-td :data="data[indextr].ip">{{data[indextr].ip}}</vs-td>-->
-                            <!--                            <vs-td :data="data[indextr].ua">{{data[indextr].ua}}</vs-td>-->
                             <vs-td v-if="data[indextr].status === 3" class="font-bold text-success" :data="data[indextr].status">
                                 FTD
                             </vs-td>
                             <vs-td v-else :class="[data[indextr].status === 1 ? 'text-dark' : 'text-primary font-bold']"
                                    :data="data[indextr].status">{{data[indextr].status === 1 ? 'Click' : 'Lead'}}
                             </vs-td>
-                            <!--                            <vs-td :data="data[indextr].url_params">{{data[indextr].url_params}}</vs-td>-->
                             <vs-td :datafld="data[indextr].network_response">{{data[indextr].network_response}}</vs-td>
-                            <!--                            <vs-td :datafld="data[indextr].created_at">{{data[indextr].created_at}}</vs-td>-->
-                            <!--                            <vs-td :datafld="data[indextr].updated_at">{{data[indextr].updated_at}}</vs-td>-->
                             <template class="expand-user" slot="expand">
                                 <vs-list>
+                                    <vs-list-item v-for="(val,key) in urlParamsObj(data[indextr].url_params)"
+                                                  :title="'param ' + key" :subtitle="val"></vs-list-item>
+                                </vs-list>
+                                <vs-list>
                                     <vs-list-item title="URL params"
-                                                  :subtitle="JSON.parse(data[indextr].url_params)"></vs-list-item>
+                                                  :subtitle="data[indextr].url_params">
+                                    </vs-list-item>
                                     <vs-list-item title="UA" :subtitle="data[indextr].ua"></vs-list-item>
                                     <vs-list-item title="IP" :subtitle="data[indextr].ip"></vs-list-item>
                                     <vs-list-item title="Created" :subtitle="data[indextr].created_at"></vs-list-item>
@@ -115,6 +110,9 @@
                             color: 'warning'
                         })
                     })
+            },
+            urlParamsObj: function (params) {
+                return JSON.parse(params);
             }
         },
         beforeMount() {
