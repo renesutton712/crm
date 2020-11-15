@@ -222,7 +222,7 @@ class FormController extends Controller {
     private function sendPixel($lead_data, $ci) {
         $lead_url_params = json_decode($lead_data->url_params, true);
         if (!isset($lead_url_params['cid'])) {
-            $this->storeErrorMsg($lead_data->unique_id, 'No cid in url_params');
+            $this->storeErrorMsg($lead_data->unique_id, 'No cid in url params');
             return ['status' => false, 'msg' => 'Missing cid'];
         }
         $camp = Campaign::where('id', '=', "{$ci}")->first();

@@ -118,7 +118,26 @@
                             color: 'warning'
                         })
                     })
-            }
+            },
+            getRotatorData: function () {
+                this.$vs.loading();
+                axios.get('rotators/get/' + this.ri)
+                    .then((response) => {
+                        this.form_fields.rotator_name = response.data[0].rotator_name;
+                        this.form_fields.networks = response.data[0].rotator_group;
+                        this.$vs.loading.close();
+                    })
+                    .catch(error => {
+                        this.$vs.loading.close();
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.msg,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'warning'
+                        })
+                    })
+            },
         },
         computed: {
             validateRotatorName() {
@@ -127,6 +146,12 @@
         },
         beforeMount() {
             this.getNetworks();
+            if (this.ri !== null) {
+                this.getRotatorData();
+            }
+        },
+        destroyed() {
+            this.destroyRI();
         }
     }
 </script>

@@ -39,8 +39,9 @@ Route::middleware('auth:api')->group(function () {
 
     //Rotators
     Route::get('rotators/get', 'RotatorController@get');
+    Route::get('rotators/get/{id}', 'RotatorController@getRotator');
     Route::post('rotators/store', 'RotatorController@store');
-
+    Route::get('rotators/delete/{id}', 'RotatorController@delete');
     //Pixels
     Route::get('pixels/all', 'PixelController@all');
     Route::get('pixels/get', 'PixelController@get');

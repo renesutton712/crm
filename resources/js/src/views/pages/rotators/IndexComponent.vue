@@ -27,18 +27,23 @@
                             <vs-td :data="data[indextr].rotator_name">{{data[indextr].rotator_name}}</vs-td>
                             <vs-td :data="data[indextr].status">{{data[indextr].status}}</vs-td>
                             <vs-td :data="data[indextr].updated_at">{{convertDate(data[indextr].updated_at)}}</vs-td>
-                            <vs-td></vs-td>
+                            <vs-td>
+                                <vs-icon @click="editRotator(data[indextr].id)" icon="create" size="small"
+                                         color="success" class="mr-3"></vs-icon>
+                                <vs-icon @click="deleteRotator(data[indextr].id)" icon="delete" size="small"
+                                         color="danger"></vs-icon>
+                            </vs-td>
                         </vs-tr>
                     </template>
                 </vs-table>
             </vs-col>
         </vs-row>
-        <modal v-if="isModalVisible" @close="closeModal" @destroyri="destroyri" :ri="rotator_id">
+        <modal v-if="isModalVisible" @close="closeModal">
             <template v-slot:header>
                 <p>Add Rotator</p>
             </template>
             <template v-slot:body>
-                <add-new-rotator/>
+                <add-new-rotator @destroyri="destroyri" :ri="rotator_id"/>
             </template>
         </modal>
     </vs-card>
@@ -92,12 +97,35 @@
                     })
             },
             editRotator: function (ri) {
-                this.campaign_id = ri;
+                this.rotator_id = ri;
                 this.showModal();
             },
             destroyri: function () {
                 this.rotator_id = null;
             },
+            deleteRotator: function (ri) {
+                if (!confirm('are you sure you want to delete this rotator?')) {
+                    return;
+                }
+                this.$vs.loading();
+                axios.get('rotators/delete/' + ri)
+                    .then((response) => {
+                        if (!response.data.status) {
+                            throw response.data;
+                        }
+                        location.reload()
+                    })
+                    .catch(error => {
+                        this.$vs.loading.close();
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.msg,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'warning'
+                        })
+                    })
+            }
         },
         beforeMount() {
             this.getRotators();
