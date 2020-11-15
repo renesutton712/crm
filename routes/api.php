@@ -25,6 +25,8 @@ Route::middleware('auth:api')->group(function () {
     Route::post('campaigns/alter', 'CampaignsController@alterCampaign');
     //Networks
     Route::get('networks/get', 'NetworksController@get');
+    Route::get('networks/get/{id}', 'NetworksController@getNetwork');
+    Route::get('networks/delete/{id}', 'NetworksController@delete');
     Route::post('networks/store', 'NetworksController@store');
 
     //Offers
