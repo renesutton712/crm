@@ -7,6 +7,8 @@
             </vs-col>
         </vs-row>
         <vs-divider/>
+        <h5>{{weightErr.msg}}</h5>
+        <vs-divider/>
         <vs-row vs-w="12" v-for="(item, index) in form_fields.networks">
             <vs-col vs-w="4">
                 <label for="Network">Network:</label>
@@ -15,7 +17,8 @@
                           :reduce="network => network.id"/>
             </vs-col>
             <vs-col vs-w="2" class="ml-3 mr-3">
-                <vs-input class="w-full" label-placeholder="Weight" v-model="item.weight"/>
+                <vs-input @keyup="validateWeight(item.weight)" class="w-full" label-placeholder="Weight"
+                          v-model="item.weight"/>
             </vs-col>
             <vs-col vs-w="2">
                 <vs-input class="w-full" label-placeholder="Priority" v-model="item.priority"/>
@@ -33,7 +36,7 @@
         <vs-divider/>
         <vs-row vs-w="12" vs-type="flex" vs-justify="flex-end" vs-align="center" class="mt-5">
             <vs-col vs-type="flex" vs-justify="flex-end" vs-align="center">
-                <vs-button @click="save" color="success" type="filled">Save</vs-button>
+                <vs-button :disabled="NaNWeight" @click="save" color="success" type="filled">Save</vs-button>
             </vs-col>
         </vs-row>
     </div>
@@ -51,6 +54,7 @@
         },
         data: () => {
             return {
+                NaNWeight: false,
                 submit: false,
                 networks_list: [],
                 form_fields: {
@@ -63,6 +67,10 @@
                     status: 1,
                     rotator_id: 0,
                 },
+                weightErr: {
+                    msg: '',
+                },
+                maxWeight: 100,
             }
         },
         methods: {
@@ -137,6 +145,23 @@
                             color: 'warning'
                         })
                     })
+            },
+            validateWeight: function (weight) {
+                let startWeight = 0;
+                if (isNaN(weight)) {
+                    this.NaNWeight = true;
+                    this.weightErr.msg = 'Weight must be a number'
+                    return;
+                }
+                this.weightErr.msg = '';
+                this.NaNWeight = false;
+                for (let i = 0; i < this.form_fields.networks.length; i++) {
+                    startWeight += Number(this.form_fields.networks[i].weight);
+                    if (this.maxWeight < startWeight) {
+                        this.NaNWeight = true;
+                        this.weightErr.msg = 'Weight is above max percentage (100%)';
+                    }
+                }
             },
         },
         computed: {
