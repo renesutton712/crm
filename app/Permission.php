@@ -4,5 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class country extends Model {
+class Permission extends Model
+{
+    //
 }

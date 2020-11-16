@@ -22,13 +22,16 @@ class Lead extends Model {
     }
 
     public function rotator() {
-//        return $this->hasManyThrough('App\RotatorGroup', 'App\Rotator');
         return $this->hasOne('App\Rotator');
+    }
+
+    public function countries() {
+        return $this->hasOne('App\Country');
     }
 
     public static function leadsWithAllRelations() {
         return DB::table('leads AS l')
-            ->select('l.unique_id', 'l.country', 'l.first_name', 'l.last_name', 'l.email', 'l.prefix', 'l.phone', 'l.ip', 'l.ua', 'l.status', 'l.url_params', 'l.network_response', 'l.created_at', 'l.updated_at', 'c.campaign_name', 'ro.rotator_name', 'n.network_name')
+            ->select('l.unique_id', 'l.campaign_id','l.rotator_id', 'l.country', 'l.first_name', 'l.last_name', 'l.email', 'l.prefix', 'l.phone', 'l.ip', 'l.ua', 'l.status', 'l.url_params', 'l.network_response', 'l.created_at', 'l.updated_at', 'c.campaign_name', 'ro.rotator_name', 'n.network_name', 'n.id as network_id')
             ->join('rotators AS ro', 'l.rotator_id', '=', 'ro.id')
             ->join('campaigns AS c', 'l.campaign_id', '=', 'c.id')
             ->leftJoin('networks AS n', 'l.network_id', '=', 'n.id')

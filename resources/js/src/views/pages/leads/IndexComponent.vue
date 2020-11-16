@@ -9,9 +9,46 @@
             <vs-col vs-w="6" vs-type="flex" vs-justify="flex-end" vs-align="center">
             </vs-col>
         </vs-row>
+        <vs-divider/>
+        <vs-row class="mt-5" vs-type="flex" vs-justify="space-evenly" vs-align="center" vs-w="12">
+            <vs-col vs-w="2">
+                <label for="Campaign">Campaigns:</label>
+                <v-select class="w-full" label="campaign_name" id="Campaign" :options="campaigns_list"
+                          v-model="filters.campaign_id"
+                          :reduce="campaign => campaign.id"/>
+            </vs-col>
+            <vs-col vs-w="2">
+                <label for="Network">Networks:</label>
+                <v-select class="w-full" label="network_name" id="Network" :options="networks_list"
+                          v-model="filters.network_id"
+                          :reduce="network => network.id"/>
+            </vs-col>
+            <vs-col vs-w="2">
+                <label for="Rotator">Rotators:</label>
+                <v-select class="w-full" label="rotator_name" id="Rotator" :options="rotators_list"
+                          v-model="filters.rotator_id"
+                          :reduce="rotator => rotator.id"/>
+            </vs-col>
+            <vs-col vs-w="2">
+                <label for="Country">Countries:</label>
+                <v-select class="w-full" label="country_name" id="Country" :options="countries_list"
+                          v-model="filters.country_id"
+                          :reduce="country => country.country_iso_code"/>
+            </vs-col>
+            <vs-col vs-w="2">
+                <label for="Type">Lead Type:</label>
+                <v-select class="w-full" label="type" id="Type" :options="type_list"
+                          v-model="filters.type"
+                          :reduce="type => type.val"/>
+            </vs-col>
+            <!--            <vs-col class="mt-4" vs-w="2" vs-type="flex" vs-justify="flex-start" vs-align="center">-->
+            <!--                <vs-button id="FilterBtn" @click="getLeads" color="dark" type="border">Filter</vs-button>-->
+            <!--            </vs-col>-->
+        </vs-row>
+        <vs-divider/>
         <vs-row>
             <vs-col>
-                <vs-table v-model="selected_leads" search :data="leads_list">
+                <vs-table v-model="selected_leads" search :data="leads_list" max-items="25" pagination>
                     <template slot="header"></template>
                     <template slot="thead">
                         <vs-th sort-key="unique_id">ID</vs-th>
@@ -80,19 +117,41 @@
 
 <script>
     import axios from "../../../axios";
+    import vSelect from "vue-select";
 
     export default {
+        components: {
+            'v-select': vSelect,
+        },
         name: "IndexComponent",
         data: () => {
             return {
                 leads_list: [],
                 selected_leads: [],
+                networks_list: [],
+                campaigns_list: [],
+                rotators_list: [],
+                countries_list: [],
+                networks_err_list: [],
+                type_list: [
+                    {val: 1, type: 'Click'},
+                    {val: 2, type: 'Lead'},
+                    {val: 3, type: 'FTD'},
+                ],
+                filters: {
+                    network_id: '',
+                    campaign_id: '',
+                    rotator_id: '',
+                    country_id: '',
+                    type: '',
+                }
+
             }
         },
         methods: {
             getLeads: function () {
                 this.$vs.loading();
-                axios.get('leads/get')
+                axios.post('leads/get', this.filters)
                     .then((response) => {
                         if ("status" in response.data) {
                             throw response.data;
@@ -113,13 +172,111 @@
             },
             urlParamsObj: function (params) {
                 return JSON.parse(params);
-            }
+            },
+            getNetworks: function () {
+                axios.get('networks/get')
+                    .then((response) => {
+                        if ("status" in response.data) {
+                            throw response.data;
+                        }
+                        this.networks_list = response.data;
+                    })
+                    .catch(error => {
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.msg,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'warning'
+                        })
+                    })
+            },
+            getCampaigns: function () {
+                this.$vs.loading();
+                axios.get('campaigns/get')
+                    .then((response) => {
+                        if ("status" in response.data) {
+                            throw response.data;
+                        }
+                        this.campaigns_list = response.data
+                        this.$vs.loading.close();
+                    })
+                    .catch(error => {
+                        this.$vs.loading.close();
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.msg,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'warning'
+                        })
+                    })
+            },
+            getRotators: function () {
+                this.$vs.loading();
+                axios.get('rotators/get')
+                    .then((response) => {
+                        this.rotators_list = response.data
+                        if (this.rotators_list.length === 0) {
+                            throw 'No rotators found'
+                        }
+                        this.$vs.loading.close();
+                    })
+                    .catch(error => {
+                        this.$vs.loading.close();
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'warning'
+                        })
+                    })
+            },
+            getCountries: function () {
+                this.$vs.loading();
+                axios.get('countries/get')
+                    .then((response) => {
+                        this.countries_list = response.data
+                        if (this.countries_list.length === 0) {
+                            throw 'No rotators found'
+                        }
+                        this.$vs.loading.close();
+                    })
+                    .catch(error => {
+                        this.$vs.loading.close();
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'warning'
+                        })
+                    })
+            },
+        },
+        watch: {
+            filters: {
+                handler: function (newVal) {
+                    this.filters = newVal;
+                    this.getLeads();
+                },
+                deep: true
+            },
+
         },
         beforeMount() {
             this.getLeads();
+            this.getNetworks();
+            this.getCampaigns();
+            this.getRotators();
+            this.getCountries();
         }
     }
 </script>
 
 <style scoped>
+    #FilterBtn {
+        padding: 7px 20px;
+    }
 </style>

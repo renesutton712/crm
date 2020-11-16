@@ -9,11 +9,9 @@
         <vs-row vs-w="12" v-for="(item, index) in form_fields.tokens" class="mb-3 mt-3">
             <vs-col vs-w="4">
                 <vs-input class="w-full" label-placeholder="Token Name" v-model="item.token_name"/>
-                <!--                <span class="error" v-if="submit && validateTokenName">Token name is required!</span>-->
             </vs-col>
             <vs-col vs-w="4" class="mr-3 ml-3">
                 <vs-input class="w-full" label-placeholder="Token" v-model="item.token"/>
-                <!--                <span class="error" v-if="submit && validateToken">Token is required!</span>-->
             </vs-col>
             <vs-col vs-w="2">
                 <vs-button @click="removeToken(index)" class="mt-5" icon-pack="feather" icon="icon-minus-square" type="border"

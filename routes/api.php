@@ -34,7 +34,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('offers/store', 'OffersController@store');
 
     //Leads
-    Route::get('leads/get', 'LeadsController@get');
+    Route::post('leads/get', 'LeadsController@get');
 
     //Postbacks
     Route::get('postbacks/get', 'PostbackController@get');
@@ -48,6 +48,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('pixels/all', 'PixelController@all');
     Route::get('pixels/get', 'PixelController@get');
     Route::post('pixels/store', 'PixelController@store');
+    //Countries
+    Route::get('countries/get', 'CountryController@get');
 });
 //Form
 Route::post('form/click', 'FormController@click');
