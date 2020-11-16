@@ -7,7 +7,7 @@
                 </div>
             </vs-col>
             <vs-col vs-w="6" vs-type="flex" vs-justify="flex-end" vs-align="center">
-                <vs-button @click="showModal" type="filled" color="primary">Add Pixel</vs-button>
+                <vs-button @click="showModal" type="filled" color="primary">Add Postback</vs-button>
             </vs-col>
         </vs-row>
         <vs-row>
@@ -37,7 +37,7 @@
         </vs-row>
         <modal v-if="isModalVisible" @close="closeModal">
             <template v-slot:header>
-                <p>Add Pixel</p>
+                <p>Add Postback</p>
             </template>
             <template v-slot:body>
                 <add-new-pixel/>

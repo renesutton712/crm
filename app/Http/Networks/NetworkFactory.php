@@ -2,6 +2,7 @@
 
 namespace App\Http\Networks;
 
+use App\Lead;
 use GuzzleHttp\Client;
 
 abstract class NetworkFactory {
@@ -9,8 +10,6 @@ abstract class NetworkFactory {
     private $register_lead_url = null;
     private $login_url = null;
     private $pull_leads_url = null;
-    private $trafficon_username = "cactusmedia";
-    private $trafficon_password = "Ag5322fa2a";
     private $login_token = null;
 
     public function __construct() {
@@ -21,13 +20,17 @@ abstract class NetworkFactory {
      * @param array $params
      * @param $url
      * @param $unique_id
+     * @param null $token
      * @return false|string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    protected function registerLead(array $params, $url, $unique_id) {
+    protected function registerLead(array $params, $url, $unique_id, $token = null) {
         $client = new Client();
-
+        $token = is_null($token) ? '' : $token;
         $res = $client->request('POST', $url, [
+            'headers' => [
+                'Token' => $token
+            ],
             'form_params' => $params
         ]);
         if ($res->getStatusCode() !== 200) {
@@ -40,6 +43,23 @@ abstract class NetworkFactory {
             return json_encode(['status' => false, 'msg' => 'Error from host']);
         }
         return json_encode(['status' => true, 'msg' => $data['ref_link'] . $data['token']]);
+    }
+
+    /**
+     * @param $unique_id
+     * @param $msg
+     * @return bool
+     */
+    protected function storeNetworkResponse($unique_id, $msg) {
+        if (empty($unique_id)) {
+            return false;
+        }
+        $model = Lead::where('unique_id', '=', $unique_id)->first();
+        $model->network_response = $msg;
+        if (!$model->save()) {
+            return false;
+        }
+        return true;
     }
 
     /**

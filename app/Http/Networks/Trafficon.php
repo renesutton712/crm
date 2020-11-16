@@ -148,9 +148,11 @@ class Trafficon extends NetworkFactory {
         $this->setLoginToken($data['token']);
     }
 
-    public function prepareData(array $params) {
+    public function sendLead(array $params, $network) {
+        $tokens_name = explode(',', $network->TN);
+        $tokens = explode(',', $network->T);
         $data = [
-            'offer_id' => 310, 'aff_id' => 2123, 'first_name' => "{$params['first_name']}",
+            $tokens_name[0] => $tokens[0], $tokens_name[1] => $tokens[1], 'first_name' => "{$params['first_name']}",
             'last_name' => "{$params['last_name']}", 'email' => "{$params['email']}",
             'password' => "{$params['password']}", 'area_code' => "{$params['prefix']}", 'phone' => "{$params['phone']}",
             'ip' => "{$params['ip']}",

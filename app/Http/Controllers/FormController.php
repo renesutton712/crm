@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Campaign;
 use App\CampaignSetting;
-use App\country;
+use App\Country;
 use App\Http\Networks;
 use App\Lead;
 use App\Network;
@@ -91,17 +91,18 @@ class FormController extends Controller {
             return json_encode(['status' => false, 'Please fill all required fields']);
         }
 
-        $network_id = $this->setRotator($ci, $ri, $unique_id);
+        $network = $this->setRotator($ci, $ri, $unique_id);
 
         $model = Lead::updateOrCreate(
             ['unique_id' => $unique_id],
             [
-                'country' => $country, 'network_id' => $network_id, 'email' => $email, 'first_name' => $fn, 'last_name' => $ln,
+                'country' => $country, 'network_id' => $network->network_id, 'email' => $email, 'first_name' => $fn,
+                'last_name' => $ln,
                 'prefix' => $prefix, 'phone' => $phone,
                 'password' => $pwd, 'status' => 2
             ]
         );
-        if (!$network_id || !is_int($network_id)) {
+        if (!isset($network->network_id) || !is_int($network->network_id)) {
             $this->storeErrorMsg($unique_id, 'Unable to connect network');
             return json_encode(['status' => false, 'msg' => 'An error has occurred, please try again later']);
         }
@@ -110,7 +111,7 @@ class FormController extends Controller {
         if (isset($pixel_res['status']) && !$pixel_res['status']) {
             return json_encode(['status' => false, 'msg' => "{$pixel_res['msg']}"]);
         }
-        return $this->getNetwork($network_id, $lead_data);
+        return $this->getNetwork($network, $lead_data);
     }
 
     /**
@@ -124,7 +125,7 @@ class FormController extends Controller {
             return false;
         }
         $rotator_network = '';
-        $networks = RotatorGroup::where('rotator_id', '=', $ri)->get()->all();
+        $networks = RotatorGroup::rotatorWithNetworkToken($ri);
         $leads_sum = Lead::where('campaign_id', '=', $ci)->where('status', '=', '2')->count();
         foreach ($networks as $network) {
             $network_leads_amount = Lead::where('network_id', '=', $network->network_id)->where('status', '=', '2')->count();
@@ -135,7 +136,7 @@ class FormController extends Controller {
             }
         }
 
-        return $rotator_network->network_id;
+        return $rotator_network;
     }
 
     protected function updatedLeadWithSelectedNetwork($unique_id, $network_id) {
@@ -148,12 +149,12 @@ class FormController extends Controller {
     }
 
     /**
-     * @param null $network_id
+     * @param $network
      * @param $lead_params
      * @return bool
      */
-    protected function getNetwork($network_id, $lead_params) {
-        if (is_null($network_id) || empty($network_id)) {
+    protected function getNetwork($network, $lead_params) {
+        if (is_null($network->network_id) || empty($network->network_id)) {
             return false;
         }
         $params_arr = $lead_params->attributesToArray();
@@ -162,9 +163,9 @@ class FormController extends Controller {
             return json_encode(['status' => false, 'msg' => 'country is missing!']);
         }
         $params_arr['country_full'] = $country_name->country_name;
-        $network = new Networks();
+        $network_map = new Networks();
 
-        return $network->networksMap($network_id, $params_arr);
+        return $network_map->networksMap($network, $params_arr);
     }
 
     protected function getCampaignSettings($ci) {
@@ -195,7 +196,7 @@ class FormController extends Controller {
     }
 
     protected function getFullCountryName($country_iso) {
-        return country::where('country_iso_code', '=', $country_iso)->first();
+        return Country::where('country_iso_code', '=', $country_iso)->first();
     }
 
     /**

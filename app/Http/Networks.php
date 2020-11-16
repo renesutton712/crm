@@ -3,6 +3,8 @@
 namespace App\Http;
 
 use App\Campaign;
+use App\Http\Networks\SupremeMedia;
+use App\Http\Networks\Trafficon;
 use App\Lead;
 use App\Pixel;
 use App\PixelGroup;
@@ -27,26 +29,21 @@ class Networks {
         $this->url = $url;
     }
 
-    public function networksMap($network_id, $params) {
-        switch ($network_id) {
+    public function networksMap($network, $params) {
+        switch ($network->network_id) {
             case 1:
-//            case 3:
                 return $this->COD($params);
                 break;
             case 2:
-                return $this->SuperMedia($params);
-                break;
             case 3:
-                return $this->SuperMedia($params);
-                break;
             case 4:
-                return $this->SuperMedia($params);
-                break;
             case 5:
-                return $this->SuperMedia($params);
+                $supreme = new SupremeMedia();
+                return $supreme->prepareData($params, $network);
                 break;
             case 6:
-                return $this->Trafficon($params);
+                $trafficon = new Trafficon();
+                return $trafficon->sendLead($params, $network);
                 break;
             default:
                 return json_encode(['status' => true, 'msg' => 'https://www.google.com']);
@@ -103,10 +100,8 @@ class Networks {
         self::setUrl('https://api.rhkoco.com/v2/affiliates/lead/create');
 
         $res = $client->request('POST', self::getUrl(), [
-            [
-                'headers' => [
-                    'Token' => $params['token']
-                ]
+            'headers' => [
+                'Token' => $params['token']
             ],
             'form_params' => [
                 'firstname' => $params['first_name'], 'lastname' => $params['last_name'], 'email' => $params['email'],

@@ -2,8 +2,8 @@
     <div>
         <vs-row vs-w="12">
             <vs-col>
-                <vs-input class="w-full" label-placeholder="Pixel Name" v-model="form_fields.pixel_name"/>
-                <span class="error" v-if="submit && validatePixelName">Pixel name is required!</span>
+                <vs-input class="w-full" label-placeholder="Postback Name" v-model="form_fields.pixel_name"/>
+                <span class="error" v-if="submit && validatePixelName">Postback name is required!</span>
             </vs-col>
         </vs-row>
         <!--        <vs-row vs-w="12" class="mt-3">-->
