@@ -40,5 +40,4 @@ class Campaign extends Model {
             ->orderBy('c.id', 'DESC')
             ->get();
     }
-
 }
