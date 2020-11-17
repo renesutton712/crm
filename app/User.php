@@ -46,7 +46,7 @@ class User extends Authenticatable {
         return DB::table('users as u')
             ->select('u.*', 'r.role', 'p.slug')
             ->join('roles as r', 'u.user_role', '=', 'r.id')
-            ->join('permissions as p', 'u.id', '=', 'p.user_id')
+            ->leftJoin('permissions as p', 'u.id', '=', 'p.user_id')
             ->where('u.id', '=', "{$user_id}")
             ->get()
             ->toArray();
