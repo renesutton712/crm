@@ -35,7 +35,7 @@ class Campaign extends Model {
             ->select('c.id', 'c.campaign_name', 'c.platform', 'c.status', 'o.offer_name', 'o.offer_id', 'ro.rotator_name', 'ro.id AS rotator_id')
             ->join("rotators AS ro", "c.rotator_id", "=", "ro.id")
             ->join("offers AS o", "c.offer_id", "=", "o.offer_id")
-            ->where('c.user_id', '=', Auth::user()->id)
+//            ->where('c.user_id', '=', Auth::user()->id)
             ->where('c.status', '!=', 0)
             ->orderBy('c.id', 'DESC')
             ->get();
