@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', 'AuthenticateController@login')->name('login');
 Route::middleware('auth:api')->post('/logout', 'AuthenticateController@logout');
 
-Route::middleware('auth:api')->group(function () {
+Route::middleware(['auth:api', 'role'])->group(function () {
     //Campaign
     Route::get('campaigns/get', 'CampaignsController@get');
     Route::get('campaigns/get/{id}', 'CampaignsController@getCampaign');
