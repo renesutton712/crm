@@ -47,7 +47,7 @@
                             <vs-td :data="data[indextr].offer_name">{{data[indextr].offer_name}}</vs-td>
                             <vs-td :data="data[indextr].pixel_name">{{data[indextr].pixel_name}}</vs-td>
                             <vs-td :data="data[indextr].iframe_name">{{data[indextr].iframe_name}}</vs-td>
-                            <vs-td :data="data[indextr].platform">{{data[indextr].platform}}</vs-td>
+                            <vs-td :data="data[indextr].platform">{{platform_names[data[indextr].platform]}}</vs-td>
                             <vs-td>{{'&ci=' + data[indextr].id + '&ri=' + data[indextr].rotator_id + '&oi=' +
                                 data[indextr].offer_id}}
                             </vs-td>
@@ -96,6 +96,11 @@
                     {id: 1, text: 'Pause'},
                     {id: 2, text: 'Active'},
                 ],
+                platform_names: {
+                    1: 'Facebook',
+                    2: 'Google',
+                    3: 'Pinterest'
+                },
                 selected_action: 0
             }
         },
