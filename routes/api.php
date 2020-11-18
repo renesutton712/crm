@@ -28,17 +28,13 @@ Route::middleware(['auth:api', 'role'])->group(function () {
     Route::get('networks/get/{id}', 'NetworksController@getNetwork');
     Route::get('networks/delete/{id}', 'NetworksController@delete');
     Route::post('networks/store', 'NetworksController@store');
-
     //Offers
     Route::get('offers/get', 'OffersController@get');
     Route::post('offers/store', 'OffersController@store');
-
     //Leads
     Route::post('leads/get', 'LeadsController@get');
-
     //Postbacks
     Route::get('postbacks/get', 'PostbackController@get');
-
     //Rotators
     Route::get('rotators/get', 'RotatorController@get');
     Route::get('rotators/get/{id}', 'RotatorController@getRotator');
@@ -50,6 +46,11 @@ Route::middleware(['auth:api', 'role'])->group(function () {
     Route::post('pixels/store', 'PixelController@store');
     //Countries
     Route::get('countries/get', 'CountryController@get');
+    //Iframe Pixels
+    Route::get('iframe/get', 'PixelIframeController@get');
+    Route::get('iframe/get/{id}', 'PixelIframeController@getIframePixel');
+    Route::get('iframe/delete/{id}', 'PixelIframeController@deleteIframePixel');
+    Route::post('iframe/store', 'PixelIframeController@store');
 });
 //Form
 Route::post('form/click', 'FormController@click');

@@ -85,6 +85,13 @@ export default [
         i18n: 'Postbacks'
     },
     {
+        url: '/iframepixel',
+        name: 'iframepixel',
+        icon: 'FramerIcon',
+        slug: 'Iframe Pixel',
+        i18n: 'Iframe Pixel'
+    },
+    {
         url: '/leads',
         name: 'leads',
         icon: 'DatabaseIcon',

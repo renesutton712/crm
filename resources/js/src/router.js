@@ -127,6 +127,15 @@ const router = new Router({
                         authRequired: true,
                     }
                 },
+                {
+                    path: '/iframepixel',
+                    name: 'iframepixel',
+                    component: () => import('./views/pages/iframepixels/IndexComponent'),
+                    meta: {
+                        rule: 'admin',
+                        authRequired: true,
+                    }
+                },
                 // {
                 //     path: '/dashboard/ecommerce',
                 //     name: 'dashboard-ecommerce',
