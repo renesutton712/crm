@@ -12,7 +12,16 @@
                 <v-select label="pixel_name" id="Pixel" :options="pixels_list"
                           v-model="form_fields.pixel_id"
                           :reduce="pixel => pixel.id"/>
-                <span class="info">Select offer associated with the campaign</span>
+                <span class="info">Select pixel to associated with the campaign</span>
+            </vs-col>
+        </vs-row>
+        <vs-row vs-w="12" class="mt-3">
+            <vs-col>
+                <label for="Iframe">Select Iframe(optional):</label>
+                <v-select label="iframe_name" id="Iframe" :options="iframe_list"
+                          v-model="form_fields.iframe_id"
+                          :reduce="iframe => iframe.id"/>
+                <span class="info">Select iframe pixel to associated with the campaign</span>
             </vs-col>
         </vs-row>
         <vs-row vs-w="12" class="mt-3 mb-3">
@@ -28,7 +37,7 @@
             <vs-col>
                 <label for="Platform">Select Platform(optional):</label>
                 <v-select label="platform_name" id="Platform" :options="platform_list"
-                          v-model="form_fields.platform"
+                          v-model="form_fields.platform_id"
                           :reduce="platform => platform.id"/>
                 <span class="info">Select platform associated with the campaign</span>
             </vs-col>
@@ -76,7 +85,6 @@
                     <p class="input_like--submit">Submit</p>
                 </vs-col>
             </vs-row>
-
         </div>
         <vs-row vs-w="12" class="mt-5">
             <vs-col>
@@ -102,9 +110,10 @@
                 form_fields: {
                     campaign_name: '',
                     pixel_id: '',
+                    iframe_id: '',
                     offer_id: '',
                     rotator_id: '',
-                    platform: '',
+                    platform_id: '',
                     ci: null,
                     settings: {
                         first_name: true,
@@ -116,6 +125,7 @@
                     }
                 },
                 pixels_list: [],
+                iframe_list: [],
                 rotators_list: [],
                 platform_list: [
                     {id: 1, platform_name: 'Facebook'},
@@ -196,11 +206,31 @@
                         this.form_fields.campaign_name = response.data[0].campaign_name;
                         this.form_fields.offer_id = response.data[0].offer_id;
                         this.form_fields.rotator_id = response.data[0].rotator_id;
-                        this.form_fields.platform = Number(response.data[0].platform);
+                        this.form_fields.platform_id = Number(response.data[0].platform);
                         this.form_fields.pixel_id = Number(response.data[0].pixel_id);
+                        this.form_fields.iframe_id = Number(response.data[0].iframe_id);
                         this.$vs.loading.close();
                     })
                     .catch(error => {
+                        this.$vs.loading.close();
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.msg,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'warning'
+                        })
+                    })
+            },
+            getIframePixels: function () {
+                this.$vs.loading();
+                axios.get('iframe/get')
+                    .then((response) => {
+                        this.iframe_list = response.data;
+                        this.$vs.loading.close();
+                    })
+                    .catch(error => {
+                        console.log(error);
                         this.$vs.loading.close();
                         this.$vs.notify({
                             title: 'Error',
@@ -223,6 +253,7 @@
         beforeMount() {
             this.getRotators();
             this.getPixels();
+            this.getIframePixels();
             if (this.ci !== null) {
                 this.getCampaign();
             }
