@@ -9144,29 +9144,7 @@ __webpack_require__.r(__webpack_exports__);
   Author: Pixinvent
   Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
-/* harmony default export */ __webpack_exports__["default"] = ([// {
-//     url: null,
-//     name: 'Dashboard',
-//     tag: '2',
-//     tagColor: 'warning',
-//     icon: 'HomeIcon',
-//     i18n: 'Dashboard',
-//     submenu: [
-//         {
-//             url: '/dashboard/analytics',
-//             name: 'Analytics',
-//             slug: 'dashboard-analytics',
-//             i18n: 'Analytics'
-//         },
-//         {
-//             url: '/dashboard/ecommerce',
-//             name: 'eCommerce',
-//             slug: 'dashboard-ecommerce',
-//             i18n: 'eCommerce'
-//         }
-//     ]
-// },
-{
+/* harmony default export */ __webpack_exports__["default"] = ([{
   url: '/campaigns',
   name: 'Campaigns',
   icon: 'SendIcon',
@@ -9191,23 +9169,30 @@ __webpack_require__.r(__webpack_exports__);
   slug: 'Offers',
   i18n: 'Offers'
 }, {
-  url: '/conversions',
-  name: 'conversions',
-  icon: 'BookOpenIcon',
-  slug: 'Conversions',
-  i18n: 'Conversions'
-}, {
-  url: '/postbacks',
-  name: 'postbacks',
+  url: null,
+  name: 'Postbacks',
   icon: 'ClipboardIcon',
   slug: 'Postbacks',
-  i18n: 'Postbacks'
-}, {
-  url: '/iframepixel',
-  name: 'iframepixel',
-  icon: 'FramerIcon',
-  slug: 'Iframe Pixel',
-  i18n: 'Iframe Pixel'
+  i18n: 'Postbacks',
+  submenu: [{
+    url: '/conversions',
+    name: 'conversions',
+    icon: 'BookOpenIcon',
+    slug: 'Conversions',
+    i18n: 'Conversions'
+  }, {
+    url: '/postbacks',
+    name: 'postbacks',
+    icon: 'ClipboardIcon',
+    slug: 'Postbacks',
+    i18n: 'Postbacks'
+  }, {
+    url: '/iframepixel',
+    name: 'iframepixel',
+    icon: 'FramerIcon',
+    slug: 'Iframes',
+    i18n: 'Iframes'
+  }]
 }, {
   url: '/leads',
   name: 'leads',
