@@ -22,13 +22,12 @@ class Networks {
                 break;
             case 2:
             case 3:
-//            case 4:
+            case 4:
             case 5:
                 $supreme = new SupremeMedia();
                 return $supreme->prepareData($params, $network);
                 break;
-//            case 6:
-            case 4:
+            case 6:
                 $trafficon = new Trafficon();
                 return $trafficon->sendLead($params, $network);
                 break;
