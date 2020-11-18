@@ -21,6 +21,6 @@ class SupremeMedia extends NetworkFactory {
             'country_code' => $params['country'],
             'aff_sub' => $params['unique_id']
         ];
-        return $this->registerLead($data, $this->create_lead_url, $params['unique_id'], $network->T);
+        return $this->registerLead($data, $this->create_lead_url, $params['unique_id'], $params['campaign_id'], $network->T);
     }
 }

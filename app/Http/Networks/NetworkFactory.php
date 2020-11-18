@@ -3,7 +3,9 @@
 namespace App\Http\Networks;
 
 use App\Lead;
+use App\PixelIframe;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 abstract class NetworkFactory {
 
@@ -20,11 +22,12 @@ abstract class NetworkFactory {
      * @param array $params
      * @param $url
      * @param $unique_id
+     * @param null $camp_id
      * @param null $token
-     * @return false|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return array|false|string
+     * @throws GuzzleException
      */
-    protected function registerLead(array $params, $url, $unique_id, $token = null) {
+    protected function registerLead(array $params, $url, $unique_id, $camp_id = null, $token = null) {
         $client = new Client();
         $token = is_null($token) ? '' : $token;
         $res = $client->request('POST', $url, [
@@ -33,16 +36,22 @@ abstract class NetworkFactory {
             ],
             'form_params' => $params
         ]);
+
+        $data = json_decode($res->getBody()->getContents(), true);
         if ($res->getStatusCode() !== 200) {
             return json_encode(['status' => false, 'msg' => 'Not found']);
         }
-        $data = json_decode($res->getBody()->getContents(), true);
         if ($data['status'] !== 'success') {
 
             $this->storeNetworkResponse($unique_id, $data['message']);
-            return json_encode(['status' => false, 'msg' => 'Error from host']);
+            return json_encode(['status' => false, 'msg' => $data['message']]);
         }
-        return json_encode(['status' => true, 'msg' => $data['ref_link'] . $data['token']]);
+        $response = ['status' => true, 'msg' => $data['ref_link'] . $data['token']];
+        $iframe = $this->getIframePixel($camp_id);
+        if (!empty($iframe)) {
+            $response['pixel'] = $iframe->iframe_content;
+        }
+        return $response;
     }
 
     /**
@@ -63,45 +72,11 @@ abstract class NetworkFactory {
     }
 
     /**
-     * @return null
+     * @param $camp_id
+     * @return mixed
      */
-    public function getRegisterLeadUrl() {
-        return $this->register_lead_url;
-    }
-
-    /**
-     * @param null $register_lead_url
-     */
-    public function setRegisterLeadUrl($register_lead_url): void {
-        $this->register_lead_url = $register_lead_url;
-    }
-
-    /**
-     * @return null
-     */
-    public function getLoginUrl() {
-        return $this->login_url;
-    }
-
-    /**
-     * @param null $login_url
-     */
-    public function setLoginUrl($login_url): void {
-        $this->login_url = $login_url;
-    }
-
-    /**
-     * @return null
-     */
-    public function getPullLeadsUrl() {
-        return $this->pull_leads_url;
-    }
-
-    /**
-     * @param null $pull_leads_url
-     */
-    public function setPullLeadsUrl($pull_leads_url): void {
-        $this->pull_leads_url = $pull_leads_url;
+    protected function getIframePixel($camp_id) {
+        return PixelIframe::select('iframe_content')->where('campaign_id', '=', "{$camp_id}")->first();
     }
 
     /**

@@ -159,7 +159,7 @@ class Trafficon extends NetworkFactory {
             'country' => "{$params['country_full']}", 'iso' => "{$params['country']}",
             'aff_sub1' => "{$params['unique_id']}"
         ];
-        return $this->registerLead($data, $this->register_url, $params['unique_id']);
+        return $this->registerLead($data, $this->register_url, $params['unique_id'], $params['campaign_id']);
     }
 
 }

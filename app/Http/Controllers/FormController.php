@@ -92,7 +92,9 @@ class FormController extends Controller {
         }
 
         $network = $this->setRotator($ci, $ri, $unique_id);
-
+        if (empty($network)) {
+            return json_encode(['status' => false, 'msg' => 'No network found']);
+        }
         $model = Lead::updateOrCreate(
             ['unique_id' => $unique_id],
             [
@@ -128,7 +130,7 @@ class FormController extends Controller {
         $networks = RotatorGroup::rotatorWithNetworkToken($ri);
         $leads_sum = Lead::where('campaign_id', '=', $ci)->where('status', '=', '2')->count();
         foreach ($networks as $network) {
-            $network_leads_amount = Lead::where('network_id', '=', $network->network_id)->where('status', '=', '2')->count();
+            $network_leads_amount = Lead::where('campaign_id', '=', $ci)->where('network_id', '=', $network->network_id)->where('status', '=', '2')->count();
             if ($network_leads_amount <= ceil(($network->weight / 100) * $leads_sum)) {
                 $this->updatedLeadWithSelectedNetwork($unique_id, $network->id);
                 $rotator_network = $network;

@@ -40,7 +40,7 @@
                 password: 'Password must contain 1 lowercase 1 uppercase and be at least 8 characters long',
             },
             form_settings = '',
-            fullUrlParams = [],
+            // fullUrlParams = [],
             country_code = '',
             ip = '',
             urlParams = urlParamsQuery(),
@@ -136,6 +136,7 @@
         //Submit form + Final validation
         $('#user-form-lp').on('submit', function (e) {
             e.preventDefault();
+            // $('.form-layover').show();
             let fn = $(this).find('.fn').val(),
                 ln = $(this).find('.ln').val(),
                 country = $(this).find('.country').val(),
@@ -170,7 +171,12 @@
                     alert(res.msg);
                     return;
                 }
-                window.location.href = res.msg;
+                if ('pixel' in res) {
+                    $("body").append(res.pixel);
+                }
+                setTimeout(function () {
+                    window.location.href = res.msg;
+                }, 2500);
             }).fail((jqXHR, textStatus, errorThrown) => {
                 alert(textStatus)
             })
@@ -205,9 +211,7 @@
                 "<input type='hidden' class='client_ip' value='' /> " +
                 "</form>",
                 loader = "<div style='display:none;z-index: 99999;position: fixed;width: 100%; height: 100%;background: rgb(0 0 0 / 0.6); top: 0;' class='form-layover'>" +
-                    "  <div class='spinner-border' style='width: 3rem; height: 3rem;' role='status'>" +
-                    "    <span class='sr-only'></span>" +
-                    "  </div>" +
+                    "<img src='images/loader.svg' width='150' height='150' alt=''>" +
                     "</div>";
             $.each(availableFromPlaces, function (i, el) {
                 $(el).append(form);
@@ -285,6 +289,15 @@
             $('#user-form-lp input#First_Name').css({
                 'display': 'inline-block',
             });
+
+            $('.form-layover img').css({
+                'position': 'absolute',
+                'left': '0',
+                'right': '0',
+                'margin': ' auto',
+                'top': '30%',
+            })
+
         }
 
         function sendClick() {
@@ -368,9 +381,9 @@
             const queryString = window.location.search,
                 urlParams = new URLSearchParams(queryString),
                 entries = urlParams.entries();
-            for (let entry of entries) {
-                fullUrlParams.push(`${entry[0]}: ${entry[1]}`);
-            }
+            // for (let entry of entries) {
+            //     fullUrlParams.push(`${entry[0]}: ${entry[1]}`);
+            // }
             return urlParams;
         }
 
