@@ -3302,7 +3302,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var VxTour = function VxTour() {
-  return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! @/components/VxTour.vue */ "./resources/js/src/components/VxTour.vue"));
+  return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! @/components/VxTour.vue */ "./resources/js/src/components/VxTour.vue"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -9168,31 +9168,54 @@ __webpack_require__.r(__webpack_exports__);
   icon: 'PackageIcon',
   slug: 'Offers',
   i18n: 'Offers'
-}, {
-  url: null,
-  name: 'Postbacks',
+}, // {
+//     url: null,
+//     name: 'Postbacks',
+//     icon: 'ClipboardIcon',
+//     slug: 'Postbacks',
+//     i18n: 'Postbacks',
+//     submenu: [
+//         {
+//             url: '/conversions',
+//             name: 'conversions',
+//             icon: 'BookOpenIcon',
+//             slug: 'Conversions',
+//             i18n: 'Conversions'
+//         },
+//         {
+//             url: '/postbacks',
+//             name: 'postbacks',
+//             icon: 'ClipboardIcon',
+//             slug: 'Postbacks',
+//             i18n: 'Postbacks'
+//         },
+//         {
+//             url: '/iframepixel',
+//             name: 'iframepixel',
+//             icon: 'FramerIcon',
+//             slug: 'Iframes',
+//             i18n: 'Iframes'
+//         },
+//     ]
+// },
+{
+  url: '/postbacks',
+  name: 'postbacks',
   icon: 'ClipboardIcon',
   slug: 'Postbacks',
-  i18n: 'Postbacks',
-  submenu: [{
-    url: '/conversions',
-    name: 'conversions',
-    icon: 'BookOpenIcon',
-    slug: 'Conversions',
-    i18n: 'Conversions'
-  }, {
-    url: '/postbacks',
-    name: 'postbacks',
-    icon: 'ClipboardIcon',
-    slug: 'Postbacks',
-    i18n: 'Postbacks'
-  }, {
-    url: '/iframepixel',
-    name: 'iframepixel',
-    icon: 'FramerIcon',
-    slug: 'Iframes',
-    i18n: 'Iframes'
-  }]
+  i18n: 'Postbacks'
+}, {
+  url: '/conversions',
+  name: 'conversions',
+  icon: 'BookOpenIcon',
+  slug: 'Conversions',
+  i18n: 'Conversions'
+}, {
+  url: '/iframepixel',
+  name: 'iframepixel',
+  icon: 'FramerIcon',
+  slug: 'Iframes pixels',
+  i18n: 'Iframes pixels'
 }, {
   url: '/leads',
   name: 'leads',

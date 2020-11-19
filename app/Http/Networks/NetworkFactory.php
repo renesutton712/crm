@@ -2,21 +2,17 @@
 
 namespace App\Http\Networks;
 
+use App\Campaign;
 use App\Lead;
+use App\Pixel;
+use App\PixelGroup;
 use App\PixelIframe;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
 abstract class NetworkFactory {
 
-    private $register_lead_url = null;
-    private $login_url = null;
-    private $pull_leads_url = null;
     private $login_token = null;
-
-    public function __construct() {
-
-    }
 
     /**
      * @param array $params
@@ -45,6 +41,10 @@ abstract class NetworkFactory {
 
             $this->storeNetworkResponse($unique_id, $data['message']);
             return json_encode(['status' => false, 'msg' => $data['message']]);
+        }
+        $pixel_res = $this->sendPixel($unique_id);
+        if (isset($pixel_res['status']) && !$pixel_res['status']) {
+            return json_encode(['status' => false, 'msg' => $pixel_res['msg']]);
         }
         $response = ['status' => true, 'msg' => $data['ref_link'] . $data['token']];
         $iframe = $this->getIframePixel($camp_id);
@@ -84,6 +84,32 @@ abstract class NetworkFactory {
      */
     public function getLoginToken() {
         return $this->login_token;
+    }
+
+    /**
+     * @param $unique_id
+     * @return array|\Illuminate\Http\JsonResponse|string
+     * @throws GuzzleException
+     */
+    private function sendPixel($unique_id) {
+        $lead_data = Lead::where('unique_id', '=', "{$unique_id}")->first();
+        $lead_url_params = json_decode($lead_data->url_params, true);
+        $camp = Pixel::where('campaign_id', '=', "{$lead_data->campaign_id}")->first();
+        if (empty($camp)) {
+            return ['status' => false, 'msg' => 'No campaign found'];
+        }
+        $pixel = PixelGroup::where('pixel_id', '=', "{$camp->id}")->where('type', '=', 'Lead')->first();
+        if (empty($pixel)) {
+            return ['status' => false, 'msg' => 'No posback found'];
+        }
+        $pixel = $pixel->url;
+        $fire = str_replace('{cid}', $lead_url_params['cid'], $pixel);
+        $client = new Client();
+        $res = $client->request('GET', $fire);
+        if ($res->getStatusCode() === 200) {
+            return $res->getBody()->getContents();
+        }
+        return response()->json(['message' => 'Not found!'], 404);
     }
 
 }

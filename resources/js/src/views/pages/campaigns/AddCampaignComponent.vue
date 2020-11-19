@@ -8,16 +8,16 @@
         </vs-row>
         <vs-row vs-w="12" class="mt-3">
             <vs-col>
-                <label for="Pixel">Select Pixel(optional):</label>
-                <v-select label="pixel_name" id="Pixel" :options="pixels_list"
+                <label for="Postback">Select Postback(optional):</label>
+                <v-select label="pixel_name" id="Postback" :options="pixels_list"
                           v-model="form_fields.pixel_id"
                           :reduce="pixel => pixel.id"/>
-                <span class="info">Select pixel to associated with the campaign</span>
+                <span class="info">Select postback to associated with the campaign</span>
             </vs-col>
         </vs-row>
         <vs-row vs-w="12" class="mt-3">
             <vs-col>
-                <label for="Iframe">Select Iframe(optional):</label>
+                <label for="Iframe">Select Iframe pixel(optional):</label>
                 <v-select label="iframe_name" id="Iframe" :options="iframe_list"
                           v-model="form_fields.iframe_id"
                           :reduce="iframe => iframe.id"/>
