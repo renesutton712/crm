@@ -97,12 +97,9 @@
                             <template class="expand-user" slot="expand">
                                 <vs-list>
                                     <vs-list-item v-for="(val,key) in urlParamsObj(data[indextr].url_params)"
-                                                  :title="'param ' + key" :subtitle="val"></vs-list-item>
+                                                  :title="''" :subtitle="key+':'+ val"></vs-list-item>
                                 </vs-list>
                                 <vs-list>
-                                    <vs-list-item title="URL params"
-                                                  :subtitle="data[indextr].url_params">
-                                    </vs-list-item>
                                     <vs-list-item title="UA" :subtitle="data[indextr].ua"></vs-list-item>
                                     <vs-list-item title="IP" :subtitle="data[indextr].ip"></vs-list-item>
                                     <vs-list-item title="Created" :subtitle="data[indextr].created_at"></vs-list-item>

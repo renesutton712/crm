@@ -15,6 +15,15 @@
                 <span class="error" v-if="submit && validateOffer">Offer is required!</span>
             </vs-col>
         </vs-row>
+        <vs-row v-if="form_fields.offer_id === ''" vs-w="12" class="mt-3 mb-3">
+            <vs-col>
+                <label for="Rotator">Select Rotator:</label>
+                <v-select label="rotator_name" id="Rotator" :options="rotators_list"
+                          v-model="form_fields.rotator_id"
+                          :reduce="rotator => rotator.id"/>
+                <span class="error" v-if="submit && validateRotator">Rotator is required!</span>
+            </vs-col>
+        </vs-row>
         <vs-row vs-w="12" class="mt-3">
             <vs-col>
                 <label for="Postback">Select Postback:</label>
@@ -22,15 +31,6 @@
                           v-model="form_fields.pixel_id"
                           :reduce="pixel => pixel.id"/>
                 <span class="error" v-if="submit && validatePostback">Postback is required!</span>
-            </vs-col>
-        </vs-row>
-        <vs-row vs-w="12" class="mt-3 mb-3">
-            <vs-col>
-                <label for="Rotator">Select Rotator:</label>
-                <v-select label="rotator_name" id="Rotator" :options="rotators_list"
-                          v-model="form_fields.rotator_id"
-                          :reduce="rotator => rotator.id"/>
-                <span class="error" v-if="submit && validateRotator">Rotator is required!</span>
             </vs-col>
         </vs-row>
         <vs-row vs-w="12" class="mt-3">
@@ -284,7 +284,7 @@
                 return this.form_fields.pixel_id === '';
             },
             validateRotator() {
-                return this.form_fields.rotator_id === '';
+                return this.form_fields.rotator_id === '' && this.form_fields.offer_id === '';
             }
         },
         beforeMount() {
