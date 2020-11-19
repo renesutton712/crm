@@ -96,8 +96,8 @@ export default [
         url: '/iframepixel',
         name: 'iframepixel',
         icon: 'FramerIcon',
-        slug: 'Iframes pixels',
-        i18n: 'Iframes pixels'
+        slug: 'iFrame Pixels',
+        i18n: 'iFrame Pixels'
     },
     {
         url: '/leads',

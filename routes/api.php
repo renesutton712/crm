@@ -30,6 +30,8 @@ Route::middleware(['auth:api', 'role'])->group(function () {
     Route::post('networks/store', 'NetworksController@store');
     //Offers
     Route::get('offers/get', 'OffersController@get');
+    Route::get('offers/get/{id}', 'OffersController@getOffer');
+    Route::get('offers/delete/{id}', 'OffersController@delete');
     Route::post('offers/store', 'OffersController@store');
     //Leads
     Route::post('leads/get', 'LeadsController@get');

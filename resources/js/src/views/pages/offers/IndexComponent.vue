@@ -19,11 +19,12 @@
                         <vs-th sort_key="network_name">Network Name</vs-th>
                         <vs-th sort-key="offer_id">OI</vs-th>
                         <vs-th sort-key="offer_name">Offer Name</vs-th>
-                        <vs-th sort-key="offer_token">Offer token key</vs-th>
-                        <vs-th sort-key="offer_token_value">Offer token value</vs-th>
+                        <vs-th sort-key="offer_token">Param key</vs-th>
+                        <vs-th sort-key="offer_token_value">Param value</vs-th>
                         <vs-th sort-key="offer_url">Offer URL</vs-th>
                         <vs-th sort_key="status">Status</vs-th>
                         <vs-th sort_key="updated_at">Created</vs-th>
+                        <vs-th sort_key="actions">Actions</vs-th>
                     </template>
                     <template slot-scope="{data}">
                         <vs-tr :data="tr" :key="indextr" v-for="(tr,indextr) in data">
@@ -37,6 +38,12 @@
                             <vs-td v-if="data[indextr].status === 1" :data="data[indextr].status">Active</vs-td>
                             <vs-td v-else :data="data[indextr].status">Not Active</vs-td>
                             <vs-td :data="data[indextr].updated_at">{{data[indextr].updated_at}}</vs-td>
+                            <vs-td>
+                                <vs-icon @click="editOffer(data[indextr].id)" icon="create" size="small"
+                                         color="success" class="mr-3"></vs-icon>
+                                <vs-icon @click="deleteOffer(data[indextr].id)" icon="delete" size="small"
+                                         color="danger"></vs-icon>
+                            </vs-td>
                         </vs-tr>
                     </template>
                 </vs-table>
@@ -47,7 +54,7 @@
                 <p>Add Offer</p>
             </template>
             <template v-slot:body>
-                <add-offer-component/>
+                <add-offer-component @destroyOfferId="destroyOfferId" :offer_id="offer_id"/>
             </template>
         </modal>
     </vs-card>
@@ -65,6 +72,7 @@
                 isModalVisible: false,
                 offers_list: [],
                 selected_offers: [],
+                offer_id: null,
             }
         },
         methods: {
@@ -96,6 +104,35 @@
                     })
 
             },
+            editOffer: function (offer_id) {
+                this.offer_id = offer_id;
+                this.showModal();
+            },
+            deleteOffer: function (id) {
+                if (!confirm('Are you sure you want to delete this offer?')) {
+                    return;
+                }
+                axios.get('offers/delete/' + id)
+                    .then((response) => {
+                        if (!response.data.status) {
+                            throw response.data;
+                        }
+                        location.reload();
+                    })
+                    .catch(error => {
+                        this.$vs.loading.close();
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.msg,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'warning'
+                        })
+                    })
+            },
+            destroyOfferId: function () {
+                this.offer_id = null
+            }
         },
         beforeMount() {
             this.getOffers();

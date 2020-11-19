@@ -32,8 +32,8 @@
                         <vs-th sort-key="campaign_name">Campaign Name</vs-th>
                         <vs-th sort-key="network_name">Network Name</vs-th>
                         <vs-th sort_key="offer_name">Offer Name</vs-th>
-                        <vs-th sort_key="pixel_name">Pixel Name</vs-th>
-                        <vs-th sort_key="iframe_name">Iframe Pixel Name</vs-th>
+                        <!--                        <vs-th sort_key="pixel_name">Pixel Name</vs-th>-->
+                        <vs-th sort_key="rotator_name">Rotator Name</vs-th>
                         <vs-th sort_key="platform">Platform</vs-th>
                         <vs-th>URL parameters</vs-th>
                         <vs-th sort_key="status">Status</vs-th>
@@ -45,8 +45,8 @@
                             <vs-td :data="data[indextr].campaign_name">{{data[indextr].campaign_name}}</vs-td>
                             <vs-td :data="data[indextr].rotator_name">{{data[indextr].rotator_name}}</vs-td>
                             <vs-td :data="data[indextr].offer_name">{{data[indextr].offer_name}}</vs-td>
-                            <vs-td :data="data[indextr].pixel_name">{{data[indextr].pixel_name}}</vs-td>
-                            <vs-td :data="data[indextr].iframe_name">{{data[indextr].iframe_name}}</vs-td>
+                            <!--                            <vs-td :data="data[indextr].pixel_name">{{data[indextr].pixel_name}}</vs-td>-->
+                            <vs-td :data="data[indextr].rotator_name">{{data[indextr].rotator_name}}</vs-td>
                             <vs-td :data="data[indextr].platform">{{platform_names[data[indextr].platform]}}</vs-td>
                             <vs-td>{{'&ci=' + data[indextr].id + '&ri=' + data[indextr].rotator_id + '&oi=' +
                                 data[indextr].offer_id}}

@@ -45,6 +45,7 @@
 
     export default {
         name: "AddOfferComponent",
+        props: ['offer_id'],
         components: {
             'v-select': vSelect,
         },
@@ -57,6 +58,8 @@
                     offer_url: '',
                     offer_token: '',
                     offer_token_val: '',
+                    offer_id: '',
+                    offer_rand_id: '',
                 },
                 networks_list: [],
             }
@@ -68,6 +71,7 @@
                     return false;
                 }
                 this.$vs.loading();
+                this.form_fields.offer_id = this.offer_id == undefined ? 0 : this.offer_id;
                 axios.post('offers/store', this.form_fields)
                     .then((response) => {
                         if ("status" in response.data && !response.data.status) {
@@ -103,6 +107,32 @@
                             color: 'warning'
                         })
                     })
+            },
+            getOffer: function () {
+                this.$vs.loading();
+                axios.get('offers/get/' + this.offer_id)
+                    .then((response) => {
+                        if (!response.data.status) {
+                            throw response.data;
+                        }
+                        this.form_fields.offer_name = response.data.offer_name;
+                        this.form_fields.network_id = response.data.network_id;
+                        this.form_fields.offer_token = response.data.offer_token;
+                        this.form_fields.offer_token_val = response.data.offer_token_value;
+                        this.form_fields.offer_url = response.data.offer_url;
+                        this.form_fields.offer_rand_id = response.data.offer_id;
+                        this.$vs.loading.close();
+                    })
+                    .catch(error => {
+                        this.$vs.loading();
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.msg,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'warning'
+                        })
+                    })
             }
         },
         computed: {
@@ -121,6 +151,12 @@
         },
         beforeMount() {
             this.getNetworks();
+            if (this.offer_id !== null) {
+                this.getOffer();
+            }
+        },
+        destroyed() {
+            this.$emit('destroyOfferId');
         }
     }
 </script>

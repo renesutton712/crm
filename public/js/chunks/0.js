@@ -9214,8 +9214,8 @@ __webpack_require__.r(__webpack_exports__);
   url: '/iframepixel',
   name: 'iframepixel',
   icon: 'FramerIcon',
-  slug: 'Iframes pixels',
-  i18n: 'Iframes pixels'
+  slug: 'iFrame Pixels',
+  i18n: 'iFrame Pixels'
 }, {
   url: '/leads',
   name: 'leads',
