@@ -85,6 +85,7 @@ class PostbackController extends Controller {
      */
     private function sendFTD($lead_data, $payout) {
         $lead_url_params = json_decode($lead_data->url_params, true);
+        dd($lead_data);
         $camp = Pixel::where('campaign_id', '=', $lead_data->campaign_id)->first();
         $pixel = PixelGroup::where('pixel_id', '=', "{$camp->id}")->where('type', '=', 'FTD')->first();
         $pixel = $pixel->url;
