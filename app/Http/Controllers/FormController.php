@@ -7,10 +7,7 @@ use App\CampaignSetting;
 use App\Country;
 use App\Http\Networks;
 use App\Lead;
-use App\Network;
-use App\PixelGroup;
 use App\RotatorGroup;
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 class FormController extends Controller {
@@ -123,19 +120,19 @@ class FormController extends Controller {
         if (is_null($ci) || is_null($ri)) {
             return false;
         }
-        $rotator_network = '';
-        $networks = RotatorGroup::rotatorWithNetworkToken($ri);
+        $rotator_offers = '';
+        $offers = RotatorGroup::rotatorWithNetworkToken($ri);
         $leads_sum = Lead::where('campaign_id', '=', $ci)->where('status', '=', '2')->count();
-        foreach ($networks as $network) {
-            $network_leads_amount = Lead::where('campaign_id', '=', $ci)->where('network_id', '=', $network->network_id)->where('status', '=', '2')->count();
-            if ($network_leads_amount <= ceil(($network->weight / 100) * $leads_sum)) {
-                $this->updatedLeadWithSelectedNetwork($unique_id, $network->id);
-                $rotator_network = $network;
+        foreach ($offers as $offer) {
+            $offer_leads_amount = Lead::where('campaign_id', '=', $ci)->where('offer_id', '=', $offer->offer_id)->where('status', '=', '2')->count();
+            if ($offer_leads_amount <= ceil(($offer->weight / 100) * $leads_sum)) {
+                $this->updatedLeadWithSelectedNetwork($unique_id, $offer->network_id);
+                $rotator_offers = $offer;
                 break;
             }
         }
 
-        return $rotator_network;
+        return $rotator_offers;
     }
 
     protected function updatedLeadWithSelectedNetwork($unique_id, $network_id) {
