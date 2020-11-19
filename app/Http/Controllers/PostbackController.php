@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Campaign;
 use App\Lead;
+use App\Pixel;
+use App\PixelGroup;
 use App\Postback;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 class PostbackController extends Controller {
@@ -49,6 +53,7 @@ class PostbackController extends Controller {
         $lead = Lead::where('unique_id', '=', $existing_unique->unique_id)->firstOrFail();
         $lead->status = 3;
         $lead->save();
+        $this->sendFTD($lead, $payout);
         return json_encode(['status' => true, 'msg' => 'Saved!']);
         //Pixel URL: https://postbackspixel.info/api/postback/event/{unique_id}/{payout}
         /**
@@ -71,4 +76,26 @@ class PostbackController extends Controller {
         }
         return $lead;
     }
+
+    /**
+     * @param $lead_data
+     * @param $payout
+     * @return array|\Illuminate\Http\JsonResponse|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    private function sendFTD($lead_data, $payout) {
+        $lead_url_params = json_decode($lead_data->url_params, true);
+        $camp = Pixel::where('campaign_id', '=', $lead_data->campaign_id)->first();
+        $pixel = PixelGroup::where('pixel_id', '=', "{$camp->id}")->where('type', '=', 'FTD')->first();
+        $pixel = $pixel->url;
+        $fire = str_replace('{cid}', $lead_url_params['cid'], $pixel);
+        $fire = str_replace('{payout}', $payout, $fire);
+        $client = new Client();
+        $res = $client->request('GET', $fire);
+        if ($res->getStatusCode() === 200) {
+            return $res->getBody()->getContents();
+        }
+        return response()->json(['message' => 'Not found!'], 404);
+    }
+
 }
