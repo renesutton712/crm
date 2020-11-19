@@ -8,11 +8,29 @@
         </vs-row>
         <vs-row vs-w="12" class="mt-3">
             <vs-col>
-                <label for="Postback">Select Postback(optional):</label>
+                <label for="Offer">Select Offer:</label>
+                <v-select label="offer_name" id="Offer" :options="offers_list"
+                          v-model="form_fields.offer_id"
+                          :reduce="offer => offer.offer_id"/>
+                <span class="error" v-if="submit && validateOffer">Offer is required!</span>
+            </vs-col>
+        </vs-row>
+        <vs-row vs-w="12" class="mt-3">
+            <vs-col>
+                <label for="Postback">Select Postback:</label>
                 <v-select label="pixel_name" id="Postback" :options="pixels_list"
                           v-model="form_fields.pixel_id"
                           :reduce="pixel => pixel.id"/>
-                <span class="info">Select postback to associated with the campaign</span>
+                <span class="error" v-if="submit && validatePostback">Postback is required!</span>
+            </vs-col>
+        </vs-row>
+        <vs-row vs-w="12" class="mt-3 mb-3">
+            <vs-col>
+                <label for="Rotator">Select Rotator:</label>
+                <v-select label="rotator_name" id="Rotator" :options="rotators_list"
+                          v-model="form_fields.rotator_id"
+                          :reduce="rotator => rotator.id"/>
+                <span class="error" v-if="submit && validateRotator">Rotator is required!</span>
             </vs-col>
         </vs-row>
         <vs-row vs-w="12" class="mt-3">
@@ -22,15 +40,6 @@
                           v-model="form_fields.iframe_id"
                           :reduce="iframe => iframe.id"/>
                 <span class="info">Select iframe pixel to associated with the campaign</span>
-            </vs-col>
-        </vs-row>
-        <vs-row vs-w="12" class="mt-3 mb-3">
-            <vs-col>
-                <label for="Rotator">Select Rotator(optional):</label>
-                <v-select label="rotator_name" id="Rotator" :options="rotators_list"
-                          v-model="form_fields.rotator_id"
-                          :reduce="rotator => rotator.id"/>
-                <span class="info">Select network associated with the campaign</span>
             </vs-col>
         </vs-row>
         <vs-row vs-w="12" class="mt-3 mb-3">
@@ -127,6 +136,7 @@
                 pixels_list: [],
                 iframe_list: [],
                 rotators_list: [],
+                offers_list: [],
                 platform_list: [
                     {id: 1, platform_name: 'Facebook'},
                     {id: 2, platform_name: 'Google'},
@@ -137,7 +147,7 @@
         methods: {
             save: function () {
                 this.submit = true;
-                if (this.validateCampaignName) {
+                if (this.validateCampaignName || this.validateOffer || this.validatePostback || this.validateRotator) {
                     return false;
                 }
                 this.$vs.loading();
@@ -199,6 +209,24 @@
                         })
                     })
             },
+            getOffers: function () {
+                axios.get('offers/get')
+                    .then((response) => {
+                        if ("status" in response.data) {
+                            throw response.data;
+                        }
+                        this.offers_list = response.data;
+                    })
+                    .catch(error => {
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.msg,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'warning'
+                        })
+                    })
+            },
             getCampaign: function () {
                 this.$vs.loading();
                 axios.get('campaigns/get/' + this.ci)
@@ -248,12 +276,22 @@
         computed: {
             validateCampaignName() {
                 return this.form_fields.campaign_name === '';
+            },
+            validateOffer() {
+                return this.form_fields.offer_id === '';
+            },
+            validatePostback() {
+                return this.form_fields.pixel_id === '';
+            },
+            validateRotator() {
+                return this.form_fields.rotator_id === '';
             }
         },
         beforeMount() {
             this.getRotators();
             this.getPixels();
             this.getIframePixels();
+            this.getOffers();
             if (this.ci !== null) {
                 this.getCampaign();
             }
@@ -290,5 +328,10 @@
         border: 1px solid;
         border-radius: 5px;
         margin-top: 5px;
+    }
+
+    .error {
+        color: red;
+        margin: 2px 0;
     }
 </style>

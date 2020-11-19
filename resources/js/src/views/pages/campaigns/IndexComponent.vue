@@ -33,7 +33,7 @@
                         <vs-th sort-key="network_name">Network Name</vs-th>
                         <vs-th sort_key="offer_name">Offer Name</vs-th>
                         <vs-th sort_key="pixel_name">Pixel Name</vs-th>
-                        <vs-th sort_key="iframe_name">Iframe Name</vs-th>
+                        <vs-th sort_key="iframe_name">Iframe Pixel Name</vs-th>
                         <vs-th sort_key="platform">Platform</vs-th>
                         <vs-th>URL parameters</vs-th>
                         <vs-th sort_key="status">Status</vs-th>
