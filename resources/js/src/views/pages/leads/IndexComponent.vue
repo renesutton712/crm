@@ -41,9 +41,6 @@
                           v-model="filters.type"
                           :reduce="type => type.val"/>
             </vs-col>
-            <!--            <vs-col class="mt-4" vs-w="2" vs-type="flex" vs-justify="flex-start" vs-align="center">-->
-            <!--                <vs-button id="FilterBtn" @click="getLeads" color="dark" type="border">Filter</vs-button>-->
-            <!--            </vs-col>-->
         </vs-row>
         <vs-divider/>
         <vs-row>
@@ -55,6 +52,7 @@
                         <vs-th sort-key="campaign_name">Campaign</vs-th>
                         <vs-th sort-key="rotator_name">Rotator</vs-th>
                         <vs-th sort-key="network_name">Network</vs-th>
+                        <vs-th sort-key="offer_id">Offer</vs-th>
                         <vs-th sort-key="country">Country</vs-th>
                         <vs-th sort-key="first_name">First Name</vs-th>
                         <vs-th sort-key="last_name">Last Name</vs-th>
@@ -79,6 +77,10 @@
                                 {{data[indextr].network_name}}
                             </vs-td>
                             <vs-td v-else>Network not found</vs-td>
+                            <vs-td v-if="data[indextr].offer_id !== null" :data="data[indextr].offer_id">
+                                {{data[indextr].offer_id}}
+                            </vs-td>
+                            <vs-td v-else>Offer not found</vs-td>
                             <vs-td :data="data[indextr].country">{{data[indextr].country}}</vs-td>
                             <vs-td :data="data[indextr].first_name">{{data[indextr].first_name}}</vs-td>
                             <vs-td :data="data[indextr].last_name">{{data[indextr].last_name}}</vs-td>

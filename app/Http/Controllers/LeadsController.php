@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 class LeadsController extends Controller {
 
     public function get(Request $request) {
-        $user = User::userWithRole(Auth::id());
         $network_id = filter_var(strip_tags($request->input('network_id')), FILTER_SANITIZE_STRING);
         $campaign_id = filter_var(strip_tags($request->input('campaign_id')), FILTER_SANITIZE_STRING);
         $rotator_id = filter_var(strip_tags($request->input('rotator_id')), FILTER_SANITIZE_STRING);

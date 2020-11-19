@@ -31,9 +31,10 @@ class Lead extends Model {
 
     public static function leadsWithAllRelations() {
         return DB::table('leads AS l')
-            ->select('l.unique_id', 'l.campaign_id','l.rotator_id', 'l.country', 'l.first_name', 'l.last_name', 'l.email', 'l.prefix', 'l.phone', 'l.ip', 'l.ua', 'l.status', 'l.url_params', 'l.network_response', 'l.created_at', 'l.updated_at', 'c.campaign_name', 'ro.rotator_name', 'n.network_name', 'n.id as network_id')
+            ->select('l.unique_id', 'l.campaign_id', 'l.rotator_id', 'l.country', 'l.first_name', 'l.last_name', 'l.email', 'l.prefix', 'l.phone', 'l.ip', 'l.ua', 'l.status', 'l.url_params', 'l.network_response', 'l.created_at', 'l.updated_at', 'c.campaign_name', 'ro.rotator_name', 'n.network_name', 'n.id as network_id', 'o.offer_id')
             ->join('rotators AS ro', 'l.rotator_id', '=', 'ro.id')
             ->join('campaigns AS c', 'l.campaign_id', '=', 'c.id')
+            ->leftJoin('offers AS o', 'l.offer_id', '=', 'o.offer_id')
             ->leftJoin('networks AS n', 'l.network_id', '=', 'n.id')
             ->orderBy('l.id', 'DESC')
             ->get();
