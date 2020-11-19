@@ -12,7 +12,18 @@
                 <v-select label="network_name" id="Network" :options="networks_list"
                           v-model="form_fields.network_id"
                           :reduce="network => network.id"/>
-                <span class="info">Select network associated with the offer</span>
+                <span class="error" v-if="submit && validateNetwork">Network is required!</span>
+            </vs-col>
+        </vs-row>
+        <vs-row vs-w="12" class="mt-3">
+            <vs-col vs-w="5">
+                <vs-input class="w-full" label-placeholder="Offer URL param key" v-model="form_fields.offer_token"/>
+                <span class="error" v-if="submit && validateOfferToken">Offer name is required!</span>
+            </vs-col>
+            <vs-col vs-w="2"></vs-col>
+            <vs-col vs-w="5">
+                <vs-input class="w-full" label-placeholder="Offer URL param value" v-model="form_fields.offer_token_val"/>
+                <span class="error" v-if="submit && validateOfferTokenVal">Offer name is required!</span>
             </vs-col>
         </vs-row>
         <vs-row vs-w="12" class="mt-3">
@@ -44,6 +55,8 @@
                     offer_name: '',
                     network_id: '',
                     offer_url: '',
+                    offer_token: '',
+                    offer_token_val: '',
                 },
                 networks_list: [],
             }
@@ -51,9 +64,10 @@
         methods: {
             save: function () {
                 this.submit = true;
-                if (this.validateOfferName) {
+                if (this.validateOfferName || this.validateNetwork || this.validateOfferToken || this.validateOfferTokenVal) {
                     return false;
                 }
+                this.$vs.loading();
                 axios.post('offers/store', this.form_fields)
                     .then((response) => {
                         if ("status" in response.data && !response.data.status) {
@@ -94,6 +108,15 @@
         computed: {
             validateOfferName() {
                 return this.form_fields.offer_name === '';
+            },
+            validateNetwork() {
+                return this.form_fields.network_id === '';
+            },
+            validateOfferToken() {
+                return this.form_fields.offer_token === '';
+            },
+            validateOfferTokenVal() {
+                return this.form_fields.offer_token_val === '';
             }
         },
         beforeMount() {

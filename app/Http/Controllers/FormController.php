@@ -109,10 +109,6 @@ class FormController extends Controller {
             return json_encode(['status' => false, 'msg' => 'An error has occurred, please try again later']);
         }
         $lead_data = $model::latest()->first();
-//        $pixel_res = $this->sendPixel($lead_data, $ci);
-//        if (isset($pixel_res['status']) && !$pixel_res['status']) {
-//            return json_encode(['status' => false, 'msg' => "{$pixel_res['msg']}"]);
-//        }
         return $this->getNetwork($network, $lead_data);
     }
 

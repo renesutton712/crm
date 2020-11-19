@@ -16,19 +16,27 @@
                     <template slot="header"></template>
                     <template slot="thead">
                         <vs-th sort_key="id">ID</vs-th>
+                        <vs-th sort_key="network_name">Network Name</vs-th>
                         <vs-th sort-key="offer_id">OI</vs-th>
                         <vs-th sort-key="offer_name">Offer Name</vs-th>
+                        <vs-th sort-key="offer_token">Offer token key</vs-th>
+                        <vs-th sort-key="offer_token_value">Offer token value</vs-th>
                         <vs-th sort-key="offer_url">Offer URL</vs-th>
                         <vs-th sort_key="status">Status</vs-th>
+                        <vs-th sort_key="updated_at">Created</vs-th>
                     </template>
                     <template slot-scope="{data}">
                         <vs-tr :data="tr" :key="indextr" v-for="(tr,indextr) in data">
                             <vs-td :data="data[indextr].id">{{data[indextr].id}}</vs-td>
+                            <vs-td :data="data[indextr].network_name">{{data[indextr].network_name}}</vs-td>
                             <vs-td :data="data[indextr].offer_id">{{data[indextr].offer_id}}</vs-td>
                             <vs-td :data="data[indextr].offer_name">{{data[indextr].offer_name}}</vs-td>
+                            <vs-td :data="data[indextr].offer_token">{{data[indextr].offer_token}}</vs-td>
+                            <vs-td :data="data[indextr].offer_token_value">{{data[indextr].offer_token_value}}</vs-td>
                             <vs-td :data="data[indextr].offer_url">{{data[indextr].offer_url}}</vs-td>
                             <vs-td v-if="data[indextr].status === 1" :data="data[indextr].status">Active</vs-td>
                             <vs-td v-else :data="data[indextr].status">Not Active</vs-td>
+                            <vs-td :data="data[indextr].updated_at">{{data[indextr].updated_at}}</vs-td>
                         </vs-tr>
                     </template>
                 </vs-table>

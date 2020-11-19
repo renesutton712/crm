@@ -17,6 +17,8 @@ class CreateOffersTable extends Migration {
             $table->string('offer_name');
             $table->integer('network_id')->nullable();
             $table->integer('user_id');
+            $table->string('offer_token');
+            $table->string('offer_token_value');
             $table->string('offer_url');
             $table->smallInteger('status');
             $table->timestamps();
