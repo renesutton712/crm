@@ -22,8 +22,8 @@ class RotatorController extends Controller {
         if (empty($name)) {
             return json_encode(['status' => false, 'msg' => 'Rotator name cant be empty!']);
         }
-        $networks = $request->input('networks');
-        if (empty($networks)) {
+        $offers = $request->input('offers');
+        if (empty($offers)) {
             return json_encode(['status' => false, 'msg' => 'Networks cant be empty!']);
         }
         DB::beginTransaction();
@@ -37,17 +37,17 @@ class RotatorController extends Controller {
                 throw new \Exception('Please set different rotator name');
             }
             $id = (int)$id === 0 ? $model->id : (int)$id;
-            foreach ($networks as $network) {
-                $network_id = filter_var(strip_tags($network['network_id']), FILTER_SANITIZE_NUMBER_INT);
-                $weight = filter_var(strip_tags($network['weight']), FILTER_SANITIZE_STRING);
-                $priority = filter_var(strip_tags($network['priority']), FILTER_SANITIZE_STRING);
-                if (!isset($network['id'])) {
-                    $network['id'] = 0;
+            foreach ($offers as $offer) {
+                $offer_id = filter_var(strip_tags($offer['offer_id']), FILTER_SANITIZE_STRING);
+                $weight = filter_var(strip_tags($offer['weight']), FILTER_SANITIZE_STRING);
+                $priority = filter_var(strip_tags($offer['priority']), FILTER_SANITIZE_STRING);
+                if (!isset($offer['id'])) {
+                    $offer['id'] = 0;
                 }
                 $group = RotatorGroup::updateOrCreate(
-                    ['id' => $network['id']],
+                    ['id' => $offer['id']],
                     [
-                        'rule_id' => 0, 'network_id' => $network_id, 'weight' => $weight,
+                        'rule_id' => 0, 'offer_id' => $offer_id, 'weight' => $weight,
                         'priority' => $priority, 'rotator_id' => $id
                     ]
                 );

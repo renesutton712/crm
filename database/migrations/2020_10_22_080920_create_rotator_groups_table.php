@@ -15,7 +15,7 @@ class CreateRotatorGroupsTable extends Migration {
             $table->id();
             $table->integer('rotator_id');
             $table->integer('rule_id')->nullable();
-            $table->integer('network_id');
+            $table->integer('offer_id');
             $table->integer('weight');
             $table->integer('priority')->nullable();
             $table->timestamps();

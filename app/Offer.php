@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class Offer extends Model {
     protected $guarded = [];
+
     public function lead() {
         return $this->hasMany('App\Lead');
     }

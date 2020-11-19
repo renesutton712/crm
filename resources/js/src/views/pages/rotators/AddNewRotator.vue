@@ -9,12 +9,12 @@
         <vs-divider/>
         <h5>{{weightErr.msg}}</h5>
         <vs-divider/>
-        <vs-row vs-w="12" v-for="(item, index) in form_fields.networks">
+        <vs-row vs-w="12" v-for="(item, index) in form_fields.offers">
             <vs-col vs-w="4">
-                <label for="Network">Network:</label>
-                <v-select label="network_name" id="Network" :options="networks_list"
-                          v-model="item.network_id"
-                          :reduce="network => network.id"/>
+                <label for="Offer">Offer:</label>
+                <v-select label="offer_name" id="Offer" :options="offers_list"
+                          v-model="item.offer_id"
+                          :reduce="offer => offer.offer_id"/>
             </vs-col>
             <vs-col vs-w="2" class="ml-3 mr-3">
                 <vs-input @keyup="validateWeight(item.weight)" class="w-full" label-placeholder="Weight"
@@ -25,7 +25,7 @@
             </vs-col>
             <vs-col vs-w="2" class="ml-3">
                 <vs-button @click="removeNetwork(index)" class="mt-5" icon-pack="feather" icon="icon-minus-square" type="border"
-                           color="dark" :disabled="form_fields.networks.length <= 1"></vs-button>
+                           color="dark" :disabled="form_fields.offers.length <= 1"></vs-button>
             </vs-col>
         </vs-row>
         <vs-row class="mt-4">
@@ -56,11 +56,12 @@
             return {
                 NaNWeight: false,
                 submit: false,
-                networks_list: [],
+                // networks_list: [],
+                offers_list: [],
                 form_fields: {
                     rotator_name: '',
-                    networks: [{
-                        network_id: '',
+                    offers: [{
+                        offer_id: '',
                         weight: '',
                         priority: '',
                     }],
@@ -74,13 +75,13 @@
             }
         },
         methods: {
-            getNetworks: function () {
-                axios.get('networks/get')
+            getOffers: function () {
+                axios.get('offers/get')
                     .then((response) => {
                         if ("status" in response.data) {
                             throw response.data;
                         }
-                        this.networks_list = response.data;
+                        this.offers_list = response.data;
                     })
                     .catch(error => {
                         this.$vs.notify({
@@ -96,10 +97,10 @@
                 this.$emit('destroyri');
             },
             addNetwork: function () {
-                this.form_fields.networks.push({network_id: '', weight: '', priority: ''});
+                this.form_fields.offers.push({offer_id: '', weight: '', priority: ''});
             },
             removeNetwork: function (index) {
-                this.form_fields.networks.splice(index, 1);
+                this.form_fields.offers.splice(index, 1);
             },
             save: function () {
                 this.$vs.loading();
@@ -132,7 +133,7 @@
                 axios.get('rotators/get/' + this.ri)
                     .then((response) => {
                         this.form_fields.rotator_name = response.data[0].rotator_name;
-                        this.form_fields.networks = response.data[0].rotator_group;
+                        this.form_fields.offers = response.data[0].rotator_group;
                         this.$vs.loading.close();
                     })
                     .catch(error => {
@@ -155,8 +156,8 @@
                 }
                 this.weightErr.msg = '';
                 this.NaNWeight = false;
-                for (let i = 0; i < this.form_fields.networks.length; i++) {
-                    startWeight += Number(this.form_fields.networks[i].weight);
+                for (let i = 0; i < this.form_fields.offers.length; i++) {
+                    startWeight += Number(this.form_fields.offers[i].weight);
                     if (this.maxWeight < startWeight) {
                         this.NaNWeight = true;
                         this.weightErr.msg = 'Weight is above max percentage (100%)';
@@ -170,7 +171,7 @@
             }
         },
         beforeMount() {
-            this.getNetworks();
+            this.getOffers();
             if (this.ri !== null) {
                 this.getRotatorData();
             }
