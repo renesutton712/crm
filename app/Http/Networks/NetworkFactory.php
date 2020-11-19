@@ -4,6 +4,7 @@ namespace App\Http\Networks;
 
 use App\Campaign;
 use App\Lead;
+use App\Offer;
 use App\Pixel;
 use App\PixelGroup;
 use App\PixelIframe;
@@ -84,6 +85,13 @@ abstract class NetworkFactory {
      */
     public function getLoginToken() {
         return $this->login_token;
+    }
+
+    protected function getOffer($offer_id) {
+        if (empty($offer_id)) {
+            return ['status' => false, 'msg' => 'No offer found'];
+        }
+        return Offer::where('offer_id', '=', "{$offer_id}")->first();
     }
 
     /**

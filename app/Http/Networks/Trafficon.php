@@ -151,8 +151,13 @@ class Trafficon extends NetworkFactory {
     public function sendLead(array $params, $network) {
         $tokens_name = explode(',', $network->TN);
         $tokens = explode(',', $network->T);
+        if (!isset($params['offer_id'])) {
+            return ['status' => false, 'msg' => 'No offer id supplied'];
+        }
+        $offer = $this->getOffer($params['offer_id']);
         $data = [
-            $tokens_name[0] => $tokens[0], $tokens_name[1] => $tokens[1], 'first_name' => "{$params['first_name']}",
+            $offer->offer_token => $offer->offer_token_value, $tokens_name[1] => $tokens[1],
+            'first_name' => "{$params['first_name']}",
             'last_name' => "{$params['last_name']}", 'email' => "{$params['email']}",
             'password' => "{$params['password']}", 'area_code' => "{$params['prefix']}", 'phone' => "{$params['phone']}",
             'ip' => "{$params['ip']}",

@@ -136,7 +136,7 @@
         //Submit form + Final validation
         $('#user-form-lp').on('submit', function (e) {
             e.preventDefault();
-            // $('.form-layover').show();
+            $('.form-layover').show();
             let fn = $(this).find('.fn').val(),
                 ln = $(this).find('.ln').val(),
                 country = $(this).find('.country').val(),
@@ -165,12 +165,18 @@
                     ri: ri,
                 },
             }).done((response) => {
-                let res = JSON.parse(response);
+                let res = response;
+                if (IsJsonString(response)) {
+                    res = JSON.parse(response);
+                }
+                ;
                 if (!res.status) {
                     $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+                    $('.form-layover').hide();
                     alert(res.msg);
                     return;
                 }
+                delete_cookie('user', '/', window.location.hostname)
                 if ('pixel' in res) {
                     $("body").append(res.pixel);
                 }
@@ -178,6 +184,7 @@
                     window.location.href = res.msg;
                 }, 2500);
             }).fail((jqXHR, textStatus, errorThrown) => {
+                $('.form-layover').hide();
                 alert(textStatus)
             })
         })
@@ -341,30 +348,37 @@
 
         function validateFormInputs(form, fn, ln, country, phone, email, pwd, unique_id) {
             if (unique_id == undefined || unique_id.length === '') {
+                $('.form-layover').hide();
                 return false;
             }
             if (!name.test(fn) || fn == undefined || fn === '') {
                 form.find('.fn-error').text(form_errors.first_name).show();
+                $('.form-layover').hide();
                 return false;
             }
             if (!name.test(ln) || ln == undefined || ln === '') {
                 form.find('.ln-error').text(form_errors.last_name).show();
+                $('.form-layover').hide();
                 return false;
             }
             if (country == undefined || country === '') {
                 form.find('.country-error').text(form_errors.country).show();
+                $('.form-layover').hide();
                 return false;
             }
             if (!phone_regex.test(phone) || phone == undefined || phone === '') {
                 form.find('.phone-error').text(form_errors.phone).show();
+                $('.form-layover').hide();
                 return false;
             }
             if (!email_regex.test(email) || email == undefined || email === '') {
                 form.find('.email-error').text(form_errors.email).show();
+                $('.form-layover').hide();
                 return false;
             }
             if (!password_regex.test(pwd) || pwd == undefined || pwd === '') {
                 form.find('.pwd-error').text(form_errors.password).show();
+                $('.form-layover').hide();
                 return false;
             }
             return true;
@@ -420,6 +434,24 @@
                 }
             }
             return "";
+        }
+
+        function delete_cookie(name, path, domain) {
+            if (getCookie(name)) {
+                document.cookie = name + "=" +
+                    ((path) ? ";path=" + path : "") +
+                    ((domain) ? ";domain=" + domain : "") +
+                    ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+            }
+        }
+
+        function IsJsonString(str) {
+            try {
+                JSON.parse(str);
+            } catch (e) {
+                return false;
+            }
+            return true;
         }
 
         function setUserClientCountry() {
