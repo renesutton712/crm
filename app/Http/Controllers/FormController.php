@@ -20,6 +20,7 @@ class FormController extends Controller {
         $ci = filter_var(strip_tags($request->input('ci')), FILTER_SANITIZE_STRING);
         $ri = filter_var(strip_tags($request->input('ri')), FILTER_SANITIZE_STRING);
         $oi = filter_var(strip_tags($request->input('oi')), FILTER_SANITIZE_STRING);
+        $country = filter_var(strip_tags($request->input('client_country')), FILTER_SANITIZE_STRING);
         $client_ip = filter_var(strip_tags($request->input('client_ip')), FILTER_SANITIZE_STRING);
         if (!isset($ci) || empty($ci)) {
             return base64_encode(json_encode(['status' => false, 'msg' => 'Campaign not found!']));
@@ -39,6 +40,7 @@ class FormController extends Controller {
             $model->campaign_id = $ci;
             $model->rotator_id = $ri;
             $model->offer_id = $oi;
+            $model->country = $country;
             $model->ua = $ua;
             $model->ip = $ip;
             $model->url_params = $url_params;
