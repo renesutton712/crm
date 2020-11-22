@@ -24,7 +24,12 @@
                         <vs-tr :data="tr" :key="indextr" v-for="(tr,indextr) in data">
                             <vs-td :data="data[indextr].id">{{data[indextr].id}}</vs-td>
                             <vs-td :data="data[indextr].iframe_name">{{data[indextr].iframe_name}}</vs-td>
-                            <vs-td :data="data[indextr].iframe_content">{{data[indextr].iframe_content}}</vs-td>
+                            <vs-td :data="data[indextr].iframe_content">
+                                <vx-tooltip title="Full" color="primary" :text="data[indextr].iframe_content" position="bottom">
+                                    {{cutString(data[indextr].iframe_content)}}
+
+                                </vx-tooltip>
+                            </vs-td>
                             <vs-td>
                                 <vs-icon @click="EditIframePixel(data[indextr].id)" icon="create" size="small"
                                          color="success" class="mr-3"></vs-icon>
@@ -121,6 +126,9 @@
             EditIframePixel: function (id) {
                 this.p_id = id;
                 this.showModal();
+            },
+            cutString: function (str) {
+                return str.substring(0, 150) + '...';
             }
         },
         beforeMount() {
