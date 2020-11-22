@@ -156,7 +156,7 @@ class Trafficon extends NetworkFactory {
         }
         $offer = $this->getOffer($params['offer_id']);
         $data = [
-            $offer->offer_token => $offer->offer_token_value, $tokens_name[1] => $tokens[1],
+            $offer->offer_token => $offer->offer_token_value, $tokens_name[0] => $tokens[0],
             'first_name' => "{$params['first_name']}",
             'last_name' => "{$params['last_name']}", 'email' => "{$params['email']}",
             'password' => "{$params['password']}", 'area_code' => "{$params['prefix']}", 'phone' => "{$params['phone']}",

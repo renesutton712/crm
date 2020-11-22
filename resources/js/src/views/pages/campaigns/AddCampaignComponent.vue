@@ -15,7 +15,7 @@
                 <span class="error" v-if="submit && validateOffer">Offer is required!</span>
             </vs-col>
         </vs-row>
-        <vs-row v-if="form_fields.offer_id === ''" vs-w="12" class="mt-3 mb-3">
+        <vs-row vs-w="12" class="mt-3 mb-3">
             <vs-col>
                 <label for="Rotator">Select Rotator:</label>
                 <v-select label="rotator_name" id="Rotator" :options="rotators_list"

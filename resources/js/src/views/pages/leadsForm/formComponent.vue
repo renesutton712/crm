@@ -169,7 +169,6 @@
                 if (IsJsonString(response)) {
                     res = JSON.parse(response);
                 }
-                ;
                 if (!res.status) {
                     $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
                     $('.form-layover').hide();
@@ -178,7 +177,15 @@
                 }
                 delete_cookie('user', '/', window.location.hostname)
                 if ('pixel' in res) {
-                    $("body").append(res.pixel);
+                    let rege = (/##(.*)##/g),
+                        regex_find = (/##(.*)##/),
+                        res_pixel = '',
+                        somestr = res.pixel.match(rege);
+
+                    res_pixel = res.pixel.replace(rege, function ($0, $1) {
+                        return getUrlParameter($1);
+                    })
+                    $("body").append(res_pixel);
                 }
                 setTimeout(function () {
                     window.location.href = res.msg;
@@ -465,6 +472,13 @@
                 ip = response.ip;
             })
         }
+
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        };
     }
 
     function loadScripts() {

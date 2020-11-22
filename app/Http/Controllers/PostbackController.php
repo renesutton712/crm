@@ -58,7 +58,8 @@ class PostbackController extends Controller {
         //Pixel URL: https://postbackspixel.info/api/postback/event/{unique_id}/{payout}
         /**
          *  Pixel is get request set with our unique_id as mandatory pretty url parameter
-         *  for example: https://leadscrm/api/postback/event/{unique_id}
+         *  and the payout of the FTD mandatory as well.
+         *  for example: https://postbackspixel.info/api/postback/event/{unique_id}/{payout}
          */
     }
 
