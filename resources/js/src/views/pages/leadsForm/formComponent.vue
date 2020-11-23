@@ -15,470 +15,479 @@
     }
 
     function myJQueryCode() {
-        //Do stuff with jQuery
-        let $ = jQuery,
-            availableFromPlaces = ['.form-holder-place1', '.form-holder-place2', '.form-holder-place3', '.form-holder-place4', '.form-holder-place5'],
-            formParams = {
-                ci: 0,
-                ri: 0,
-                oi: 0,
-                ap: 0,
-                rt: 0,
-            },
-            form_vals = {
-                user_id: '',
-                ri: '',
-                oi: '',
-                ci: '',
-            },
-            form_errors = {
-                first_name: 'First name is required',
-                last_name: 'Last name is required',
-                country: 'Country is required',
-                phone: 'Please enter valid phone number',
-                email: 'Please enter valid email',
-                password: 'Password must contain 1 lowercase 1 uppercase and be at least 8 characters long',
-            },
-            form_settings = '',
-            // fullUrlParams = [],
-            country_code = '',
-            ip = '',
-            urlParams = urlParamsQuery(),
-            name = /^[a-z-A-Z^. ]+$/,
-            phone_regex = /[2-9]{1}\d{2}/,
-            password_regex = /^.*(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/,
-            email_regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-        //Utilities
-        loadScripts()
-        setUserClientCountry();
-        sendClick();
-        formElements();
-        appendReturnedValues(form_vals);
-        loadCustomCss();
-
-        //inputs validation before submit
-        $('#user-form-lp .fn').on('keyup', function () {
-            if (!name.test($(this).val())) {
-                $(this).parent().find('.fn-error').text('First name is not valid!').show();
-                $(this).parent().parent().parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
-                return;
-            }
-            if ($(this).val().length < 3) {
-                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
-                $(this).parent().find('.fn-error').text('First name must be at least 3 characters long').show();
-                return;
-            }
-            if ($(this).val().length === 0 || $(this).val().length >= 3) {
-                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', false);
-                $(this).parent().find('.fn-error').hide();
-            }
-        });
-        $('#user-form-lp .ln').on('keyup', function () {
-            if (!name.test($(this).val())) {
-                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
-                $(this).parent().find('.ln-error').text('Last name is not valid!').show();
-                return;
-            }
-            if ($(this).val().length <= 3) {
-                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
-                $(this).parent().find('.ln-error').text('Last name must be at least 3 characters long').show();
-                return;
-            }
-            if ($(this).val().length === 0 || $(this).val().length >= 3) {
-                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', false);
-                $(this).parent().find('.ln-error').hide();
-            }
-        });
-        $('#user-form-lp .phone').on('keyup', function () {
-            if (!phone_regex.test($(this).val())) {
-                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
-                $(this).parent().find('.phone-error').text('Phone is not valid!').show();
-                return;
-            }
-            if ($(this).val().length <= 6) {
-                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
-                $(this).parent().find('.phone-error').text('Please enter a valid phone number').show();
-                return;
-            }
-            if ($(this).val().length === 0 || $(this).val().length >= 6) {
-                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', false);
-                $(this).parent().find('.phone-error').hide();
-            }
-        });
-        $('#user-form-lp .email').on('keyup', function () {
-            if (!email_regex.test($(this).val())) {
-                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
-                $(this).parent().find('.email-error').text('Email is not valid!').show();
-                return;
-            }
-            if ($(this).val().length <= 6) {
-                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
-                $(this).parent().find('.email-error').text('Please enter a valid email address').show();
-                return;
-            }
-            if ($(this).val().length === 0 || $(this).val().length >= 6) {
-                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', false);
-                $(this).parent().find('.email-error').hide();
-            }
-        });
-        $('#user-form-lp .pwd').on('keyup', function () {
-            if (!password_regex.test($(this).val())) {
-                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
-                $(this).parent().find('.pwd-error').text('Password must contain 1 lowercase 1 uppercase and be at least 8 characters long').show();
-                return;
-            }
-            if ($(this).val().length === 0 || $(this).val().length >= 8) {
-                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', false);
-                $(this).parent().find('.pwd-error').hide();
-            }
-        });
-        //Submit form + Final validation
-        $('#user-form-lp').on('submit', function (e) {
-            e.preventDefault();
-            $('.form-layover').show();
-            let fn = $(this).find('.fn').val(),
-                ln = $(this).find('.ln').val(),
-                country = $(this).find('.country').val(),
-                phone = $(this).find('.phone').val(),
-                email = $(this).find('.email').val(),
-                pwd = $(this).find('.pwd').val(),
-                unique_id = $(this).find('.user').val(),
-                ri = urlParams.has('ri') ? urlParams.get('ri') : $(this).find('.ri').val(),
-                ci = urlParams.has('ci') ? urlParams.get('ci') : $(this).find('.ci').val();
-            if (!validateFormInputs($(this), fn, ln, country, phone, email, pwd, unique_id)) {
-                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
-                return;
-            }
-            $.ajax({
-                url: 'api/form/lead',
-                method: 'POST',
-                data: {
-                    fn: fn,
-                    ln: ln,
-                    country: country,
-                    phone: phone,
-                    email: email,
-                    pwd: pwd,
-                    user: unique_id,
-                    ci: ci,
-                    ri: ri,
+        $(function () {
+            'use strict'
+            //Do stuff with jQuery
+            let $ = jQuery,
+                availableFromPlaces = ['.form-holder-place1', '.form-holder-place2', '.form-holder-place3', '.form-holder-place4', '.form-holder-place5'],
+                formParams = {
+                    ci: 0,
+                    ri: 0,
+                    oi: 0,
+                    ap: 0,
+                    rt: 0,
                 },
-            }).done((response) => {
-                let res = response;
-                if (IsJsonString(response)) {
-                    res = JSON.parse(response);
-                }
-                if (!res.status) {
-                    $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
-                    $('.form-layover').hide();
-                    alert(res.msg);
+                form_vals = {
+                    user_id: '',
+                    ri: '',
+                    oi: '',
+                    ci: '',
+                },
+                form_errors = {
+                    first_name: 'First name is required',
+                    last_name: 'Last name is required',
+                    country: 'Country is required',
+                    phone: 'Please enter valid phone number',
+                    email: 'Please enter valid email',
+                    password: 'Password must contain 1 lowercase 1 uppercase and be at least 8 characters long',
+                },
+                form_settings = '',
+                // fullUrlParams = [],
+                country_code = '',
+                ip = '',
+                urlParams = urlParamsQuery(),
+                name = /^[a-z-A-Z^. ]+$/,
+                phone_regex = /[2-9]{1}\d{2}/,
+                password_regex = /^.*(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/,
+                email_regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+            //Utilities
+            loadScripts()
+            setUserClientCountry();
+            sendClick();
+            formElements();
+            appendReturnedValues(form_vals);
+            loadCustomCss();
+
+            //inputs validation before submit
+            $('#user-form-lp .fn').on('keyup', function () {
+                if (!name.test($(this).val())) {
+                    $(this).parent().find('.fn-error').text('First name is not valid!').show();
+                    $(this).parent().parent().parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
                     return;
                 }
-                delete_cookie('user', '/', window.location.hostname)
-                if ('pixel' in res) {
-                    let rege = (/##(.*)##/g),
-                        regex_find = (/##(.*)##/),
-                        res_pixel = '',
-                        somestr = res.pixel.match(rege);
-
-                    res_pixel = res.pixel.replace(rege, function ($0, $1) {
-                        return getUrlParameter($1);
-                    })
-                    $("body").append(res_pixel);
+                if ($(this).val().length < 3) {
+                    $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+                    $(this).parent().find('.fn-error').text('First name must be at least 3 characters long').show();
+                    return;
                 }
-                setTimeout(function () {
-                    window.location.href = res.msg;
-                }, 2500);
-            }).fail((jqXHR, textStatus, errorThrown) => {
-                $('.form-layover').hide();
-                alert(textStatus)
+                if ($(this).val().length === 0 || $(this).val().length >= 3) {
+                    $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', false);
+                    $(this).parent().find('.fn-error').hide();
+                }
+            });
+            $('#user-form-lp .ln').on('keyup', function () {
+                if (!name.test($(this).val())) {
+                    $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+                    $(this).parent().find('.ln-error').text('Last name is not valid!').show();
+                    return;
+                }
+                if ($(this).val().length <= 3) {
+                    $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+                    $(this).parent().find('.ln-error').text('Last name must be at least 3 characters long').show();
+                    return;
+                }
+                if ($(this).val().length === 0 || $(this).val().length >= 3) {
+                    $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', false);
+                    $(this).parent().find('.ln-error').hide();
+                }
+            });
+            $('#user-form-lp .phone').on('keyup', function () {
+                if (!phone_regex.test($(this).val())) {
+                    $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+                    $(this).parent().find('.phone-error').text('Phone is not valid!').show();
+                    return;
+                }
+                if ($(this).val().length <= 6) {
+                    $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+                    $(this).parent().find('.phone-error').text('Please enter a valid phone number').show();
+                    return;
+                }
+                if ($(this).val().length === 0 || $(this).val().length >= 6) {
+                    $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', false);
+                    $(this).parent().find('.phone-error').hide();
+                }
+            });
+            $('#user-form-lp .email').on('keyup', function () {
+                if (!email_regex.test($(this).val())) {
+                    $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+                    $(this).parent().find('.email-error').text('Email is not valid!').show();
+                    return;
+                }
+                if ($(this).val().length <= 6) {
+                    $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+                    $(this).parent().find('.email-error').text('Please enter a valid email address').show();
+                    return;
+                }
+                if ($(this).val().length === 0 || $(this).val().length >= 6) {
+                    $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', false);
+                    $(this).parent().find('.email-error').hide();
+                }
+            });
+            $('#user-form-lp .pwd').on('keyup', function () {
+                if (!password_regex.test($(this).val())) {
+                    $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+                    $(this).parent().find('.pwd-error').text('Password must contain 1 lowercase 1 uppercase and be at least 8 characters long').show();
+                    return;
+                }
+                if ($(this).val().length === 0 || $(this).val().length >= 8) {
+                    $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', false);
+                    $(this).parent().find('.pwd-error').hide();
+                }
+            });
+            //Submit form + Final validation
+            $('#user-form-lp').on('submit', function (e) {
+                e.preventDefault();
+                $('.form-layover').show();
+                let fn = $(this).find('.fn').val(),
+                    ln = $(this).find('.ln').val(),
+                    country = $(this).find('.country').val(),
+                    phone = $(this).find('.phone').val(),
+                    email = $(this).find('.email').val(),
+                    pwd = $(this).find('.pwd').val(),
+                    unique_id = $(this).find('.user').val(),
+                    ri = urlParams.has('ri') ? urlParams.get('ri') : $(this).find('.ri').val(),
+                    ci = urlParams.has('ci') ? urlParams.get('ci') : $(this).find('.ci').val();
+                if (!validateFormInputs($(this), fn, ln, country, phone, email, pwd, unique_id)) {
+                    $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+                    return;
+                }
+                $.ajax({
+                    url: 'api/form/lead',
+                    method: 'POST',
+                    data: {
+                        fn: fn,
+                        ln: ln,
+                        country: country,
+                        phone: phone,
+                        email: email,
+                        pwd: pwd,
+                        user: unique_id,
+                        ci: ci,
+                        ri: ri,
+                    },
+                }).done((response) => {
+                    let res = response;
+                    if (IsJsonString(response)) {
+                        res = JSON.parse(response);
+                    }
+                    if (!res.status) {
+                        $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+                        $('.form-layover').hide();
+                        alert(res.msg);
+                        return;
+                    }
+                    delete_cookie('user', '/', window.location.hostname)
+                    if ('pixel' in res) {
+                        let rege = (/##(.*)##/g),
+                            regex_find = (/##(.*)##/),
+                            res_pixel = '',
+                            somestr = res.pixel.match(rege);
+
+                        res_pixel = res.pixel.replace(rege, function ($0, $1) {
+                            return getUrlParameter($1);
+                        })
+                        $("body").append(res_pixel);
+                    }
+                    setTimeout(function () {
+                        window.location.href = res.msg;
+                    }, 2500);
+                }).fail((jqXHR, textStatus, errorThrown) => {
+                    $('.form-layover').hide();
+                    alert(textStatus)
+                })
             })
-        })
 
-        function formElements() {
-            let fn = form_settings.first_name === 'off' ? '' : "<input value='' autocomplete='off' type='text' class='form-control fn' id='First_Name' placeholder='First Name:' />" +
-                "<span class='error-block fn-error'></span>",
-                ln = form_settings.last_name === 'off' ? '' : "<input value='' autocomplete='off' type='text' class='form-control ln' id='Last_Name' placeholder='Last Name:' />" +
-                    "<span class='error-block ln-error'></span>",
-                country = form_settings.country === 'off' ? '' : "<select id='countries_phone1' class='form-control bfh-countries country'></select>" +
-                    "<span class='error-block country-error'></span>",
-                phone = form_settings.phone === 'off' ? '' : "<input value='' type='text' class='form-control bfh-phone phone' data-country='countries_phone1' />" +
-                    "<span class='error-block phone-error'></span>",
-                email = form_settings.email === 'off' ? '' : "<input value='' autocomplete='off' type='email' id='Email' class='form-control email' placeholder='Email:' />" +
-                    "<span class='error-block email-error'></span>",
-                password = form_settings.password === 'off' ? '' : "<input value='' type='password' id='PWD' placeholder='Password' class='form-control pwd'/>" +
-                    "<span class='error-block pwd-error'></span>";
+            function formElements() {
+                let fn = form_settings.first_name === 'off' ? '' : "<input value='' autocomplete='off' type='text' class='form-control fn' id='First_Name' placeholder='First Name:' />" +
+                    "<span class='error-block fn-error'></span>",
+                    ln = form_settings.last_name === 'off' ? '' : "<input value='' autocomplete='off' type='text' class='form-control ln' id='Last_Name' placeholder='Last Name:' />" +
+                        "<span class='error-block ln-error'></span>",
+                    country = form_settings.country === 'off' ? '' : "<select id='countries_phone1' class='form-control bfh-countries country'></select>" +
+                        "<span class='error-block country-error'></span>",
+                    phone = form_settings.phone === 'off' ? '' : "<input value='' type='text' class='form-control bfh-phone phone' data-country='countries_phone1' />" +
+                        "<span class='error-block phone-error'></span>",
+                    email = form_settings.email === 'off' ? '' : "<input value='' autocomplete='off' type='email' id='Email' class='form-control email' placeholder='Email:' />" +
+                        "<span class='error-block email-error'></span>",
+                    password = form_settings.password === 'off' ? '' : "<input value='' type='password' id='PWD' placeholder='Password' class='form-control pwd'/>" +
+                        "<span class='error-block pwd-error'></span>";
 
-            let form = "<form id='user-form-lp'>" +
-                "<div class='full-name'>" + "<div class='fn-holder'>" + fn + "</div>" + "<div class='ln-holder'>" + ln + "</div>" + " </div>" +
-                "<div class='country-select'><div>" + country + "</div>" + "</div>" +
-                "<div class='phone-input'><div>" + phone + "</div>" + "</div>" +
-                "<div class='email-input'><div>" + email + "</div>" + "</div>" +
-                "<div class='password-input'><div>" + password + "</div>" + "</div>" +
-                "<input type='submit' class='btn btn-default mt-4' value='Open Account' disabled='disabled'/>" +
-                "<input type='hidden' class='user' value='' /> " +
-                "<input type='hidden' class='ri' value='' /> " +
-                "<input type='hidden' class='oi' value='' /> " +
-                "<input type='hidden' class='ap' value='' /> " +
-                "<input type='hidden' class='ci' value='' /> " +
-                "<input type='hidden' class='client_ip' value='' /> " +
-                "</form>",
-                loader = "<div style='display:none;z-index: 99999;position: fixed;width: 100%; height: 100%;background: rgb(0 0 0 / 0.6); top: 0;' class='form-layover'>" +
-                    "<img src='images/loader.svg' width='150' height='150' alt=''>" +
-                    "</div>";
-            $.each(availableFromPlaces, function (i, el) {
-                $(el).append(form);
-            });
-            $('body').append(loader);
-            $('.bfh-countries').attr('data-country', country_code);
-            $('.client_ip').val(ip)
-        }
-
-        function loadCustomCss() {
-            $('#user-form-lp .error-block').css({
-                'position': 'absolute',
-                'color': '#fff',
-                'display': 'none',
-                'font-weight': '600',
-                'font-size': '12px',
-                'z-index': '99999',
-                'background': 'red',
-                'padding': '5px',
-                'border-radius': '3px',
-                'left': '15%',
-                'bottom': '-30px',
-            });
-            $('#user-form-lp .error-block::after').css({
-                'border-left': 'solid transparent 5px',
-                'border-right': 'solid transparent 5px',
-                'border-bottom': 'solid #ec2b00 10px',
-                'top': '-10px',
-                'content': " ",
-                'height': '0',
-                'left': '50%',
-                'margin-left': '-13px',
-                'position': 'absolute',
-                'width': ' 0',
-            });
-            $('#user-form-lp').css({
-                'max-width': '430px',
-                'width': '100%',
-                'margin': 'auto'
-            });
-            $('#user-form-lp div > div').css({
-                'position': 'relative',
-            });
-            $('#user-form-lp  .fn-holder').css({
-                'display': 'inline-block',
-                'width': '45%',
-                'margin-right': '5%'
-
-            });
-            $('#user-form-lp  .ln-holder').css({
-                'display': 'inline-block',
-                'width': '50%'
-
-            });
-            $('#user-form-lp input,select').css({
-                "height": "45px",
-                "width": "100%",
-                "margin": "5px 0",
-                "border": "1px solid #000",
-                "border-radius": "3px",
-                "padding": "0 0 0 10px",
-            });
-            $('#user-form-lp select').css({
-                'background': '#fff',
-                'width': '100%',
-            });
-            $('#user-form-lp input[type="submit"]').css({
-                'cursor': 'pointer',
-                'font-weight': 'bold',
-                'width': '100%',
-            })
-            $('#user-form-lp input#Last_Name').css({
-                'display': 'inline-block',
-            });
-            $('#user-form-lp input#First_Name').css({
-                'display': 'inline-block',
-            });
-
-            $('.form-layover img').css({
-                'position': 'absolute',
-                'left': '0',
-                'right': '0',
-                'margin': ' auto',
-                'top': '30%',
-            })
-
-        }
-
-        function sendClick() {
-
-            if (getCookie('user') !== '') {
-                form_vals.user_id = getCookie('user');
-                // $('.user').val(getCookie('user'));
-                return;
+                let form = "<form id='user-form-lp'>" +
+                    "<div class='full-name'>" + "<div class='fn-holder'>" + fn + "</div>" + "<div class='ln-holder'>" + ln + "</div>" + " </div>" +
+                    "<div class='country-select'><div>" + country + "</div>" + "</div>" +
+                    "<div class='phone-input'><div>" + phone + "</div>" + "</div>" +
+                    "<div class='email-input'><div>" + email + "</div>" + "</div>" +
+                    "<div class='password-input'><div>" + password + "</div>" + "</div>" +
+                    "<input type='submit' class='btn btn-default mt-4' value='Open Account' disabled='disabled'/>" +
+                    "<input type='hidden' class='user' value='' /> " +
+                    "<input type='hidden' class='ri' value='' /> " +
+                    "<input type='hidden' class='oi' value='' /> " +
+                    "<input type='hidden' class='ap' value='' /> " +
+                    "<input type='hidden' class='ci' value='' /> " +
+                    "<input type='hidden' class='client_ip' value='' /> " +
+                    "</form>",
+                    loader = "<div style='display:none;z-index: 99999;position: fixed;width: 100%; height: 100%;background: rgb(0 0 0 / 0.6); top: 0;' class='form-layover'>" +
+                        "<img src='images/loader.svg' width='150' height='150' alt=''>" +
+                        "</div>";
+                $.each(availableFromPlaces, function (i, el) {
+                    $(el).append(form);
+                });
+                $('body').append(loader);
+                $('.bfh-countries').attr('data-country', country_code);
+                $('.client_ip').val(ip)
             }
-            $.ajax({
-                url: 'api/form/click',
-                method: 'POST',
-                async: false,
-                crossDomain: true,
-                data: {
-                    oi: urlParams.has('oi') ? urlParams.get('oi') : formParams.oi,
-                    ri: urlParams.has('ri') ? urlParams.get('ri') : formParams.ri,
-                    ci: urlParams.has('ci') ? urlParams.get('ci') : formParams.ci,
-                    ap: urlParams.has('ap') ? urlParams.get('ap') : formParams.ap,
-                    client_country: country_code,
-                    client_ip: ip,
-                    ua: window.navigator.userAgent,
-                    url_params: URLToArray(window.location.search),
-                },
-            }).done((response) => {
-                const data = JSON.parse(atob(response));
-                // form_settings = data.settings;
-                // if ('status' in data && !data.status) {
-                //     throw data.msg;
+
+            function loadCustomCss() {
+                $('#user-form-lp .error-block').css({
+                    'position': 'absolute',
+                    'color': '#fff',
+                    'display': 'none',
+                    'font-weight': '600',
+                    'font-size': '12px',
+                    'z-index': '99999',
+                    'background': 'red',
+                    'padding': '5px',
+                    'border-radius': '3px',
+                    'left': '15%',
+                    'bottom': '-30px',
+                });
+                $('#user-form-lp .error-block::after').css({
+                    'border-left': 'solid transparent 5px',
+                    'border-right': 'solid transparent 5px',
+                    'border-bottom': 'solid #ec2b00 10px',
+                    'top': '-10px',
+                    'content': " ",
+                    'height': '0',
+                    'left': '50%',
+                    'margin-left': '-13px',
+                    'position': 'absolute',
+                    'width': ' 0',
+                });
+                $('#user-form-lp').css({
+                    'max-width': '430px',
+                    'width': '100%',
+                    'margin': 'auto'
+                });
+                $('#user-form-lp div > div').css({
+                    'position': 'relative',
+                });
+                $('#user-form-lp  .fn-holder').css({
+                    'display': 'inline-block',
+                    'width': '45%',
+                    'margin-right': '5%'
+
+                });
+                $('#user-form-lp  .ln-holder').css({
+                    'display': 'inline-block',
+                    'width': '50%'
+
+                });
+                $('#user-form-lp input,select').css({
+                    "height": "45px",
+                    "width": "100%",
+                    "margin": "5px 0",
+                    "border": "1px solid #000",
+                    "border-radius": "3px",
+                    "padding": "0 0 0 10px",
+                });
+                $('#user-form-lp select').css({
+                    'background': '#fff',
+                    'width': '100%',
+                });
+                $('#user-form-lp input[type="submit"]').css({
+                    'cursor': 'pointer',
+                    'font-weight': 'bold',
+                    'width': '100%',
+                })
+                $('#user-form-lp input#Last_Name').css({
+                    'display': 'inline-block',
+                });
+                $('#user-form-lp input#First_Name').css({
+                    'display': 'inline-block',
+                });
+
+                $('.form-layover img').css({
+                    'position': 'absolute',
+                    'left': '0',
+                    'right': '0',
+                    'margin': ' auto',
+                    'top': '30%',
+                })
+
+            }
+
+            function sendClick() {
+                const oi = urlParams.has('oi') ? urlParams.get('oi') : formParams.oi,
+                    ri = urlParams.has('ri') ? urlParams.get('ri') : formParams.ri,
+                    ci = urlParams.has('ci') ? urlParams.get('ci') : formParams.ci;
+                if (getCookie(oi + '_' + ri) !== '' && getCookie(oi + '_' + ri) !== 'undefined') {
+                    form_vals.user_id = getCookie(oi + '_' + ri);
+                    return;
+                }
+                // if (getCookie('user') !== '' && getCookie('user') !== 'undefined') {
+                //     form_vals.user_id = getCookie('user');
+                //     return;
                 // }
-                setCookie('user', data.unique_id, 1);
-                form_vals.user_id = data.unique_id;
-                form_vals.ci = data.ci;
-                form_vals.oi = data.oi;
-                form_vals.ri = data.ri;
+                $.ajax({
+                    url: 'api/form/click',
+                    method: 'POST',
+                    async: false,
+                    crossDomain: true,
+                    data: {
+                        oi: oi,
+                        ri: ri,
+                        ci: ci,
+                        ap: urlParams.has('ap') ? urlParams.get('ap') : formParams.ap,
+                        client_country: country_code,
+                        client_ip: ip,
+                        ua: window.navigator.userAgent,
+                        url_params: URLToArray(window.location.search),
+                    },
+                }).done((response) => {
+                    const data = JSON.parse(atob(response));
+                    // form_settings = data.settings;
+                    // if ('status' in data && !data.status) {
+                    //     throw data.msg;
+                    // }
+                    setCookie(oi + '_' + ri, data.unique_id, 1);
+                    // setCookie('user', data.unique_id, 1);
+                    form_vals.user_id = data.unique_id;
+                    form_vals.ci = data.ci;
+                    form_vals.oi = data.oi;
+                    form_vals.ri = data.ri;
 
-            }).fail((jqXHR, textStatus, errorThrown) => {
-                alert(textStatus)
-            })
-        }
+                }).fail((jqXHR, textStatus, errorThrown) => {
+                    alert(textStatus)
+                })
+            }
 
-        function validateFormInputs(form, fn, ln, country, phone, email, pwd, unique_id) {
-            if (unique_id == undefined || unique_id.length === '') {
-                $('.form-layover').hide();
-                return false;
-            }
-            if (!name.test(fn) || fn == undefined || fn === '') {
-                form.find('.fn-error').text(form_errors.first_name).show();
-                $('.form-layover').hide();
-                return false;
-            }
-            if (!name.test(ln) || ln == undefined || ln === '') {
-                form.find('.ln-error').text(form_errors.last_name).show();
-                $('.form-layover').hide();
-                return false;
-            }
-            if (country == undefined || country === '') {
-                form.find('.country-error').text(form_errors.country).show();
-                $('.form-layover').hide();
-                return false;
-            }
-            if (!phone_regex.test(phone) || phone == undefined || phone === '') {
-                form.find('.phone-error').text(form_errors.phone).show();
-                $('.form-layover').hide();
-                return false;
-            }
-            if (!email_regex.test(email) || email == undefined || email === '') {
-                form.find('.email-error').text(form_errors.email).show();
-                $('.form-layover').hide();
-                return false;
-            }
-            if (!password_regex.test(pwd) || pwd == undefined || pwd === '') {
-                form.find('.pwd-error').text(form_errors.password).show();
-                $('.form-layover').hide();
-                return false;
-            }
-            return true;
-        }
-
-        function appendReturnedValues(vals) {
-            $('.user').val(vals.user_id);
-            $('.ri').val(vals.ri);
-            $('.oi').val(vals.oi);
-            $('.ci').val(vals.ci);
-        }
-
-        function urlParamsQuery() {
-            const queryString = window.location.search,
-                urlParams = new URLSearchParams(queryString),
-                entries = urlParams.entries();
-            // for (let entry of entries) {
-            //     fullUrlParams.push(`${entry[0]}: ${entry[1]}`);
-            // }
-            return urlParams;
-        }
-
-        function URLToArray(url) {
-            let request = {};
-            let pairs = url.substring(url.indexOf('?') + 1).split('&');
-            for (let i = 0; i < pairs.length; i++) {
-                if (!pairs[i])
-                    continue;
-                let pair = pairs[i].split('=');
-                request[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
-            }
-            return request;
-        }
-
-        function setCookie(cname, cvalue, exdays) {
-            let d = new Date();
-            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-            let expires = "expires=" + d.toUTCString();
-            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-        }
-
-        function getCookie(cname) {
-            let name = cname + "=";
-            let decodedCookie = decodeURIComponent(document.cookie);
-            let ca = decodedCookie.split(';');
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) == ' ') {
-                    c = c.substring(1);
+            function validateFormInputs(form, fn, ln, country, phone, email, pwd, unique_id) {
+                if (unique_id == undefined || unique_id.length === '') {
+                    $('.form-layover').hide();
+                    return false;
                 }
-                if (c.indexOf(name) == 0) {
-                    return c.substring(name.length, c.length);
+                if (!name.test(fn) || fn == undefined || fn === '') {
+                    form.find('.fn-error').text(form_errors.first_name).show();
+                    $('.form-layover').hide();
+                    return false;
+                }
+                if (!name.test(ln) || ln == undefined || ln === '') {
+                    form.find('.ln-error').text(form_errors.last_name).show();
+                    $('.form-layover').hide();
+                    return false;
+                }
+                if (country == undefined || country === '') {
+                    form.find('.country-error').text(form_errors.country).show();
+                    $('.form-layover').hide();
+                    return false;
+                }
+                if (!phone_regex.test(phone) || phone == undefined || phone === '') {
+                    form.find('.phone-error').text(form_errors.phone).show();
+                    $('.form-layover').hide();
+                    return false;
+                }
+                if (!email_regex.test(email) || email == undefined || email === '') {
+                    form.find('.email-error').text(form_errors.email).show();
+                    $('.form-layover').hide();
+                    return false;
+                }
+                if (!password_regex.test(pwd) || pwd == undefined || pwd === '') {
+                    form.find('.pwd-error').text(form_errors.password).show();
+                    $('.form-layover').hide();
+                    return false;
+                }
+                return true;
+            }
+
+            function appendReturnedValues(vals) {
+                $('.user').val(vals.user_id);
+                $('.ri').val(vals.ri);
+                $('.oi').val(vals.oi);
+                $('.ci').val(vals.ci);
+            }
+
+            function urlParamsQuery() {
+                const queryString = window.location.search,
+                    urlParams = new URLSearchParams(queryString),
+                    entries = urlParams.entries();
+                // for (let entry of entries) {
+                //     fullUrlParams.push(`${entry[0]}: ${entry[1]}`);
+                // }
+                return urlParams;
+            }
+
+            function URLToArray(url) {
+                let request = {};
+                let pairs = url.substring(url.indexOf('?') + 1).split('&');
+                for (let i = 0; i < pairs.length; i++) {
+                    if (!pairs[i])
+                        continue;
+                    let pair = pairs[i].split('=');
+                    request[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+                }
+                return request;
+            }
+
+            function setCookie(cname, cvalue, exdays) {
+                let d = new Date();
+                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                let expires = "expires=" + d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            }
+
+            function getCookie(cname) {
+                let name = cname + "=";
+                let decodedCookie = decodeURIComponent(document.cookie);
+                let ca = decodedCookie.split(';');
+                for (let i = 0; i < ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+
+            function delete_cookie(name, path, domain) {
+                if (getCookie(name)) {
+                    document.cookie = name + "=" +
+                        ((path) ? ";path=" + path : "") +
+                        ((domain) ? ";domain=" + domain : "") +
+                        ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
                 }
             }
-            return "";
-        }
 
-        function delete_cookie(name, path, domain) {
-            if (getCookie(name)) {
-                document.cookie = name + "=" +
-                    ((path) ? ";path=" + path : "") +
-                    ((domain) ? ";domain=" + domain : "") +
-                    ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+            function IsJsonString(str) {
+                try {
+                    JSON.parse(str);
+                } catch (e) {
+                    return false;
+                }
+                return true;
             }
-        }
 
-        function IsJsonString(str) {
-            try {
-                JSON.parse(str);
-            } catch (e) {
-                return false;
+            function setUserClientCountry() {
+                $.ajax({
+                    url: 'https://ipinfo.io',
+                    method: 'get',
+                    async: false,
+                    dataType: 'json',
+                }).done((response) => {
+                    country_code = response.country;
+                    ip = response.ip;
+                })
             }
-            return true;
-        }
 
-        function setUserClientCountry() {
-            $.ajax({
-                url: 'https://ipinfo.io',
-                method: 'get',
-                async: false,
-                dataType: 'json',
-            }).done((response) => {
-                country_code = response.country;
-                ip = response.ip;
-            })
-        }
-
-        function getUrlParameter(name) {
-            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-            var results = regex.exec(location.search);
-            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-        };
+            function getUrlParameter(name) {
+                name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+                var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+                var results = regex.exec(location.search);
+                return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+            };
+        });
     }
 
     function loadScripts() {
