@@ -71,6 +71,7 @@ class SupremeMedia extends NetworkFactory {
             if (!empty($iframe)) {
                 $response['pixel'] = $iframe->iframe_content;
             }
+            $this->updateToLead($unique_id);
             return $response;
         } catch (\Exception $e) {
             $this->storeNetworkResponse($unique_id, $e->getMessage());

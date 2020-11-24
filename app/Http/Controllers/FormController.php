@@ -103,7 +103,7 @@ class FormController extends Controller {
                 'country' => $country, 'network_id' => $network->network_id, 'email' => $email, 'first_name' => $fn,
                 'last_name' => $ln,
                 'prefix' => $prefix, 'phone' => $phone,
-                'password' => $pwd, 'status' => 2
+                'password' => $pwd, 'status' => 1
             ]
         );
         if (!isset($network->network_id) || !is_int($network->network_id)) {

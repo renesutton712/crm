@@ -83,4 +83,16 @@ abstract class NetworkFactory {
         return response()->json(['message' => 'Not found!'], 404);
     }
 
+    protected function updateToLead($unique_id) {
+        if (empty($unique_id)) {
+            return false;
+        }
+        $model = Lead::where('unique_id', '=', $unique_id)->first();
+        $model->status = 2;
+        if (!$model->save()) {
+            return false;
+        }
+        return true;
+    }
+
 }
