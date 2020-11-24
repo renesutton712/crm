@@ -7,6 +7,7 @@ use App\CampaignSetting;
 use App\Country;
 use App\Http\Networks;
 use App\Lead;
+use App\NetworkToken;
 use App\Offer;
 use App\RotatorGroup;
 use Illuminate\Http\Request;
@@ -127,6 +128,9 @@ class FormController extends Controller {
         if ($ri === 'null') {
             $byOffer = Lead::where('unique_id', '=', $unique_id)->first();
             $networkByOffer = Offer::where('offer_id', '=', "{$byOffer->offer_id}")->first();
+            $tokens = NetworkToken::where('network_id', '=', "{$networkByOffer->network_id}")->first()->toArray();
+            $networkByOffer['TN'] = $tokens['token_name'];
+            $networkByOffer['T'] = $tokens['token'];
             $this->updatedLeadWithSelectedNetwork($unique_id, $networkByOffer->network_id);
             return $networkByOffer;
         }
