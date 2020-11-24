@@ -67,23 +67,6 @@ class Trafficon extends NetworkFactory {
         $this->aff_id = $aff_id;
     }
 
-    /**
-     * @param $unique_id
-     * @param $msg
-     * @return bool
-     */
-    protected function storeNetworkResponse($unique_id, $msg) {
-        if (empty($unique_id)) {
-            return false;
-        }
-        $model = Lead::where('unique_id', '=', $unique_id)->first();
-        $model->network_response = $msg;
-        if (!$model->save()) {
-            return false;
-        }
-        return true;
-    }
-
     protected function login() {
         $client = new Client();
 

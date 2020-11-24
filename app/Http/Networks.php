@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Campaign;
 use App\Http\Networks\COD;
+use App\Http\Networks\Convertick;
 use App\Http\Networks\SupremeMedia;
 use App\Http\Networks\Trafficon;
 use App\Lead;
@@ -31,6 +32,11 @@ class Networks {
             case 6:
                 $trafficon = new Trafficon();
                 return $trafficon->sendLead($params, $network);
+                break;
+            case 12:
+            case 9:
+                $convertick = new Convertick();
+                return $convertick->prepareData($params, $network);
                 break;
             default:
                 return json_encode(['status' => true, 'msg' => 'https://www.google.com']);

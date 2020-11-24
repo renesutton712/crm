@@ -37,7 +37,12 @@
                                 {{(data[indextr].network_tokens[0].token)}},
                                 {{(data[indextr].network_tokens[1].token)}}
                             </vs-td>
-                            <vs-td v-else>{{(data[indextr].network_tokens[0].token)}}</vs-td>
+                            <vs-td v-else>
+                                <vx-tooltip title="Full" color="primary" :text="data[indextr].network_tokens[0].token"
+                                            position="bottom">
+                                    {{cutString(data[indextr].network_tokens[0].token)}}
+                                </vx-tooltip>
+                            </vs-td>
                             <vs-td>
                                 <vs-icon @click="editNetwork(data[indextr].id)" icon="create" size="small"
                                          color="success" class="mr-3"></vs-icon>
@@ -128,6 +133,9 @@
             editNetwork(id) {
                 this.ni = id;
                 this.showModal();
+            },
+            cutString: function (str) {
+                return str.substring(0, 80) + '...';
             }
         },
         beforeMount() {
