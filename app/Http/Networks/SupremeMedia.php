@@ -23,9 +23,6 @@ class SupremeMedia extends NetworkFactory {
         }
         $this->setToken($network->T);
         $offer = $this->getOffer($params['offer_id']);
-        $params['ip'] = '82.70.250.120';
-        $params['country'] = 'DE';
-        $params['password'] = '123qweQWE';
         $data = [
             'firstname' => $params['first_name'], 'lastname' => $params['last_name'], 'email' => $params['email'],
             'password' => $params['password'], 'phone' => $params['prefix'] . $params['phone'], 'ip' => $params['ip'],
@@ -57,17 +54,13 @@ class SupremeMedia extends NetworkFactory {
             $data = json_decode($res->getBody()->getContents(), true);
             if ($res->getStatusCode() !== 200) {
                 throw new \Exception('Url not found');
-//                return json_encode(['status' => false, 'msg' => 'Not found']);
             }
             if (!$data['status']) {
                 throw new \Exception($data['result']);
-//                $this->storeNetworkResponse($unique_id, $data['result']);
-//                return json_encode(['status' => false, 'msg' => $data['result']]);
             }
             $pixel_res = $this->sendPixel($unique_id);
             if (isset($pixel_res['status']) && !$pixel_res['status']) {
                 throw new \Exception($pixel_res['msg']);
-//                return json_encode(['status' => false, 'msg' => $pixel_res['msg']]);
             }
             if (!$data['result']['success']) {
                 throw new \Exception('Duplicate found');
