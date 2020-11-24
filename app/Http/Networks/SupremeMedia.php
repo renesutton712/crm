@@ -4,10 +4,12 @@ namespace App\Http\Networks;
 
 use App\Offer;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 class SupremeMedia extends NetworkFactory {
 
     private $create_lead_url = "https://api.rhkoco.com/v2/affiliates/lead/create";
+    private $token = null;
 
     /**
      * @param array $params
@@ -19,14 +21,82 @@ class SupremeMedia extends NetworkFactory {
         if (!isset($params['offer_id'])) {
             return ['status' => false, 'msg' => 'No offer id supplied'];
         }
+        $this->setToken($network->T);
         $offer = $this->getOffer($params['offer_id']);
+        $params['ip'] = '82.70.250.120';
+        $params['country'] = 'DE';
+        $params['password'] = '123qweQWE';
         $data = [
             'firstname' => $params['first_name'], 'lastname' => $params['last_name'], 'email' => $params['email'],
             'password' => $params['password'], 'phone' => $params['prefix'] . $params['phone'], 'ip' => $params['ip'],
             'country_code' => $params['country'], $offer->offer_token => $offer->offer_token_value,
             'aff_sub' => $params['unique_id']
         ];
-        return $this->registerLead($data, $this->create_lead_url, $params['unique_id'], $params['campaign_id'], $network->T);
+        return $this->supremeLead($data, $params['unique_id'], $params['campaign_id']);
+    }
+
+    /**
+     * @param array $params
+     * @param $url
+     * @param $unique_id
+     * @param null $camp_id
+     * @param null $token
+     * @return array|false|string
+     * @throws GuzzleException
+     */
+    protected function supremeLead(array $params, $unique_id, $camp_id = null) {
+        $client = new Client();
+        try {
+            $res = $client->request('POST', $this->create_lead_url, [
+                'headers' => [
+                    'Token' => $this->getToken()
+                ],
+                'form_params' => $params
+            ]);
+
+            $data = json_decode($res->getBody()->getContents(), true);
+            if ($res->getStatusCode() !== 200) {
+                throw new \Exception('Url not found');
+//                return json_encode(['status' => false, 'msg' => 'Not found']);
+            }
+            if (!$data['status']) {
+                throw new \Exception($data['result']);
+//                $this->storeNetworkResponse($unique_id, $data['result']);
+//                return json_encode(['status' => false, 'msg' => $data['result']]);
+            }
+            $pixel_res = $this->sendPixel($unique_id);
+            if (isset($pixel_res['status']) && !$pixel_res['status']) {
+                throw new \Exception($pixel_res['msg']);
+//                return json_encode(['status' => false, 'msg' => $pixel_res['msg']]);
+            }
+            if (!$data['result']['success']) {
+                throw new \Exception('Duplicate found');
+            }
+            $response = ['status' => true, 'msg' => $data['result']['url']];
+            $this->storeNetworkResponse($unique_id, 'lead_id ' . $data['result']['lead_id']);
+            $iframe = $this->getIframePixel($camp_id);
+            if (!empty($iframe)) {
+                $response['pixel'] = $iframe->iframe_content;
+            }
+            return $response;
+        } catch (\Exception $e) {
+            $this->storeNetworkResponse($unique_id, $e->getMessage());
+            return json_encode(['status' => false, 'msg' => $e->getMessage()]);
+        }
+    }
+
+    /**
+     * @return null
+     */
+    public function getToken() {
+        return $this->token;
+    }
+
+    /**
+     * @param null $token
+     */
+    public function setToken($token): void {
+        $this->token = $token;
     }
 
 }

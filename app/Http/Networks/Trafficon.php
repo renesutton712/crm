@@ -4,6 +4,7 @@ namespace App\Http\Networks;
 
 use App\Lead;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 class Trafficon extends NetworkFactory {
 
@@ -66,53 +67,6 @@ class Trafficon extends NetworkFactory {
         $this->aff_id = $aff_id;
     }
 
-//    public function __construct($params) {
-//        $this->setAffId($params['aff_id']);
-//        $this->setOfferId($params['offer_id']);
-//        if (is_null($this->getAffId()) || is_null($this->getOfferId())) {
-//            return json_encode(['status' => false, 'msg' => 'Missing required network params!']);
-//        }
-//    }
-
-//    /**
-//     * @param array $params
-//     * @return \Illuminate\Http\JsonResponse|string
-//     * @throws \GuzzleHttp\Exception\GuzzleException
-//     */
-//    protected function registerLead(array $params) {
-////        Example response:
-////        ref_link: "https://yuan-pay-newapp.com/api/v1/secured-auto-login/"
-////        status: "success"
-////        tid: "1026f80704573cc14277fa86a39243"
-////        token: "YXR4U3h3L2diVDZpZHBWZU5HUzVrdWhnQ0RKZzFFSXFoekZwTGpOTGdMYlVTR0FQR1JOdnRBejJHVGF6WlVVSjJhbnVMV2pvUmRRdVdEZURSQkVrc2IxWWYvdXgyVkNpbHhnVEdielR0d3M9"
-////        ref_link: "https://yuan-pay-newapp.com/api/v1/secured-auto-login/"
-////        status: "success"
-////        tid: "1023bd82d2205aa9e917f70964c4d9"
-////        token: "NlhKYjVkUmp5K3h1a2JIdHBvdnJ4L2dndklualVwOW1HMXN1WUxCK0xHMEVSeWEyQjlESWl5Szh5eXhLV3FUbHd0NnRRKzVvdUZSZE1tWTBtVFFLamFIVERkZFk1dXNRcFFyT0dHRkVTSFU9"
-//        $client = new Client();
-//
-//        $res = $client->request('POST', $this->register_url, [
-//            'json' => [
-//                'offer_id' => 310, 'aff_id' => 2123, 'first_name' => "{$params['first_name']}",
-//                'last_name' => "{$params['last_name']}", 'email' => "{$params['email']}",
-//                'password' => "{$params['password']}", 'area_code' => "{$params['prefix']}", 'phone' => "{$params['phone']}",
-//                'ip' => "{$params['ip']}",
-//                'country' => "{$params['country_full']}", 'iso' => "{$params['country']}",
-//                'aff_sub1' => "{$params['unique_id']}"
-//            ]
-//        ]);
-//        if ($res->getStatusCode() !== 200) {
-//            return json_encode(['status' => false, 'msg' => 'Not found']);
-//        }
-//        $data = json_decode($res->getBody()->getContents(), true);
-//        if ($data['status'] !== 'success') {
-//
-//            $this->storeNetworkResponse($params['unique_id'], $data['message']);
-//            return json_encode(['status' => false, 'msg' => 'Error from host']);
-//        }
-//        return json_encode(['status' => true, 'msg' => $data['ref_link'] . $data['token']]);
-//    }
-
     /**
      * @param $unique_id
      * @param $msg
@@ -164,7 +118,42 @@ class Trafficon extends NetworkFactory {
             'country' => "{$params['country_full']}", 'iso' => "{$params['country']}",
             'aff_sub1' => "{$params['unique_id']}"
         ];
-        return $this->registerLead($data, $this->register_url, $params['unique_id'], $params['campaign_id']);
+        return $this->TrafficonLead($data, $params['unique_id'], $params['campaign_id']);
+    }
+
+    /**
+     * @param array $params
+     * @param $url
+     * @param $unique_id
+     * @param null $camp_id
+     * @param null $token
+     * @return array|false|string
+     * @throws GuzzleException
+     */
+    protected function TrafficonLead(array $params, $unique_id, $camp_id = null) {
+        $client = new Client();
+        $res = $client->request('POST', $this->register_url, [
+            'form_params' => $params
+        ]);
+        $data = json_decode($res->getBody()->getContents(), true);
+        if ($res->getStatusCode() !== 200) {
+            return json_encode(['status' => false, 'msg' => 'Not found']);
+        }
+        if ($data['status'] !== 'success') {
+
+            $this->storeNetworkResponse($unique_id, $data['message']);
+            return json_encode(['status' => false, 'msg' => $data['message']]);
+        }
+        $pixel_res = $this->sendPixel($unique_id);
+        if (isset($pixel_res['status']) && !$pixel_res['status']) {
+            return json_encode(['status' => false, 'msg' => $pixel_res['msg']]);
+        }
+        $response = ['status' => true, 'msg' => $data['ref_link'] . $data['token']];
+        $iframe = $this->getIframePixel($camp_id);
+        if (!empty($iframe)) {
+            $response['pixel'] = $iframe->iframe_content;
+        }
+        return $response;
     }
 
 }
