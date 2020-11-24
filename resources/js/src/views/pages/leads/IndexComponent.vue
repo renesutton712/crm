@@ -60,7 +60,7 @@
                         <vs-th sort-key="prefix">Prefix</vs-th>
                         <vs-th sort-key="phone">Phone</vs-th>
                         <vs-th sort-key="status">Type</vs-th>
-                        <vs-th sort-key="network_response">Network Error</vs-th>
+                        <vs-th sort-key="network_response">Network Response</vs-th>
                     </template>
                     <template slot-scope="{data}">
                         <vs-tr :data="tr" :key="indextr" v-for="(tr,indextr) in data">
@@ -93,7 +93,11 @@
                             <vs-td v-else :class="[data[indextr].status === 1 ? 'text-dark' : 'text-primary font-bold']"
                                    :data="data[indextr].status">{{data[indextr].status === 1 ? 'Click' : 'Lead'}}
                             </vs-td>
-                            <vs-td :datafld="data[indextr].network_response">{{data[indextr].network_response}}</vs-td>
+                            <vs-td :data="data[indextr].network_response">
+                                <vx-tooltip title="Full" color="primary" :text="data[indextr].network_response" position="bottom">
+                                    {{cutString(data[indextr].network_response)}}
+                                </vx-tooltip>
+                            </vs-td>
                             <template class="expand-user" slot="expand">
                                 <vs-list>
                                     <vs-list-item v-for="(val,key) in urlParamsObj(data[indextr].url_params)"
@@ -253,6 +257,12 @@
                         })
                     })
             },
+            cutString: function (str) {
+                if (str === null) {
+                    return "";
+                }
+                return str.substring(0, 80) + '...';
+            }
         },
         watch: {
             filters: {
