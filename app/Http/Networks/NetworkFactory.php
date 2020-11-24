@@ -22,7 +22,6 @@ abstract class NetworkFactory {
      * @param null $camp_id
      * @param null $token
      * @return array|false|string
-     * @throws GuzzleException
      */
     protected function registerLead(array $params, $url, $unique_id, $camp_id = null, $token = null) {
         $client = new Client();
