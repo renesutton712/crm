@@ -8,7 +8,7 @@
         </vs-row>
         <vs-row vs-w="12" class="mt-3">
             <vs-col>
-                <label for="Network">Select Network(optional):</label>
+                <label for="Network">Select Network:</label>
                 <v-select label="network_name" id="Network" :options="networks_list"
                           v-model="form_fields.network_id"
                           :reduce="network => network.id"/>
@@ -162,5 +162,7 @@
 </script>
 
 <style scoped>
-
+    .error {
+        color: red;
+    }
 </style>

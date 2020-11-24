@@ -7,6 +7,7 @@ use App\CampaignSetting;
 use App\Country;
 use App\Http\Networks;
 use App\Lead;
+use App\Offer;
 use App\RotatorGroup;
 use Illuminate\Http\Request;
 
@@ -123,6 +124,12 @@ class FormController extends Controller {
             return false;
         }
         $rotator_offers = '';
+        if ($ri === 'null') {
+            $byOffer = Lead::where('unique_id', '=', $unique_id)->first();
+            $networkByOffer = Offer::where('offer_id', '=', "{$byOffer->offer_id}")->first();
+            $this->updatedLeadWithSelectedNetwork($unique_id, $networkByOffer->network_id);
+            return $networkByOffer;
+        }
         $offers = RotatorGroup::rotatorWithNetworkToken($ri);
         $leads_sum = Lead::where('campaign_id', '=', $ci)->where('status', '=', '2')->count();
         foreach ($offers as $offer) {
