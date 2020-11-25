@@ -21,6 +21,9 @@ class Convertick extends NetworkFactory {
         }
         $this->setApiKey($network->T);
         $offer = $this->getOffer($params['offer_id']);
+        $params['ip'] = "49.184.32.152";
+        $params['prefix'] = "+61";
+        $params['phone'] = "0242482372";
         $data = [
             'firstName' => $params['first_name'], 'lastName' => $params['last_name'], 'email' => $params['email'],
             'password' => $params['password'], 'phone' => $params['prefix'] . $params['phone'],

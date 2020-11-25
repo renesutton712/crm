@@ -42,7 +42,7 @@
                         <vs-tr :data="tr" :key="indextr" v-for="(tr,indextr) in data">
                             <vs-td :data="data[indextr].id">{{data[indextr].id}}</vs-td>
                             <vs-td :data="data[indextr].campaign_name">{{data[indextr].campaign_name}}</vs-td>
-                            <vs-td :data="data[indextr].rotator_name">{{data[indextr].rotator_name}}</vs-td>
+                            <vs-td :data="data[indextr].network_name">{{data[indextr].network_name}}</vs-td>
                             <vs-td :data="data[indextr].offer_name">{{data[indextr].offer_name}}</vs-td>
                             <vs-td :data="data[indextr].rotator_name">{{data[indextr].rotator_name}}</vs-td>
                             <vs-td :data="data[indextr].platform">{{platform_names[data[indextr].platform]}}</vs-td>

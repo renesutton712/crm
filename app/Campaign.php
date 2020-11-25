@@ -36,12 +36,11 @@ class Campaign extends Model {
 
     public static function getCampaignWithRelations() {
         return DB::table('campaigns AS c')
-            ->select('c.id', 'c.campaign_name', 'c.platform', 'c.status', 'o.offer_name', 'o.offer_id', 'ro.rotator_name', 'ro.id AS rotator_id', 'pi.iframe_name', 'p.pixel_name')
+            ->select('c.id', 'c.campaign_name', 'c.platform', 'c.status', 'o.offer_name', 'o.offer_id', 'ro.rotator_name', 'ro.id AS rotator_id', 'n.network_name')
             ->leftJoin("rotators AS ro", "c.rotator_id", "=", "ro.id")
             ->leftJoin("offers AS o", "c.offer_id", "=", "o.offer_id")
 //            ->where('c.user_id', '=', Auth::user()->id)
-            ->leftJoin("pixel_iframes as pi", 'c.iframe_id', '=', 'pi.id')
-            ->leftJoin('pixels as p', 'c.pixel_id', '=', 'p.id')
+            ->leftJoin('networks as n', 'o.network_id', '=', 'n.id')
             ->where('c.status', '!=', 0)
             ->orderBy('c.id', 'DESC')
             ->get();
