@@ -3,6 +3,7 @@
 namespace App\Http\Networks;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 class Convertick extends NetworkFactory {
 
@@ -21,9 +22,9 @@ class Convertick extends NetworkFactory {
         }
         $this->setApiKey($network->T);
         $offer = $this->getOffer($params['offer_id']);
-        $params['ip'] = "49.184.32.152";
-        $params['prefix'] = "+61";
-        $params['phone'] = "0242482372";
+//        $params['ip'] = "49.184.32.152";
+//        $params['prefix'] = "+61";
+//        $params['phone'] = "0242482372";
         $data = [
             'firstName' => $params['first_name'], 'lastName' => $params['last_name'], 'email' => $params['email'],
             'password' => $params['password'], 'phone' => $params['prefix'] . $params['phone'],
@@ -38,6 +39,7 @@ class Convertick extends NetworkFactory {
      * @param null $camp_id
      * @return array|false|string
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Exception
      */
     private function registerLead($params, $unique_id, $camp_id = null) {
         $client = new Client();
@@ -71,9 +73,14 @@ class Convertick extends NetworkFactory {
             }
             $this->updateToLead($unique_id);
             return $response;
-        } catch (\Exception $e) {
-            $this->storeNetworkResponse($unique_id, $e->getMessage());
-            return json_encode(['status' => false, 'msg' => $e->getMessage()]);
+        } catch (ClientException $e) {
+            $response = $e->getResponse()->getBody();
+            $response = json_decode($response->getContents());
+            if ($response === null) {
+                return json_encode(['status' => false, 'msg' => $e->getMessage()]);
+            }
+            $this->storeNetworkResponse($unique_id, $response->messages[0]);
+            return json_encode(['status' => false, 'msg' => $response->messages[0]]);
         }
     }
 

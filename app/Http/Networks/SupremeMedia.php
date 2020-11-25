@@ -4,6 +4,7 @@ namespace App\Http\Networks;
 
 use App\Offer;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 
 class SupremeMedia extends NetworkFactory {
@@ -40,6 +41,7 @@ class SupremeMedia extends NetworkFactory {
      * @param null $token
      * @return array|false|string
      * @throws GuzzleException
+     * @throws \Exception
      */
     protected function supremeLead(array $params, $unique_id, $camp_id = null) {
         $client = new Client();
@@ -73,9 +75,14 @@ class SupremeMedia extends NetworkFactory {
             }
             $this->updateToLead($unique_id);
             return $response;
-        } catch (\Exception $e) {
-            $this->storeNetworkResponse($unique_id, $e->getMessage());
-            return json_encode(['status' => false, 'msg' => $e->getMessage()]);
+        } catch (ClientException $e) {
+            $response = $e->getResponse()->getBody();
+            $response = json_decode($response->getContents());
+            if ($response === null) {
+                return json_encode(['status' => false, 'msg' => $e->getMessage()]);
+            }
+            $this->storeNetworkResponse($unique_id, $response->result);
+            return json_encode(['status' => false, 'msg' => $response->result]);
         }
     }
 

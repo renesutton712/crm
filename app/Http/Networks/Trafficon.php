@@ -2,9 +2,8 @@
 
 namespace App\Http\Networks;
 
-use App\Lead;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\ClientException;
 
 class Trafficon extends NetworkFactory {
 
@@ -106,38 +105,40 @@ class Trafficon extends NetworkFactory {
 
     /**
      * @param array $params
-     * @param $url
      * @param $unique_id
      * @param null $camp_id
-     * @param null $token
      * @return array|false|string
-     * @throws GuzzleException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Exception
      */
     protected function TrafficonLead(array $params, $unique_id, $camp_id = null) {
         $client = new Client();
-        $res = $client->request('POST', $this->register_url, [
-            'form_params' => $params
-        ]);
-        $data = json_decode($res->getBody()->getContents(), true);
-        if ($res->getStatusCode() !== 200) {
-            return json_encode(['status' => false, 'msg' => 'Not found']);
+        try {
+            $res = $client->request('POST', $this->register_url, [
+                'form_params' => $params
+            ]);
+            $data = json_decode($res->getBody()->getContents(), true);
+            if ($res->getStatusCode() !== 200) {
+                throw  new \Exception('Not found');
+            }
+            if ($data['status'] !== 'success') {
+                throw new \Exception($data['message']);
+            }
+            $pixel_res = $this->sendPixel($unique_id);
+            if (isset($pixel_res['status']) && !$pixel_res['status']) {
+                throw new \Exception($pixel_res['msg']);
+            }
+            $response = ['status' => true, 'msg' => $data['ref_link'] . $data['token']];
+            $iframe = $this->getIframePixel($camp_id);
+            if (!empty($iframe)) {
+                $response['pixel'] = $iframe->iframe_content;
+            }
+            $this->updateToLead($unique_id);
+            return $response;
+        } catch (\Exception $e) {
+            $this->storeNetworkResponse($unique_id, $e->getMessage());
+            return json_encode(['status' => false, 'msg' => $e->getMessage()]);
         }
-        if ($data['status'] !== 'success') {
-
-            $this->storeNetworkResponse($unique_id, $data['message']);
-            return json_encode(['status' => false, 'msg' => $data['message']]);
-        }
-        $pixel_res = $this->sendPixel($unique_id);
-        if (isset($pixel_res['status']) && !$pixel_res['status']) {
-            return json_encode(['status' => false, 'msg' => $pixel_res['msg']]);
-        }
-        $response = ['status' => true, 'msg' => $data['ref_link'] . $data['token']];
-        $iframe = $this->getIframePixel($camp_id);
-        if (!empty($iframe)) {
-            $response['pixel'] = $iframe->iframe_content;
-        }
-        $this->updateToLead($unique_id);
-        return $response;
     }
 
 }

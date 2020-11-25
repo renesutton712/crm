@@ -88,11 +88,13 @@ abstract class NetworkFactory {
             return false;
         }
         $model = Lead::where('unique_id', '=', $unique_id)->first();
+        $model->network_response = "";
         $model->status = 2;
         if (!$model->save()) {
             return false;
         }
         return true;
     }
+
 
 }
