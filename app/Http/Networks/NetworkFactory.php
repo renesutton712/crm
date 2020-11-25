@@ -62,18 +62,21 @@ abstract class NetworkFactory {
     protected function sendPixel($unique_id) {
         $lead_data = Lead::where('unique_id', '=', "{$unique_id}")->first();
         $lead_url_params = json_decode($lead_data->url_params, true);
+        if (!isset($lead_url_params['cid'])) {
+            return "";
+        }
         $camp = Pixel::where('campaign_id', '=', "{$lead_data->campaign_id}")->first();
         if (empty($camp)) {
             return ['status' => false, 'msg' => 'No campaign found'];
         }
         $pixel = PixelGroup::where('pixel_id', '=', "{$camp->id}")->where('type', '=', 'Lead')->first();
         if (empty($pixel)) {
-            return ['status' => false, 'msg' => 'No posback found'];
+            return ['status' => false, 'msg' => 'No postback found'];
         }
         $pixel = $pixel->url;
-        if (!isset($lead_url_params['cid'])) {
-            return "";
-        }
+//        if (!isset($lead_url_params['cid'])) {
+//            return "";
+//        }
         $fire = str_replace('{cid}', $lead_url_params['cid'], $pixel);
         $client = new Client();
         $res = $client->request('GET', $fire);
@@ -95,6 +98,5 @@ abstract class NetworkFactory {
         }
         return true;
     }
-
 
 }
