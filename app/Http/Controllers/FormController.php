@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Campaign;
 use App\CampaignSetting;
 use App\Country;
+use App\FormLang;
 use App\Http\Networks;
 use App\Lead;
 use App\NetworkToken;
@@ -28,7 +29,7 @@ class FormController extends Controller {
             return base64_encode(json_encode(['status' => false, 'msg' => 'Campaign not found!']));
         }
         $campaign_settings = $this->getCampaignSettings($ci);
-
+        $lang = $this->getCampaignLang($ci);
         try {
             $referrer = $_SERVER['HTTP_REFERER'];
             $host = $_SERVER['REMOTE_ADDR'];
@@ -56,7 +57,8 @@ class FormController extends Controller {
                 'ri' => $click_data['rotator_id'],
                 'oi' => $click_data['offer_id'],
                 'ci' => $click_data['campaign_id'],
-                'settings' => $campaign_settings->attributesToArray()
+                'settings' => $campaign_settings->attributesToArray(),
+                'lang' => $lang
             ]));
         } catch (\Exception $e) {
             return $e->getMessage();
@@ -112,6 +114,14 @@ class FormController extends Controller {
         }
         $lead_data = $model::latest()->first();
         return $this->getNetwork($network, $lead_data);
+    }
+
+    public function getLang(Request $request) {
+        $lang = filter_var(strip_tags($request->input('lang')), FILTER_SANITIZE_STRING);
+        if (empty($lang)) {
+            return json_encode(['status' => false, 'msg' => 'Nope!']);
+        }
+        return FormLang::select('lang', 'first_name', 'last_name', 'country', 'phone', 'email', 'password', 'submit_btn')->where('lang', '=', "{$lang}")->first()->toArray();
     }
 
     /**
@@ -179,6 +189,14 @@ class FormController extends Controller {
 
     protected function getCampaignSettings($ci) {
         return CampaignSetting::select('first_name', 'last_name', 'country', 'phone', 'email', 'password')->where('campaign_id', '=', $ci)->first();
+    }
+
+    protected function getCampaignLang($ci) {
+        $camp_lang = Campaign::select('lang_id')->where('id', '=', "{$ci}")->first();
+        if (is_null($camp_lang->lang_id)) {
+            return "";
+        }
+        return FormLang::select('lang', 'first_name', 'last_name', 'country', 'phone', 'email', 'password', 'submit_btn')->where('id', '=', "{$camp_lang->lang_id}")->first()->toArray();
     }
 
     protected static function v4() {

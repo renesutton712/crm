@@ -8,6 +8,15 @@
         </vs-row>
         <vs-row vs-w="12" class="mt-3">
             <vs-col>
+                <label for="Offer">Select Language:</label>
+                <v-select label="lang" id="Language" :options="lang_list"
+                          v-model="form_fields.lang"
+                          :reduce="lang => lang.id"/>
+                <span class="error" v-if="submit && validateOffer">Language is required!</span>
+            </vs-col>
+        </vs-row>
+        <vs-row vs-w="12" class="mt-3">
+            <vs-col>
                 <label for="Offer">Select Offer:</label>
                 <v-select label="offer_name" id="Offer" :options="offers_list"
                           v-model="form_fields.offer_id"
@@ -123,6 +132,7 @@
                     offer_id: '',
                     rotator_id: '',
                     platform_id: '',
+                    lang: '',
                     ci: null,
                     settings: {
                         first_name: true,
@@ -137,6 +147,7 @@
                 iframe_list: [],
                 rotators_list: [],
                 offers_list: [],
+                lang_list: [],
                 platform_list: [
                     {id: 1, platform_name: 'Facebook'},
                     {id: 2, platform_name: 'Google'},
@@ -227,6 +238,24 @@
                         })
                     })
             },
+            getLang: function () {
+                axios.get('lang/get')
+                    .then((response) => {
+                        if ("status" in response.data) {
+                            throw response.data;
+                        }
+                        this.lang_list = response.data;
+                    })
+                    .catch(error => {
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.msg,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'warning'
+                        })
+                    })
+            },
             getCampaign: function () {
                 this.$vs.loading();
                 axios.get('campaigns/get/' + this.ci)
@@ -237,6 +266,7 @@
                         this.form_fields.platform_id = Number(response.data[0].platform);
                         this.form_fields.pixel_id = Number(response.data[0].pixel_id);
                         this.form_fields.iframe_id = Number(response.data[0].iframe_id);
+                        this.form_fields.lang = Number(response.data[0].lang_id);
                         this.$vs.loading.close();
                     })
                     .catch(error => {
@@ -292,6 +322,7 @@
             this.getPixels();
             this.getIframePixels();
             this.getOffers();
+            this.getLang();
             if (this.ci !== null) {
                 this.getCampaign();
             }

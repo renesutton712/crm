@@ -26,6 +26,7 @@ class CampaignsController extends Controller {
         $iframe_id = filter_var(strip_tags($request->input('iframe_id')), FILTER_SANITIZE_STRING);
         $rotator_id = filter_var(strip_tags($request->input('rotator_id'), FILTER_SANITIZE_STRING));
         $offer_id = filter_var(strip_tags($request->input('offer_id'), FILTER_SANITIZE_STRING));
+        $lang = filter_var(strip_tags($request->input('lang'), FILTER_SANITIZE_STRING));
         $platform = filter_var(strip_tags($request->input('platform_id'), FILTER_SANITIZE_STRING));
         DB::beginTransaction();
         try {
@@ -34,7 +35,7 @@ class CampaignsController extends Controller {
                 [
                     'campaign_name' => $campaign_name, 'user_id' => $user_id, 'pixel_id' => $pixel_id,
                     'iframe_id' => $iframe_id, 'offer_id' => $offer_id, 'rotator_id' => $rotator_id, 'platform' => $platform,
-                    'status' => 2
+                    'lang_id' => $lang, 'status' => 2
                 ]
             );
             $newOrEdit = $model->wasRecentlyCreated || $model->wasChanged();

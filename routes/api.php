@@ -53,10 +53,12 @@ Route::middleware(['auth:api', 'role'])->group(function () {
     Route::get('iframe/get/{id}', 'PixelIframeController@getIframePixel');
     Route::get('iframe/delete/{id}', 'PixelIframeController@deleteIframePixel');
     Route::post('iframe/store', 'PixelIframeController@store');
+
+    Route::get('lang/get', 'LanguageController@get');
 });
 //Form
 Route::post('form/click', 'FormController@click');
 Route::post('form/lead', 'FormController@lead');
-
+Route::post('form/lang', 'FormController@getLang');
 //Postback reciever
 Route::get('postback/event/{unique_id}/{payout}', 'PostbackController@store');

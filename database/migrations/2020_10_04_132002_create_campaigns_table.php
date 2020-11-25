@@ -20,6 +20,7 @@ class CreateCampaignsTable extends Migration {
             $table->integer('iframe_id')->nullable();
             $table->foreignId('rotator_id');
             $table->string('platform')->nullable();
+            $table->integer('lang_id')->nullable();
             $table->integer('status');
             $table->timestamps();
         });

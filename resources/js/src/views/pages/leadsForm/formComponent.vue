@@ -42,7 +42,15 @@
                     password: 'Password must contain 1 lowercase 1 uppercase and be at least 8 characters long',
                 },
                 form_settings = '',
-                // fullUrlParams = [],
+                form_fields = {
+                    first_name: 'First Name:',
+                    last_name: 'Last Name:',
+                    country: 'Country',
+                    phone: 'Phone',
+                    email: 'Email',
+                    password: 'Password',
+                    submit_btn: 'Open Account'
+                },
                 country_code = '',
                 ip = '',
                 urlParams = urlParamsQuery(),
@@ -54,13 +62,16 @@
             //Utilities
             loadScripts()
             setUserClientCountry();
+            if ((getCookie('lang') !== '' && getCookie('lang') !== 'undefined')) {
+                getFormLang()
+            }
             sendClick();
             formElements();
             appendReturnedValues(form_vals);
             loadCustomCss();
 
             //inputs validation before submit
-            $('#user-form-lp .fn').on('keyup', function () {
+            $('#user-form-lp .fn').on('focusout', function () {
                 if (!name.test($(this).val())) {
                     $(this).parent().find('.fn-error').text('First name is not valid!').show();
                     $(this).parent().parent().parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
@@ -76,7 +87,7 @@
                     $(this).parent().find('.fn-error').hide();
                 }
             });
-            $('#user-form-lp .ln').on('keyup', function () {
+            $('#user-form-lp .ln').on('focusout', function () {
                 if (!name.test($(this).val())) {
                     $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
                     $(this).parent().find('.ln-error').text('Last name is not valid!').show();
@@ -92,7 +103,7 @@
                     $(this).parent().find('.ln-error').hide();
                 }
             });
-            $('#user-form-lp .phone').on('keyup', function () {
+            $('#user-form-lp .phone').on('focusout', function () {
                 if (!phone_regex.test($(this).val())) {
                     $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
                     $(this).parent().find('.phone-error').text('Phone is not valid!').show();
@@ -108,7 +119,7 @@
                     $(this).parent().find('.phone-error').hide();
                 }
             });
-            $('#user-form-lp .email').on('keyup', function () {
+            $('#user-form-lp .email').on('focusout', function () {
                 if (!email_regex.test($(this).val())) {
                     $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
                     $(this).parent().find('.email-error').text('Email is not valid!').show();
@@ -124,7 +135,7 @@
                     $(this).parent().find('.email-error').hide();
                 }
             });
-            $('#user-form-lp .pwd').on('keyup', function () {
+            $('#user-form-lp .pwd').on('focusout', function () {
                 if (!password_regex.test($(this).val())) {
                     $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
                     $(this).parent().find('.pwd-error').text('Password must contain 1 lowercase 1 uppercase and be at least 8 characters long').show();
@@ -199,17 +210,17 @@
             })
 
             function formElements() {
-                let fn = form_settings.first_name === 'off' ? '' : "<input value='' autocomplete='off' type='text' class='form-control fn' id='First_Name' placeholder='First Name:' />" +
+                let fn = form_settings.first_name === 'off' ? '' : "<input value='' autocomplete='off' type='text' class='form-control fn' id='First_Name' placeholder='" + form_fields.first_name + "' />" +
                     "<span class='error-block fn-error'></span>",
-                    ln = form_settings.last_name === 'off' ? '' : "<input value='' autocomplete='off' type='text' class='form-control ln' id='Last_Name' placeholder='Last Name:' />" +
+                    ln = form_settings.last_name === 'off' ? '' : "<input value='' autocomplete='off' type='text' class='form-control ln' id='Last_Name' placeholder='" + form_fields.last_name + "' />" +
                         "<span class='error-block ln-error'></span>",
                     country = form_settings.country === 'off' ? '' : "<select id='countries_phone1' class='form-control bfh-countries country'></select>" +
                         "<span class='error-block country-error'></span>",
-                    phone = form_settings.phone === 'off' ? '' : "<input value='' type='text' class='form-control bfh-phone phone' data-country='countries_phone1' />" +
+                    phone = form_settings.phone === 'off' ? '' : "<input value='' type='text' class='form-control bfh-phone phone' data-country='countries_phone1' placeholder='" + form_fields.phone + "'/>" +
                         "<span class='error-block phone-error'></span>",
-                    email = form_settings.email === 'off' ? '' : "<input value='' autocomplete='off' type='email' id='Email' class='form-control email' placeholder='Email:' />" +
+                    email = form_settings.email === 'off' ? '' : "<input value='' autocomplete='off' type='email' id='Email' class='form-control email' placeholder='" + form_fields.email + "' />" +
                         "<span class='error-block email-error'></span>",
-                    password = form_settings.password === 'off' ? '' : "<input value='' type='password' id='PWD' placeholder='Password' class='form-control pwd'/>" +
+                    password = form_settings.password === 'off' ? '' : "<input value='' type='password' id='PWD' placeholder='" + form_fields.password + "' class='form-control pwd'/>" +
                         "<span class='error-block pwd-error'></span>";
 
                 let form = "<form id='user-form-lp'>" +
@@ -218,7 +229,7 @@
                     "<div class='phone-input'><div>" + phone + "</div>" + "</div>" +
                     "<div class='email-input'><div>" + email + "</div>" + "</div>" +
                     "<div class='password-input'><div>" + password + "</div>" + "</div>" +
-                    "<input type='submit' class='btn btn-default mt-4' value='Open Account' disabled='disabled'/>" +
+                    "<input type='submit' class='btn btn-default mt-4' value='" + form_fields.submit_btn + "' disabled='disabled'/>" +
                     "<input type='hidden' class='user' value='' /> " +
                     "<input type='hidden' class='ri' value='' /> " +
                     "<input type='hidden' class='oi' value='' /> " +
@@ -350,12 +361,15 @@
                     //     throw data.msg;
                     // }
                     setCookie(oi + '_' + ri, data.unique_id, 1);
-                    // setCookie('user', data.unique_id, 1);
-                    form_vals.user_id = data.unique_id;
-                    form_vals.ci = data.ci;
-                    form_vals.oi = data.oi;
-                    form_vals.ri = data.ri;
-
+                    if (data.lang !== '') {
+                        setCookie('lang', data.lang.lang, 1);
+                        setFormLang(data.lang)
+                        // setCookie('user', data.unique_id, 1);
+                        form_vals.user_id = data.unique_id;
+                        form_vals.ci = data.ci;
+                        form_vals.oi = data.oi;
+                        form_vals.ri = data.ri;
+                    }
                 }).fail((jqXHR, textStatus, errorThrown) => {
                     alert(textStatus)
                 })
@@ -487,6 +501,35 @@
                 var results = regex.exec(location.search);
                 return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
             };
+
+            function getFormLang() {
+                $.ajax({
+                    url: 'api/form/lang',
+                    method: 'POST',
+                    data: {lang: getCookie('lang')},
+                    async: false,
+                    dataType: 'json',
+                }).done((response) => {
+                    if ('status' in response && !response.status) {
+                        alert(response.msg);
+                        return;
+                    }
+                    return setFormLang(response);
+                }).fail((jqXHR, textStatus, errorThrown) => {
+                    alert(textStatus)
+                })
+            }
+
+            function setFormLang(fields) {
+                form_fields.first_name = fields.first_name;
+                form_fields.last_name = fields.last_name;
+                form_fields.country = fields.country;
+                form_fields.phone = fields.phone;
+                form_fields.email = fields.email;
+                form_fields.password = fields.password;
+                form_fields.submit_btn = fields.submit_btn;
+            }
+
         });
     }
 
