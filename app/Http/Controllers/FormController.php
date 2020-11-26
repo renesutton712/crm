@@ -31,15 +31,15 @@ class FormController extends Controller {
             /**
              * Debug
              */
-//            $ci = 39;
-//            $oi = 'XafmZBhL';
+            $ci = 39;
+            $oi = 'XafmZBhL';
 
             /**
              *  Production:
              */
 
-            $ci = 13;
-            $oi = 'Qt1deCvL';
+//            $ci = 13;
+//            $oi = 'Qt1deCvL';
         }
         $campaign_settings = $this->getCampaignSettings($ci);
         $lang = $this->getCampaignLang($ci);
@@ -98,8 +98,17 @@ class FormController extends Controller {
         $ri = filter_var(strip_tags($request->input('ri')), FILTER_SANITIZE_STRING);
 
         if (empty($ci)) {
-            $this->storeErrorMsg($unique_id, 'Missing campaign ID');
-            return json_encode(['status' => false, 'msg' => 'Missing Campaign']);
+            /**
+             * DEBUG!!!
+             */
+//            $ci = 39;
+            /**
+             * Production
+             */
+            $ci = 13;
+
+//            $this->storeErrorMsg($unique_id, 'Missing campaign ID');
+//            return json_encode(['status' => false, 'msg' => 'Missing Campaign']);
         }
 
         if (empty($fn) || empty($ln) || empty($email) || empty($country) || empty($prefix) || empty($phone) || empty($pwd)) {
