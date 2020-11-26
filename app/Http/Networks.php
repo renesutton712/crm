@@ -17,16 +17,15 @@ class Networks {
 
     public function networksMap($network, $params) {
         switch ($network->network_id) {
-            case 1:
+            case 7:
                 $cod = new COD();
                 return $cod->registerLeadGet($params);
                 break;
+            case 1:
             case 2:
             case 3:
             case 4:
             case 5:
-            case 11:
-            case 8:
                 $supreme = new SupremeMedia();
                 return $supreme->prepareData($params, $network);
                 break;
@@ -34,7 +33,6 @@ class Networks {
                 $trafficon = new Trafficon();
                 return $trafficon->sendLead($params, $network);
                 break;
-            case 12:
             case 9:
                 $convertick = new Convertick();
                 return $convertick->prepareData($params, $network);
