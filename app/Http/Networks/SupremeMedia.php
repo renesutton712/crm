@@ -78,13 +78,15 @@ class SupremeMedia extends NetworkFactory {
             }
             $this->updateToLead($unique_id);
             return $response;
+        } catch (ClientException $e) {
+            $response = $e->getResponse()->getBody();
+            $response = json_decode($response->getContents());
+            if ($response === null) {
+                return json_encode(['status' => false, 'msg' => $e->getMessage()]);
+            }
+            $this->storeNetworkResponse($unique_id, $response->result);
+            return json_encode(['status' => false, 'msg' => $response->result]);
         } catch (\Exception $e) {
-//            $response = $e->getResponse()->getBody();
-//            $response = json_decode($response->getContents());
-//            if ($response === null) {
-//                return json_encode(['status' => false, 'msg' => $e->getMessage()]);
-//            }
-//            $this->storeNetworkResponse($unique_id, $response->result);
             $this->storeNetworkResponse($unique_id, $e->getMessage());
             return json_encode(['status' => false, 'msg' => $e->getMessage()]);
         }
