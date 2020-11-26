@@ -24,9 +24,9 @@ class SupremeMedia extends NetworkFactory {
         }
         $this->setToken($network->T);
         $offer = $this->getOffer($params['offer_id']);
-        $params['country'] = "AU";
-        $params['prefix'] = "+61";
-        $params['phone'] = "024917742";
+//        $params['country'] = "AU";
+//        $params['prefix'] = "+61";
+//        $params['phone'] = "024917742";
         $data = [
             'firstname' => $params['first_name'], 'lastname' => $params['last_name'], 'email' => $params['email'],
             'password' => $params['password'], 'phone' => $params['prefix'] . $params['phone'], 'ip' => $params['ip'],
