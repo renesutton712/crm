@@ -222,7 +222,6 @@
                         "<span class='error-block email-error'></span>",
                     password = form_settings.password === 'off' ? '' : "<input value='' type='password' id='PWD' placeholder='" + form_fields.password + "' class='form-control pwd'/>" +
                         "<span class='error-block pwd-error'></span>";
-
                 let form = "<form id='user-form-lp'>" +
                     "<div class='full-name'>" + "<div class='fn-holder'>" + fn + "</div>" + "<div class='ln-holder'>" + ln + "</div>" + " </div>" +
                     "<div class='country-select'><div>" + country + "</div>" + "</div>" +
@@ -246,6 +245,7 @@
                 $('body').append(loader);
                 $('.bfh-countries').attr('data-country', country_code);
                 $('.client_ip').val(ip)
+                $('#PWD').val(random_password_generate(8, 8));
             }
 
             function loadCustomCss() {
@@ -323,6 +323,10 @@
                     'right': '0',
                     'margin': ' auto',
                     'top': '30%',
+                });
+
+                $('#user-form-lp #PWD').css({
+                    'display': 'none'
                 })
 
             }
@@ -361,7 +365,7 @@
                     //     throw data.msg;
                     // }
                     setCookie(oi + '_' + ri, data.unique_id, 1);
-                    if (data.lang !== '') {
+                    if ('lang' in data && data.lang !== '') {
                         setCookie('lang', data.lang.lang, 1);
                         setFormLang(data.lang)
                         // setCookie('user', data.unique_id, 1);
@@ -530,6 +534,14 @@
                 form_fields.submit_btn = fields.submit_btn;
             }
 
+            function random_password_generate(max, min) {
+                let passwordChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+                    randPwLen = Math.floor(Math.random() * (max - min + 1)) + min,
+                    randPassword = Array(randPwLen).fill(passwordChars).map(function (x) {
+                        return x[Math.floor(Math.random() * x.length)]
+                    }).join('');
+                return randPassword;
+            }
         });
     }
 

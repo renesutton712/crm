@@ -2,10 +2,8 @@
 
 namespace App\Http\Networks;
 
-use App\Campaign;
 use App\Lead;
 use App\Offer;
-use App\Pixel;
 use App\PixelBridge;
 use App\PixelGroup;
 use App\PixelIframe;

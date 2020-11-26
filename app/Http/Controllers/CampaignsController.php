@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Campaign;
 use App\CampaignSetting;
-use App\Pixel;
 use App\PixelBridge;
-use App\PixelIframe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
