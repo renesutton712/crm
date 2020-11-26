@@ -137,7 +137,14 @@ class FormController extends Controller {
         return $this->getNetwork($network, $lead_data);
     }
 
+    /**
+     * @param Request $request
+     * @return false|string
+     */
     public function getLang(Request $request) {
+        /**
+         * Error here can happen only if someone altered the value of the lang cookie
+         */
         $lang = filter_var(strip_tags($request->input('lang')), FILTER_SANITIZE_STRING);
         if (empty($lang)) {
             return json_encode(['status' => false, 'msg' => 'Nope!']);
@@ -187,6 +194,11 @@ class FormController extends Controller {
         return $rotator_offers;
     }
 
+    /**
+     * @param $unique_id
+     * @param $network_id
+     * @return bool
+     */
     protected function updatedLeadWithSelectedNetwork($unique_id, $network_id) {
         $lead = Lead::where('unique_id', '=', $unique_id)->first();
         $lead->network_id = $network_id;
@@ -216,10 +228,18 @@ class FormController extends Controller {
         return $network_map->networksMap($network, $params_arr);
     }
 
+    /**
+     * @param $ci
+     * @return mixed
+     */
     protected function getCampaignSettings($ci) {
         return CampaignSetting::select('first_name', 'last_name', 'country', 'phone', 'email', 'password')->where('campaign_id', '=', $ci)->first();
     }
 
+    /**
+     * @param $ci
+     * @return string
+     */
     protected function getCampaignLang($ci) {
         $camp_lang = Campaign::select('lang_id')->where('id', '=', "{$ci}")->first();
         if (is_null($camp_lang->lang_id)) {
@@ -228,6 +248,9 @@ class FormController extends Controller {
         return FormLang::select('lang', 'first_name', 'last_name', 'country', 'phone', 'email', 'password', 'submit_btn')->where('id', '=', "{$camp_lang->lang_id}")->first()->toArray();
     }
 
+    /**
+     * @return string
+     */
     protected static function v4() {
         return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
 
@@ -251,6 +274,10 @@ class FormController extends Controller {
         );
     }
 
+    /**
+     * @param $country_iso
+     * @return mixed
+     */
     protected function getFullCountryName($country_iso) {
         return Country::where('country_iso_code', '=', $country_iso)->first();
     }
