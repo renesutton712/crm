@@ -142,7 +142,15 @@ class FormController extends Controller {
         if (empty($lang)) {
             return json_encode(['status' => false, 'msg' => 'Nope!']);
         }
-        return FormLang::select('lang', 'first_name', 'last_name', 'country', 'phone', 'email', 'password', 'submit_btn')->where('lang', '=', "{$lang}")->first()->toArray();
+        try {
+            $lang = FormLang::select('lang', 'first_name', 'last_name', 'country', 'phone', 'email', 'password', 'submit_btn')->where('lang', '=', "{$lang}")->first();
+            if (empty($lang)) {
+                throw new \Exception('en');
+            }
+            return $lang->toArray();
+        } catch (\Exception $e) {
+            return json_encode(['status' => false, 'msg' => 'language unable']);
+        }
     }
 
     /**
