@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Campaign;
 use App\CampaignSetting;
 use App\Pixel;
+use App\PixelBridge;
 use App\PixelIframe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,13 +45,13 @@ class CampaignsController extends Controller {
             }
             $ci = !$model->wasRecentlyCreated ? $ci : Campaign::latest()->first();
             if (!empty($pixel_id)) {
-                $updatePixelRes = $this->updatePixelModel($ci, Pixel::find($pixel_id));
+                $updatePixelRes = $this->updatePixelModel($ci, $pixel_id);
             }
             if (!empty($updatePixelRes) && !$updatePixelRes) {
                 throw new \Exception('Unable to associate campaign to pixel');
             }
             if (!empty($iframe_id)) {
-                $updatePixelRes = $this->updatePixelModel($ci, PixelIframe::find($iframe_id));
+                $updatePixelRes = $this->updatePixelModel($ci, $iframe_id);
             }
             if (!empty($updatePixelRes && !$updatePixelRes)) {
                 throw new \Exception('Unable to associate campaign to pixel');
@@ -114,18 +115,20 @@ class CampaignsController extends Controller {
 
     /**
      * @param $ci
-     * @param null $pixel_model
+     * @param $pixel_id
      * @return bool
      */
-    protected function updatePixelModel($ci, $pixel_model = null) {
-        if (is_null($pixel_model)) {
+    protected function updatePixelModel($ci, $pixel_id) {
+        if (empty($pixel_id)) {
             return false;
         }
         if (empty($ci)) {
             return false;
         }
-        $pixel_model->campaign_id = isset($ci->id) ? $ci->id : $ci;
-        if (!$pixel_model->save()) {
+        $bridge_model = new PixelBridge();
+        $bridge_model->campaign_id = $ci;
+        $bridge_model->pixel_id = $pixel_id;
+        if (!$bridge_model->save()) {
             return false;
         }
         return true;

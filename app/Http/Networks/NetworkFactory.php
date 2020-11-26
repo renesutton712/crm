@@ -6,6 +6,7 @@ use App\Campaign;
 use App\Lead;
 use App\Offer;
 use App\Pixel;
+use App\PixelBridge;
 use App\PixelGroup;
 use App\PixelIframe;
 use GuzzleHttp\Client;
@@ -65,11 +66,11 @@ abstract class NetworkFactory {
         if (!isset($lead_url_params['cid'])) {
             return "";
         }
-        $camp = Pixel::where('campaign_id', '=', "{$lead_data->campaign_id}")->first();
+        $camp = PixelBridge::where('campaign_id', '=', "{$lead_data->campaign_id}")->first();
         if (empty($camp)) {
             return ['status' => false, 'msg' => 'No campaign found'];
         }
-        $pixel = PixelGroup::where('pixel_id', '=', "{$camp->id}")->where('type', '=', 'Lead')->first();
+        $pixel = PixelGroup::where('pixel_id', '=', "{$camp->pixel_id}")->where('type', '=', 'Lead')->first();
         if (empty($pixel)) {
             return ['status' => false, 'msg' => 'No postback found'];
         }
