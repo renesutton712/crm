@@ -31,15 +31,15 @@ class FormController extends Controller {
             /**
              * Debug
              */
-            $ci = 39;
-            $oi = 'XafmZBhL';
+//            $ci = 39;
+//            $oi = 'XafmZBhL';
 
             /**
              *  Production:
              */
 
-//            $ci = 13;
-//            $oi = 'Qt1deCvL';
+            $ci = 13;
+            $oi = 'Qt1deCvL';
         }
         $campaign_settings = $this->getCampaignSettings($ci);
         $lang = $this->getCampaignLang($ci);
