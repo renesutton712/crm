@@ -13,8 +13,9 @@ class CreatePixelBridgesTable extends Migration {
     public function up() {
         Schema::create('pixel_bridges', function (Blueprint $table) {
             $table->id();
-            $table->integer('campaign_id');
-            $table->integer('pixel_id');
+            $table->integer('campaign_id')->unique();
+            $table->integer('pixel_id')->nullable();
+            $table->integer('iframe_pixel_id')->nullable();
             $table->timestamps();
         });
     }

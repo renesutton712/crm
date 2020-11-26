@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Campaign;
 use App\Http\Networks\COD;
 use App\Http\Networks\Convertick;
+use App\Http\Networks\DefaultNetwork;
 use App\Http\Networks\SupremeMedia;
 use App\Http\Networks\Trafficon;
 use App\Lead;
@@ -38,7 +39,8 @@ class Networks {
                 return $convertick->prepareData($params, $network);
                 break;
             default:
-                return json_encode(['status' => true, 'msg' => 'https://www.google.com']);
+                $default = new DefaultNetwork();
+                return $default->saveLead($params['unique_id']);
                 break;
         }
     }

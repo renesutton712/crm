@@ -159,12 +159,15 @@
                     unique_id = $(this).find('.user').val(),
                     ri = urlParams.has('ri') ? urlParams.get('ri') : $(this).find('.ri').val(),
                     ci = urlParams.has('ci') ? urlParams.get('ci') : $(this).find('.ci').val();
+                if (pwd === '') {
+                    $(pwd).val(random_password_generate(8, 8));
+                }
                 if (!validateFormInputs($(this), fn, ln, country, phone, email, pwd, unique_id)) {
                     $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
                     return;
                 }
                 $.ajax({
-                    url: 'https://storsleads.club/api/form/lead',
+                    url: 'api/form/lead',
                     method: 'POST',
                     data: {
                         fn: fn,
@@ -237,7 +240,7 @@
                     "<input type='hidden' class='client_ip' value='' /> " +
                     "</form>",
                     loader = "<div style='display:none;z-index: 99999;position: fixed;width: 100%; height: 100%;background: rgb(0 0 0 / 0.6); top: 0;' class='form-layover'>" +
-                        "<img src='https://storsleads.club/images/loader.svg' width='150' height='150' alt=''>" +
+                        "<img src='images/loader.svg' width='150' height='150' alt=''>" +
                         "</div>";
                 $.each(availableFromPlaces, function (i, el) {
                     $(el).append(form);
@@ -339,12 +342,9 @@
                     form_vals.user_id = getCookie(oi + '_' + ri);
                     return;
                 }
-                // if (getCookie('user') !== '' && getCookie('user') !== 'undefined') {
-                //     form_vals.user_id = getCookie('user');
-                //     return;
-                // }
+
                 $.ajax({
-                    url: 'https://storsleads.club/api/form/click',
+                    url: 'api/form/click',
                     method: 'POST',
                     async: false,
                     crossDomain: true,
@@ -364,6 +364,9 @@
                     // if ('status' in data && !data.status) {
                     //     throw data.msg;
                     // }
+                    if ('status' in data && !data.status) {
+                        alert(data.msg);
+                    }
                     setCookie(oi + '_' + ri, data.unique_id, 1);
                     if ('lang' in data && data.lang !== '') {
                         setCookie('lang', data.lang.lang, 1);
@@ -380,10 +383,10 @@
             }
 
             function validateFormInputs(form, fn, ln, country, phone, email, pwd, unique_id) {
-                if (unique_id == undefined || unique_id.length === '') {
-                    $('.form-layover').hide();
-                    return false;
-                }
+                // if (unique_id == undefined || unique_id.length === '') {
+                //     $('.form-layover').hide();
+                //     return false;
+                // }
                 if (!name.test(fn) || fn == undefined || fn === '') {
                     form.find('.fn-error').text(form_errors.first_name).show();
                     $('.form-layover').hide();
@@ -508,7 +511,7 @@
 
             function getFormLang() {
                 $.ajax({
-                    url: 'https://storsleads.club/api/form/lang',
+                    url: 'api/form/lang',
                     method: 'POST',
                     data: {lang: getCookie('lang')},
                     async: false,
@@ -540,6 +543,9 @@
                     randPassword = Array(randPwLen).fill(passwordChars).map(function (x) {
                         return x[Math.floor(Math.random() * x.length)]
                     }).join('');
+                while (!password_regex.test(randPassword)) {
+                    return random_password_generate(9, 9);
+                }
                 return randPassword;
             }
         });

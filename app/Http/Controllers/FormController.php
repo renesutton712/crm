@@ -26,7 +26,20 @@ class FormController extends Controller {
         $country = filter_var(strip_tags($request->input('client_country')), FILTER_SANITIZE_STRING);
         $client_ip = filter_var(strip_tags($request->input('client_ip')), FILTER_SANITIZE_STRING);
         if (!isset($ci) || empty($ci)) {
-            return base64_encode(json_encode(['status' => false, 'msg' => 'Campaign not found!']));
+//            return base64_encode(json_encode(['status' => false, 'msg' => 'Campaign not found!']));
+//            $this->setDefaultCampaign();
+            /**
+             * Debug
+             */
+//            $ci = 39;
+//            $oi = 'XafmZBhL';
+
+            /**
+             *  Production:
+             */
+
+            $ci = 13;
+            $oi = 'Qt1deCvL';
         }
         $campaign_settings = $this->getCampaignSettings($ci);
         $lang = $this->getCampaignLang($ci);
@@ -36,7 +49,6 @@ class FormController extends Controller {
             $unique_id = $this->v4();
             $ua = $request->input('ua');
             $url_params = json_encode($request->input('url_params'));
-//            $ip = empty($client_ip) ? $_SERVER['REMOTE_ADDR'] : $client_ip;
             $ip = $client_ip;
             $model = new Lead();
             $model->unique_id = $unique_id;
@@ -87,12 +99,12 @@ class FormController extends Controller {
 
         if (empty($ci)) {
             $this->storeErrorMsg($unique_id, 'Missing campaign ID');
-            return json_encode(['status' => false, 'Missing Campaign']);
+            return json_encode(['status' => false, 'msg' => 'Missing Campaign']);
         }
 
         if (empty($fn) || empty($ln) || empty($email) || empty($country) || empty($prefix) || empty($phone) || empty($pwd)) {
             $this->storeErrorMsg($unique_id, 'Empty form field error');
-            return json_encode(['status' => false, 'Please fill all required fields']);
+            return json_encode(['status' => false, 'msg' => 'Please fill all required fields']);
         }
 
         $network = $this->setRotator($ci, $ri, $unique_id);
@@ -135,7 +147,7 @@ class FormController extends Controller {
             return false;
         }
         $rotator_offers = '';
-        if ($ri === 'null') {
+        if ($ri === 'null' || $ri == 0) {
             $byOffer = Lead::where('unique_id', '=', $unique_id)->first();
             $networkByOffer = Offer::where('offer_id', '=', "{$byOffer->offer_id}")->first();
             $tokens = NetworkToken::where('network_id', '=', "{$networkByOffer->network_id}")->first()->toArray();
@@ -240,29 +252,5 @@ class FormController extends Controller {
         }
         return true;
     }
-
-    /**
-     * @param $lead_data
-     * @param $ci
-     * @return array|\Illuminate\Http\JsonResponse|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-//    private function sendPixel($lead_data, $ci) {
-//        $lead_url_params = json_decode($lead_data->url_params, true);
-//        if (!isset($lead_url_params['cid'])) {
-//            $this->storeErrorMsg($lead_data->unique_id, 'No cid in url params');
-//            return ['status' => false, 'msg' => 'Missing cid'];
-//        }
-//        $camp = Campaign::where('id', '=', "{$ci}")->first();
-//        $pixel = PixelGroup::where('pixel_id', '=', "{$camp->pixel_id}")->where('type', '=', 'Lead')->first();
-//        $pixel = $pixel->url;
-//        $fire = str_replace('{cid}', $lead_url_params['cid'], $pixel);
-//        $client = new Client();
-//        $res = $client->request('GET', $fire);
-//        if ($res->getStatusCode() === 200) {
-//            return $res->getBody()->getContents();
-//        }
-//        return response()->json(['message' => 'Not found!'], 404);
-//    }
 
 }

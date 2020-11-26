@@ -123,6 +123,10 @@ class CampaignsController extends Controller {
         if (empty($ci)) {
             return false;
         }
+//        $bridge_model = PixelBridge::updateOrCreate(
+//            ['campaign_id' => $ci],
+//            []
+//        );
         $bridge_model = new PixelBridge();
         $bridge_model->campaign_id = $ci;
         $bridge_model->pixel_id = $pixel_id;
