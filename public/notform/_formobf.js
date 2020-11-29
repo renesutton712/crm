@@ -149,7 +149,7 @@ function myJQueryCode() {
                 if (pwd === '') {
                     $(pwd).val(random_password_generate(8, 8));
                 }
-                if (!validateFormInputs($(this), fn, ln, country, phone, email, pwd, unique_id)) {
+                if (!validateFormInputs($(form), fn, ln, country, phone, email, pwd, unique_id)) {
                     $(this).attr('disabled', true);
                     return;
                 }
@@ -173,7 +173,7 @@ function myJQueryCode() {
                         res = JSON.parse(response);
                     }
                     if (!res.status) {
-                        $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+                        $(this).attr('disabled', true);
                         $('.form-layover').hide();
                         alert(res.msg);
                         return;
