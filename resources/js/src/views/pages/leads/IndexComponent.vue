@@ -101,7 +101,7 @@
                             <template class="expand-user" slot="expand">
                                 <vs-list>
                                     <vs-list-item v-for="(val,key) in urlParamsObj(data[indextr].url_params)"
-                                                  :title="''" :subtitle="key+':'+ val"></vs-list-item>
+                                                  :title="''" :subtitle="key+' : '+ val"></vs-list-item>
                                 </vs-list>
                                 <vs-list>
                                     <vs-list-item title="UA" :subtitle="data[indextr].ua"></vs-list-item>
