@@ -1,1 +1,630 @@
-const a=['<img\x20src=\x27h','lp\x20.ln','DgnJQ','phone','\x200\x200\x20/\x200.6)','GLxAB','\x27\x20class=\x27fo','\x27display:no','lp\x20.pwd','exec','.user','-13px','5px','gDzGs','<div\x20style=','=\x27countries','b/api/form/','nfo.io','QqbZm','lp\x20div\x20>\x20di','lang','re.com/ajax','cdn.bootstr','msg','val','acters\x20long','BCDEFGHIJKL','rap-formhel','100%;backgr','Password','ck\x20email-er','head','parent\x205px','bold','apcdn.com/b','Country','.ln-error','0123456789A','libs/jquery','lp\x20input,se','<select\x20id=','.phone','link','focusout','99999',';expires=Th','-30px','\x27email-inpu','map','r-place4','</form>','ountries\x20co','east\x203\x20char','00\x2010px','preventDefa','none','script','r\x20valid\x20ema','strap.min.j','append','uSEgI','lp\x20.phone','solid\x20#ec2b','done','.country','href','\x20alt=\x27\x27>','absolute','50%','dth=\x27150\x27\x20h','sFisV','e=\x27\x27\x20type=\x27','t_ip\x27\x20value','970\x2000:00:0','getElements','ror\x27></span','error\x27></sp','bpFyg','NjNEF','st_Name','userAgent','pwd\x27/>','\x20ln\x27\x20id=\x27La','e\x20and\x20be\x20at','KXPqf','lect\x27><div>','click','submit_btn','#fff','/3.5.1/jque','\x27\x20disabled=','AMgNL','ne\x20phone\x27\x20d','\x22submit\x22]','KamLn','30%','lp\x20select','length','ck\x20ln-error','untry\x27></se','3.7/js/boot','lass=\x27ri\x27\x20v','ByTagName','ck\x20phone-er','lect','s.com/ajax/','.ci','phone1\x27\x20cla','has','1px\x20solid\x20#','Please\x20ente','pointer','status','parent','fail','.pwd-error','charAt','t\x20valid!','.email','DAGHc','OtnzZ','entries','gELXL','floor','user','430px','.client_ip','jEOST','hagCn','off','Phone\x20is\x20no','s\x20not\x20valid','DiVBV','ceholder=\x27','.oi','solid\x20trans','password','eight=\x27150\x27','lpers/2.3.0','=\x27form-cont','12px','cookie','.fn','random','ne\x20number','ry.min.js','45px','\x27\x20type=\x27tex',';domain=','\x27ln-holder\x27','\x27countries_','15%','.form-layov','ers.min.js','https://cdn','\x27disabled\x27/','BmyrP','t\x27\x20class=\x27f','location','required','0\x200\x200\x2010px','\x27\x20type=\x27ema','\x27full-name\x27','%;\x20height:\x20','<span\x20class',';path=/','r-place5','lock::after','1\x20GMT','ck\x20fn-error','unique_id','country','https://ipi','email','nOZIv','ound:\x20rgb(0','css','Phone','js.cloudfla','show','least\x203\x20cha','lp\x20.error-b','ult','mail\x20addres','stylesheet','fSQaz','3.7/css/boo','fqSJB','pixel','lp\x20input#Fi','\x201\x20uppercas','find','get','test','-10px','rEAKv','trap-formhe','undefined','mplete=\x27off','src',';width:\x20100','First\x20name\x20','hostname','racters\x20lon','form-contro','\x20least\x208\x20ch','EbXTk','mt-4\x27\x20value','POST','https://sto','.fn-error','<form\x20id=\x27u','.ri','json','.form-holde','il\x27\x20class=\x27','lock','/css/bootst','=\x27submit\x27\x20c','attr','=\x27\x27\x20/>\x20','orm-control','onload','ript','</div>','fqQah','.ln','tstrap.min.','r\x20valid\x20pho','lead','auto','pOIeg','appendChild','lass=\x27clien','disabled','ChxPa','hide','100%','3px','laceholder=','r\x20a\x20valid\x20p','Password\x20mu','substring','aracters\x20lo','inline-bloc','HzuAf','\x20fn\x27\x20id=\x27Fi','kGWEa','body','ntrol\x20bfh-c','text/css','ser-form-lp','/js/bootstr','rsleads.clu','ust\x20be\x20at\x20l',';path=','https://max','parse','l\x20email\x27\x20pl','createEleme','first_name','expires=','ttps://stor','rst_Name','MpqHL','user_id','WCiyN','qHjHE','last_name','t\x27><div>','\x20value=\x27\x27\x20/','tuvwxyz','tKppf','lass=\x27ap\x27\x20v','setTime','text\x27\x20class','AZyEh','=\x27hidden\x27\x20c','Country\x20is\x20','red','=\x27error-blo','u,\x2001\x20Jan\x201','rel','is\x20required','rol\x20bfh-pho','czUYy','lass=\x27ci\x27\x20v','<input\x20type','Ypisl','Email\x20is\x20no','rm-control\x20','aceholder=\x27','\x27password-i','LLJNL','uHDQS','e=\x27\x27\x20autoco','is\x20not\x20vali','First\x20Name:','/libs/boots','getTime','#user-form-','MNOPQRSTUVW','AiCao','PapXM','text','tion:\x20fixed','1\x20lowercase','der','lp\x20\x20.fn-hol','lp\x20input[ty','lass=\x27oi\x27\x20v','lp\x20#PWD','\x27country-se','er\x20img','toUTCString','navigator','ajax','alue=\x27\x27\x20/>\x20','match','tn-default\x20','ata-country','replace','<input\x20valu','rhbjP','input[type=','.email-erro','r\x27></span>','ror','Last\x20name\x20m','type','search','\x27\x20/>','.phone-erro','hone\x20number','qryCs','join','pers.min.cs','ies','.country-er','indexOf','ijklmnopqrs','pe=\x22submit\x22','text/javasc','<div\x20class=','Last\x20name\x20i','ootstrap/3.','r-place3','axHYC','-layover\x27>','il\x27\x20id=\x27Ema','split','_phone1\x27\x20pl','st\x20contain\x20','tOqTu','abRXq','password\x27\x20i','data-countr'];(function(b,c){const d=function(e){while(--e){b['push'](b['shift']());}};d(++c);}(a,0x8b));const b=function(c,d){c=c-0x198;let e=a[c];return e;};const b3=b;function myJQueryCode(){$(function(){const Z=b;'use strict';let c=jQuery,d=[Z(0x1e3)+'r-place1',Z(0x1e3)+'r-place2',Z(0x1e3)+Z(0x267),Z(0x1e3)+Z(0x2a3),Z(0x1e3)+Z(0x1b3)],e={'ci':0x0,'ri':0x0,'oi':0x0,'ap':0x0,'rt':0x0},f={'user_id':'','ri':'','oi':'','ci':''},g={'first_name':Z(0x1d6)+Z(0x228),'last_name':Z(0x265)+'s\x20required','country':Z(0x223)+Z(0x1ac),'phone':'Please\x20ente'+Z(0x1f1)+Z(0x19d),'email':Z(0x2e0)+Z(0x2ab)+'il','password':Z(0x1fe)+Z(0x26d)+'1\x20lowercase'+'\x201\x20uppercas'+'e\x20and\x20be\x20at'+Z(0x1da)+Z(0x200)+'ng'},h='',i={'first_name':Z(0x236),'last_name':'Last\x20Name:','country':Z(0x295),'phone':Z(0x1be),'email':'Email','password':Z(0x28f),'submit_btn':'Open\x20Accoun'+'t'},j='',k='',l=v(),m=/^[a-z-A-Z^. ]+$/,n=/[2-9]{1}\d{2}/,o=/^.*(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/,p=/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;loadScripts(),B();y(Z(0x286))!==''&&y('lang')!==Z(0x1d2)&&D();s(),q(),u(f),r(),c(Z(0x239)+'lp\x20.fn')['on'](Z(0x29d),function(){const a0=Z;if(!m[a0(0x1ce)](c(this)[a0(0x28a)]())){c(this)[a0(0x2e3)]()[a0(0x1cc)]('.fn-error')[a0(0x23d)](a0(0x1d6)+'is\x20not\x20vali'+'d!')[a0(0x1c0)](),c(this)[a0(0x2e3)]()[a0(0x2e3)]()['parent']()[a0(0x2e3)]()[a0(0x2e3)]()[a0(0x1cc)](a0(0x251)+'\x22submit\x22]')[a0(0x1e8)]('disabled',!![]);return;}if(c(this)[a0(0x28a)]()[a0(0x2d3)]<0x3){if('kGWEa'!==a0(0x204)){function G(){return e(f);}}else{c(this)[a0(0x2e3)]()[a0(0x2e3)]()['parent']()['find']('input[type='+a0(0x2cf))[a0(0x1e8)](a0(0x1f7),!![]),c(this)[a0(0x2e3)]()[a0(0x1cc)](a0(0x1df))[a0(0x23d)](a0(0x1d6)+'must\x20be\x20at\x20'+a0(0x1c1)+a0(0x1d8)+'g')[a0(0x1c0)]();return;}}if(c(this)[a0(0x28a)]()['length']===0x0||c(this)['val']()['length']>=0x3){if('nOZIv'!==a0(0x1bb)){function H(){return![];}}else c(this)[a0(0x2e3)]()[a0(0x2e3)]()[a0(0x2e3)]()[a0(0x1cc)]('input[type='+a0(0x2cf))[a0(0x1e8)](a0(0x1f7),![]),c(this)['parent']()[a0(0x1cc)](a0(0x1df))[a0(0x1f9)]();}}),c(Z(0x239)+Z(0x273))['on'](Z(0x29d),function(){const a1=Z;if(a1(0x277)!==a1(0x218)){if(!m[a1(0x1ce)](c(this)[a1(0x28a)]())){c(this)['parent']()['parent']()[a1(0x2e3)]()[a1(0x1cc)]('input[type='+'\x22submit\x22]')['attr'](a1(0x1f7),!![]),c(this)['parent']()['find'](a1(0x296))['text']('Last\x20name\x20i'+a1(0x2f5)+'!')['show']();return;}if(c(this)[a1(0x28a)]()['length']<=0x3){c(this)['parent']()[a1(0x2e3)]()[a1(0x2e3)]()[a1(0x1cc)](a1(0x251)+a1(0x2cf))[a1(0x1e8)]('disabled',!![]),c(this)[a1(0x2e3)]()['find'](a1(0x296))[a1(0x23d)](a1(0x255)+a1(0x20b)+a1(0x2a6)+a1(0x28b))['show']();return;}(c(this)[a1(0x28a)]()[a1(0x2d3)]===0x0||c(this)['val']()[a1(0x2d3)]>=0x3)&&(c(this)[a1(0x2e3)]()['parent']()['parent']()['find'](a1(0x251)+a1(0x2cf))[a1(0x1e8)](a1(0x1f7),![]),c(this)[a1(0x2e3)]()[a1(0x1cc)]('.ln-error')[a1(0x1f9)]());}else{function G(){const a2=a1;d(this)[a2(0x2e3)]()[a2(0x2e3)]()[a2(0x2e3)]()['find'](a2(0x251)+a2(0x2cf))[a2(0x1e8)](a2(0x1f7),!![]);return;}}}),c('#user-form-'+Z(0x2af))['on']('focusout',function(){const a3=Z;if(a3(0x2f1)!==a3(0x2f1)){function G(){const a4=a3;e(this)[a4(0x2e3)]()[a4(0x2e3)]()[a4(0x2e3)]()[a4(0x1cc)]('input[type='+a4(0x2cf))[a4(0x1e8)](a4(0x1f7),!![]),f(this)[a4(0x2e3)]()[a4(0x1cc)](a4(0x2e5))[a4(0x23d)]('Password\x20mu'+a4(0x26d)+a4(0x23f)+a4(0x1cb)+'e\x20and\x20be\x20at'+'\x20least\x208\x20ch'+a4(0x200)+'ng')['show']();return;}}else{if(!n['test'](c(this)[a3(0x28a)]())){if(a3(0x2c0)!==a3(0x1c6)){c(this)[a3(0x2e3)]()['parent']()[a3(0x2e3)]()['find'](a3(0x251)+a3(0x2cf))[a3(0x1e8)](a3(0x1f7),!![]),c(this)[a3(0x2e3)]()[a3(0x1cc)](a3(0x259)+'r')[a3(0x23d)](a3(0x2f4)+a3(0x2e7))[a3(0x1c0)]();return;}else{function H(){const a5=a3;e(this)[a5(0x2e3)]()[a5(0x2e3)]()[a5(0x2e3)]()[a5(0x1cc)](a5(0x251)+a5(0x2cf))['attr']('disabled',![]),f(this)[a5(0x2e3)]()[a5(0x1cc)]('.phone-erro'+'r')[a5(0x1f9)]();}}}if(c(this)['val']()[a3(0x2d3)]<=0x6){c(this)['parent']()[a3(0x2e3)]()['parent']()[a3(0x1cc)](a3(0x251)+a3(0x2cf))[a3(0x1e8)](a3(0x1f7),!![]),c(this)[a3(0x2e3)]()[a3(0x1cc)]('.phone-erro'+'r')[a3(0x23d)]('Please\x20ente'+a3(0x1fd)+'hone\x20number')[a3(0x1c0)]();return;}if(c(this)[a3(0x28a)]()[a3(0x2d3)]===0x0||c(this)['val']()[a3(0x2d3)]>=0x6){if(a3(0x2cd)!=='kBQJh')c(this)['parent']()['parent']()[a3(0x2e3)]()['find'](a3(0x251)+'\x22submit\x22]')[a3(0x1e8)](a3(0x1f7),![]),c(this)[a3(0x2e3)]()[a3(0x1cc)](a3(0x259)+'r')[a3(0x1f9)]();else{function I(){const a6=a3;f[a6(0x249)]({'url':a6(0x1b9)+'nfo.io','method':a6(0x1cd),'async':![],'dataType':a6(0x1e2)})['done'](J=>{const a7=a6;i=J[a7(0x1b8)],j=J['ip'];});}}}}}),c(Z(0x239)+'lp\x20.email')['on'](Z(0x29d),function(){const a8=Z;if(!p['test'](c(this)[a8(0x28a)]())){c(this)['parent']()['parent']()[a8(0x2e3)]()['find'](a8(0x251)+a8(0x2cf))['attr'](a8(0x1f7),!![]),c(this)[a8(0x2e3)]()[a8(0x1cc)](a8(0x252)+'r')['text'](a8(0x22e)+'t\x20valid!')['show']();return;}if(c(this)[a8(0x28a)]()['length']<=0x6){c(this)[a8(0x2e3)]()[a8(0x2e3)]()[a8(0x2e3)]()[a8(0x1cc)]('input[type='+a8(0x2cf))['attr'](a8(0x1f7),!![]),c(this)[a8(0x2e3)]()[a8(0x1cc)](a8(0x252)+'r')['text'](a8(0x2e0)+'r\x20a\x20valid\x20e'+a8(0x1c4)+'s')[a8(0x1c0)]();return;}(c(this)[a8(0x28a)]()[a8(0x2d3)]===0x0||c(this)[a8(0x28a)]()['length']>=0x6)&&(c(this)[a8(0x2e3)]()[a8(0x2e3)]()['parent']()[a8(0x1cc)](a8(0x251)+a8(0x2cf))[a8(0x1e8)](a8(0x1f7),![]),c(this)[a8(0x2e3)]()[a8(0x1cc)](a8(0x252)+'r')['hide']());}),c('#user-form-'+Z(0x27a))['on'](Z(0x29d),function(){const a9=Z;if('gELXL'===a9(0x2ec)){if(!o[a9(0x1ce)](c(this)[a9(0x28a)]())){if(a9(0x23c)!=='PapXM'){function G(){const aa=a9;g[aa(0x216)]=h(i+'_'+j);return;}}else{c(this)[a9(0x2e3)]()[a9(0x2e3)]()[a9(0x2e3)]()['find'](a9(0x251)+a9(0x2cf))[a9(0x1e8)](a9(0x1f7),!![]),c(this)[a9(0x2e3)]()[a9(0x1cc)]('.pwd-error')[a9(0x23d)](a9(0x1fe)+'st\x20contain\x20'+a9(0x23f)+a9(0x1cb)+a9(0x2c5)+a9(0x1da)+'aracters\x20lo'+'ng')['show']();return;}}if(c(this)[a9(0x28a)]()['length']===0x0||c(this)['val']()['length']>=0x8){if('abRXq'===a9(0x26f))c(this)['parent']()[a9(0x2e3)]()[a9(0x2e3)]()[a9(0x1cc)](a9(0x251)+'\x22submit\x22]')['attr'](a9(0x1f7),![]),c(this)[a9(0x2e3)]()[a9(0x1cc)](a9(0x2e5))[a9(0x1f9)]();else{function H(){const ab=a9;e(this)[ab(0x2e3)]()[ab(0x2e3)]()[ab(0x2e3)]()[ab(0x1cc)](ab(0x251)+ab(0x2cf))[ab(0x1e8)](ab(0x1f7),!![]),f(this)['parent']()[ab(0x1cc)](ab(0x259)+'r')[ab(0x23d)](ab(0x2e0)+ab(0x1fd)+'hone\x20number')['show']();return;}}}}else{function I(){const ac=a9;q['first_name']=r['first_name'],s['last_name']=t[ac(0x219)],u['country']=v['country'],w[ac(0x275)]=x['phone'],y[ac(0x1ba)]=z[ac(0x1ba)],A[ac(0x2fa)]=B[ac(0x2fa)],C['submit_btn']=D[ac(0x2c9)];}}}),c(Z(0x239)+'lp')['on']('submit',function(G){const ad=Z;G[ad(0x2a8)+ad(0x1c3)](),c(ad(0x1a5)+'er')[ad(0x1c0)]();let H=c(this)[ad(0x1cc)](ad(0x19b))['val'](),I=c(this)[ad(0x1cc)](ad(0x1ef))[ad(0x28a)](),J=c(this)[ad(0x1cc)](ad(0x2b2))[ad(0x28a)](),K=c(this)['find'](ad(0x29b))[ad(0x28a)](),L=c(this)[ad(0x1cc)](ad(0x2e8))[ad(0x28a)](),M=c(this)['find']('.pwd')[ad(0x28a)](),N=c(this)['find'](ad(0x27c))[ad(0x28a)](),O=l[ad(0x2de)]('ri')?l[ad(0x1cd)]('ri'):c(this)['find'](ad(0x1e1))[ad(0x28a)](),P=l[ad(0x2de)]('ci')?l[ad(0x1cd)]('ci'):c(this)['find'](ad(0x2dc))[ad(0x28a)]();M===''&&c(M)[ad(0x28a)](F(0x8,0x8));if(!t(c(this),H,I,J,K,L,M,N)){c(this)['parent']()['parent']()['parent']()[ad(0x1cc)](ad(0x251)+ad(0x2cf))[ad(0x1e8)](ad(0x1f7),!![]);return;}c[ad(0x249)]({'url':ad(0x1de)+'rsleads.clu'+ad(0x282)+ad(0x1f2),'method':ad(0x1dd),'data':{'fn':H,'ln':I,'country':J,'phone':K,'email':L,'pwd':M,'user':N,'ci':P,'ri':O}})[ad(0x2b1)](Q=>{const ae=ad;if(ae(0x1f4)!=='nfaaE'){let R=Q;A(Q)&&(R=JSON[ae(0x20e)](Q));if(!R[ae(0x2e2)]){if(ae(0x22a)===ae(0x22a)){c(this)[ae(0x2e3)]()[ae(0x2e3)]()[ae(0x2e3)]()[ae(0x1cc)](ae(0x251)+ae(0x2cf))[ae(0x1e8)](ae(0x1f7),!![]),c(ae(0x1a5)+'er')[ae(0x1f9)](),alert(R[ae(0x289)]);return;}else{function S(){const af=ae;G=f[af(0x1ff)](0x1);}}}z(ae(0x2ee),'/',window['location'][ae(0x1d7)]);if(ae(0x1c9)in R){let T=/##(.*)##/g,U=/##(.*)##/,V='',W=R[ae(0x1c9)][ae(0x24b)](T);V=R[ae(0x1c9)][ae(0x24e)](T,function(X,Y){return C(Y);}),c(ae(0x205))[ae(0x2ad)](V);}setTimeout(function(){const ag=ae;window[ag(0x1ab)][ag(0x2b3)]=R['msg'];},0x9c4);}else{function X(){const ah=ae;f(g)[ah(0x28a)](h(0x8,0x8));}}})[ad(0x2e4)]((Q,R,S)=>{const ai=ad;c(ai(0x1a5)+'er')['hide'](),alert(R);});});function q(){const aj=Z;let G=h['first_name']===aj(0x2f3)?'':aj(0x24f)+aj(0x234)+aj(0x1d3)+aj(0x1a0)+aj(0x1aa)+aj(0x1ea)+aj(0x203)+'rst_Name\x27\x20p'+aj(0x1fc)+'\x27'+i['first_name']+aj(0x258)+(aj(0x1b1)+aj(0x225)+aj(0x1b6)+'\x27></span>'),H=h[aj(0x219)]==='off'?'':aj(0x24f)+'e=\x27\x27\x20autoco'+aj(0x1d3)+aj(0x1a0)+aj(0x1aa)+'orm-control'+aj(0x2c4)+'st_Name\x27\x20pl'+aj(0x230)+i[aj(0x219)]+'\x27\x20/>'+(aj(0x1b1)+aj(0x225)+aj(0x2d4)+'\x27></span>'),I=h[aj(0x1b8)]==='off'?'':aj(0x29a)+aj(0x1a3)+aj(0x2dd)+'ss=\x27form-co'+aj(0x206)+aj(0x2a5)+aj(0x2d5)+'lect>'+(aj(0x1b1)+aj(0x225)+'ck\x20country-'+aj(0x2be)+'an>'),J=h[aj(0x275)]==='off'?'':aj(0x24f)+'e=\x27\x27\x20type=\x27'+aj(0x220)+aj(0x198)+aj(0x229)+aj(0x2ce)+aj(0x24d)+aj(0x281)+aj(0x26c)+aj(0x230)+i[aj(0x275)]+'\x27/>'+(aj(0x1b1)+aj(0x225)+aj(0x2d9)+aj(0x2bd)+'>'),K=h[aj(0x1ba)]==='off'?'':aj(0x24f)+aj(0x234)+aj(0x1d3)+aj(0x1ae)+aj(0x26a)+aj(0x1e4)+aj(0x1d9)+aj(0x20f)+aj(0x230)+i[aj(0x1ba)]+'\x27\x20/>'+(aj(0x1b1)+aj(0x225)+aj(0x290)+aj(0x2bd)+'>'),L=h['password']===aj(0x2f3)?'':'<input\x20valu'+aj(0x2b9)+aj(0x270)+'d=\x27PWD\x27\x20pla'+aj(0x2f7)+i[aj(0x2fa)]+(aj(0x278)+aj(0x22f)+aj(0x2c3))+(aj(0x1b1)+'=\x27error-blo'+'ck\x20pwd-erro'+aj(0x253)),M=aj(0x1e0)+aj(0x208)+'\x27>'+(aj(0x264)+aj(0x1af)+'>')+(aj(0x264)+'\x27fn-holder\x27'+'>')+G+aj(0x1ed)+(aj(0x264)+aj(0x1a2)+'>')+H+aj(0x1ed)+'\x20</div>'+(aj(0x264)+aj(0x245)+aj(0x2c7))+I+aj(0x1ed)+'</div>'+('<div\x20class='+'\x27phone-inpu'+'t\x27><div>')+J+aj(0x1ed)+aj(0x1ed)+('<div\x20class='+aj(0x2a1)+aj(0x21a))+K+aj(0x1ed)+aj(0x1ed)+('<div\x20class='+aj(0x231)+'nput\x27><div>')+L+aj(0x1ed)+aj(0x1ed)+(aj(0x22c)+aj(0x1e7)+'lass=\x27btn\x20b'+aj(0x24c)+aj(0x1dc)+'=\x27')+i['submit_btn']+(aj(0x2cc)+aj(0x1a8)+'>')+('<input\x20type'+'=\x27hidden\x27\x20c'+'lass=\x27user\x27'+aj(0x21b)+'>\x20')+(aj(0x22c)+'=\x27hidden\x27\x20c'+aj(0x2d7)+aj(0x24a))+(aj(0x22c)+aj(0x222)+aj(0x243)+'alue=\x27\x27\x20/>\x20')+(aj(0x22c)+aj(0x222)+aj(0x21e)+aj(0x24a))+(aj(0x22c)+aj(0x222)+aj(0x22b)+aj(0x24a))+(aj(0x22c)+aj(0x222)+aj(0x1f6)+aj(0x2ba)+aj(0x1e9))+aj(0x2a4),N=aj(0x280)+aj(0x279)+'ne;z-index:'+'\x2099999;posi'+aj(0x23e)+aj(0x1d5)+aj(0x1b0)+aj(0x28e)+aj(0x1bc)+aj(0x276)+';\x20top:\x200;\x27\x20'+'class=\x27form'+aj(0x269)+(aj(0x272)+aj(0x213)+'sleads.club'+'/images/loa'+'der.svg\x27\x20wi'+aj(0x2b7)+aj(0x2fb)+aj(0x2b4))+'</div>';c['each'](d,function(O,P){const ak=aj;if(ak(0x215)===ak(0x215))c(P)[ak(0x2ad)](M);else{function Q(){e(f);}}}),c(aj(0x205))[aj(0x2ad)](N),c('.bfh-countr'+aj(0x25e))[aj(0x1e8)](aj(0x271)+'y',j),c(aj(0x2f0))[aj(0x28a)](k),c('#PWD')[aj(0x28a)](F(0x8,0x8));}function r(){const al=Z;c(al(0x239)+al(0x1c2)+al(0x1e5))[al(0x1bd)]({'position':al(0x2b5),'color':al(0x2ca),'display':al(0x2a9),'font-weight':'600','font-size':al(0x199),'z-index':al(0x29e),'background':al(0x224),'padding':al(0x27e),'border-radius':'3px','left':al(0x1a4),'bottom':al(0x2a0)}),c(al(0x239)+al(0x1c2)+al(0x1b4))[al(0x1bd)]({'border-left':al(0x2f9)+'parent\x205px','border-right':al(0x2f9)+al(0x292),'border-bottom':al(0x2b0)+al(0x2a7),'top':al(0x1cf),'content':'\x20','height':'0','left':'50%','margin-left':al(0x27d),'position':al(0x2b5),'width':'\x200'}),c(al(0x239)+'lp')[al(0x1bd)]({'max-width':al(0x2ef),'width':'100%','margin':al(0x1f3)}),c(al(0x239)+al(0x285)+'v')[al(0x1bd)]({'position':'relative'}),c(al(0x239)+al(0x241)+'der')['css']({'display':'inline-bloc'+'k','width':'45%','margin-right':'5%'}),c(al(0x239)+'lp\x20\x20.ln-hol'+al(0x240))[al(0x1bd)]({'display':'inline-bloc'+'k','width':al(0x2b6)}),c(al(0x239)+al(0x299)+al(0x2da))[al(0x1bd)]({'height':al(0x19f),'width':'100%','margin':'5px\x200','border':al(0x2df)+'000','border-radius':al(0x1fb),'padding':al(0x1ad)}),c(al(0x239)+al(0x2d2))[al(0x1bd)]({'background':al(0x2ca),'width':al(0x1fa)}),c(al(0x239)+al(0x242)+al(0x262)+']')[al(0x1bd)]({'cursor':al(0x2e1),'font-weight':al(0x293),'width':al(0x1fa)}),c(al(0x239)+'lp\x20input#La'+al(0x2c1))['css']({'display':al(0x201)+'k'}),c(al(0x239)+al(0x1ca)+al(0x214))[al(0x1bd)]({'display':al(0x201)+'k'}),c(al(0x1a5)+al(0x246))[al(0x1bd)]({'position':al(0x2b5),'left':'0','right':'0','margin':'\x20auto','top':al(0x2d1)}),c(al(0x239)+al(0x244))[al(0x1bd)]({'display':'none'});}function s(){const am=Z;if('KamLn'===am(0x2d0)){const G=l['has']('oi')?l[am(0x1cd)]('oi'):e['oi'],H=l['has']('ri')?l[am(0x1cd)]('ri'):e['ri'],I=l[am(0x2de)]('ci')?l['get']('ci'):e['ci'];if(y(G+'_'+H)!==''&&y(G+'_'+H)!=='undefined'){if(am(0x1f8)===am(0x22d)){function J(){const an=am;let K=new h();K['setTime'](K[an(0x238)]()+i*0x18*0x3c*0x3c*0x3e8);let L='expires='+K[an(0x247)]();j[an(0x19a)]=k+'='+l+';'+L+an(0x1b2);}}else{f[am(0x216)]=y(G+'_'+H);return;}}c[am(0x249)]({'url':am(0x1de)+am(0x20a)+am(0x282)+am(0x2c8),'method':am(0x1dd),'async':![],'crossDomain':!![],'data':{'oi':G,'ri':H,'ci':I,'ap':l['has']('ap')?l[am(0x1cd)]('ap'):e['ap'],'client_country':j,'client_ip':k,'ua':window[am(0x248)][am(0x2c2)],'url_params':w(window[am(0x1ab)][am(0x257)])}})[am(0x2b1)](K=>{const ao=am;if(ao(0x2e9)==='DAGHc'){const L=JSON['parse'](atob(K));if(ao(0x2e2)in L&&!L[ao(0x2e2)]){if(ao(0x284)===ao(0x27f)){function M(){const ap=ao;e(this)[ap(0x2e3)]()['parent']()[ap(0x2e3)]()[ap(0x1cc)](ap(0x251)+ap(0x2cf))[ap(0x1e8)](ap(0x1f7),![]),f(this)[ap(0x2e3)]()[ap(0x1cc)](ap(0x252)+'r')[ap(0x1f9)]();}}else alert(L['msg']);}x(G+'_'+H,L[ao(0x1b7)],0x1);if('lang'in L&&L['lang']!==''){if(ao(0x2ea)!==ao(0x2ea)){function N(){const aq=ao;return f[aq(0x1cc)](aq(0x25f)+'ror')['text'](g[aq(0x1b8)])[aq(0x1c0)](),h('.form-layov'+'er')[aq(0x1f9)](),![];}}else x('lang',L['lang'][ao(0x286)],0x1),E(L[ao(0x286)]),f[ao(0x216)]=L[ao(0x1b7)],f['ci']=L['ci'],f['oi']=L['oi'],f['ri']=L['ri'];}}else{function O(){const ar=ao;e(f[ar(0x289)]);}}})[am(0x2e4)]((K,L,M)=>{const as=am;if(as(0x221)!=='AZyEh'){function N(){const at=as;e[at(0x1ab)]['href']=f[at(0x289)];}}else alert(L);});}else{function K(){const au=am;let L=au(0x297)+au(0x28c)+au(0x23a)+'XYZabcdefgh'+au(0x261)+'tuvwxyz',M=m['floor'](n['random']()*(o-p+0x1))+q,N=r(M)['fill'](L)[au(0x2a2)](function(O){const av=au;return O[w['floor'](x[av(0x19c)]()*O['length'])];})[au(0x25c)]('');while(!u['test'](N)){return w(0x9,0x9);}return N;}}}function t(G,H,I,J,K,L,M,N){const aw=Z;if(!m[aw(0x1ce)](H)||H==undefined||H==='')return G[aw(0x1cc)](aw(0x1df))['text'](g[aw(0x211)])['show'](),c(aw(0x1a5)+'er')[aw(0x1f9)](),![];if(!m[aw(0x1ce)](I)||I==undefined||I===''){if('AGmAJ'!==aw(0x1db))return G[aw(0x1cc)](aw(0x296))[aw(0x23d)](g[aw(0x219)])['show'](),c(aw(0x1a5)+'er')[aw(0x1f9)](),![];else{function O(){e['parse'](f);}}}if(J==undefined||J==='')return G[aw(0x1cc)](aw(0x25f)+aw(0x254))[aw(0x23d)](g['country'])[aw(0x1c0)](),c('.form-layov'+'er')[aw(0x1f9)](),![];if(!n[aw(0x1ce)](K)||K==undefined||K===''){if(aw(0x232)===aw(0x202)){function P(){const ax=aw;k(ax(0x27c))[ax(0x28a)](l[ax(0x216)]),m(ax(0x1e1))[ax(0x28a)](n['ri']),o(ax(0x2f8))[ax(0x28a)](p['oi']),q('.ci')[ax(0x28a)](r['ci']);}}else return G[aw(0x1cc)](aw(0x259)+'r')['text'](g[aw(0x275)])['show'](),c(aw(0x1a5)+'er')[aw(0x1f9)](),![];}if(!p[aw(0x1ce)](L)||L==undefined||L===''){if(aw(0x1d0)===aw(0x1c8)){function Q(){e(f);}}else return G[aw(0x1cc)](aw(0x252)+'r')['text'](g[aw(0x1ba)])[aw(0x1c0)](),c(aw(0x1a5)+'er')['hide'](),![];}if(!o[aw(0x1ce)](M)||M==undefined||M==='')return G['find']('.pwd-error')['text'](g['password'])[aw(0x1c0)](),c(aw(0x1a5)+'er')[aw(0x1f9)](),![];return!![];}function u(G){const ay=Z;c(ay(0x27c))[ay(0x28a)](G[ay(0x216)]),c(ay(0x1e1))['val'](G['ri']),c(ay(0x2f8))[ay(0x28a)](G['oi']),c(ay(0x2dc))[ay(0x28a)](G['ci']);}function v(){const az=Z;if(az(0x217)!=='eTJfD'){const G=window[az(0x1ab)][az(0x257)],H=new URLSearchParams(G),I=H[az(0x2eb)]();return H;}else{function J(){const aA=az;k(l)&&(s[aA(0x19a)]=t+'='+(u?';path='+v:'')+(w?';domain='+x:'')+(aA(0x29f)+aA(0x226)+aA(0x2bb)+'1\x20GMT'));}}}function w(G){const aB=Z;if(aB(0x26e)!==aB(0x2c6)){let H={},I=G['substring'](G[aB(0x260)]('?')+0x1)['split']('&');for(let J=0x0;J<I['length'];J++){if('kxAzn'===aB(0x1ee)){function K(){const aC=aB;if(!n[aC(0x1ce)](o(this)['val']())){y(this)[aC(0x2e3)]()[aC(0x2e3)]()[aC(0x2e3)]()[aC(0x1cc)](aC(0x251)+aC(0x2cf))['attr'](aC(0x1f7),!![]),z(this)[aC(0x2e3)]()['find']('.email-erro'+'r')[aC(0x23d)]('Email\x20is\x20no'+aC(0x2e7))[aC(0x1c0)]();return;}if(r(this)[aC(0x28a)]()[aC(0x2d3)]<=0x6){A(this)[aC(0x2e3)]()[aC(0x2e3)]()[aC(0x2e3)]()[aC(0x1cc)](aC(0x251)+aC(0x2cf))[aC(0x1e8)](aC(0x1f7),!![]),B(this)[aC(0x2e3)]()['find'](aC(0x252)+'r')[aC(0x23d)](aC(0x2e0)+'r\x20a\x20valid\x20e'+aC(0x1c4)+'s')[aC(0x1c0)]();return;}(u(this)[aC(0x28a)]()[aC(0x2d3)]===0x0||v(this)[aC(0x28a)]()['length']>=0x6)&&(C(this)[aC(0x2e3)]()[aC(0x2e3)]()[aC(0x2e3)]()[aC(0x1cc)](aC(0x251)+'\x22submit\x22]')[aC(0x1e8)](aC(0x1f7),![]),D(this)[aC(0x2e3)]()[aC(0x1cc)](aC(0x252)+'r')[aC(0x1f9)]());}}else{if(!I[J])continue;let L=I[J][aB(0x26b)]('=');H[decodeURIComponent(L[0x0])]=decodeURIComponent(L[0x1]);}}return H;}else{function M(){const aD=aB;i[aD(0x19a)]=j+'='+(k?aD(0x20c)+l:'')+(m?aD(0x1a1)+n:'')+(aD(0x29f)+aD(0x226)+aD(0x2bb)+aD(0x1b5));}}}function x(G,H,I){const aE=Z;let J=new Date();J[aE(0x21f)](J[aE(0x238)]()+I*0x18*0x3c*0x3c*0x3e8);let K=aE(0x212)+J[aE(0x247)]();document['cookie']=G+'='+H+';'+K+';path=/';}function y(G){const aF=Z;if(aF(0x1a9)===aF(0x1a9)){let H=G+'=',I=decodeURIComponent(document[aF(0x19a)]),J=I[aF(0x26b)](';');for(let K=0x0;K<J[aF(0x2d3)];K++){let L=J[K];while(L[aF(0x2e6)](0x0)=='\x20'){L=L[aF(0x1ff)](0x1);}if(L['indexOf'](H)==0x0){if(aF(0x21d)===aF(0x21d))return L[aF(0x1ff)](H[aF(0x2d3)],L[aF(0x2d3)]);else{function M(){const aG=aF;return f['substring'](g[aG(0x2d3)],h[aG(0x2d3)]);}}}}return'';}else{function N(){const aH=aF;if(!n[aH(0x1ce)](o(this)[aH(0x28a)]())){y(this)[aH(0x2e3)]()[aH(0x2e3)]()[aH(0x2e3)]()[aH(0x1cc)](aH(0x251)+aH(0x2cf))[aH(0x1e8)](aH(0x1f7),!![]),z(this)[aH(0x2e3)]()[aH(0x1cc)]('.phone-erro'+'r')['text'](aH(0x2f4)+aH(0x2e7))[aH(0x1c0)]();return;}if(r(this)['val']()['length']<=0x6){A(this)[aH(0x2e3)]()[aH(0x2e3)]()[aH(0x2e3)]()[aH(0x1cc)]('input[type='+aH(0x2cf))[aH(0x1e8)](aH(0x1f7),!![]),B(this)[aH(0x2e3)]()[aH(0x1cc)](aH(0x259)+'r')[aH(0x23d)](aH(0x2e0)+aH(0x1fd)+aH(0x25a))[aH(0x1c0)]();return;}(u(this)['val']()[aH(0x2d3)]===0x0||v(this)[aH(0x28a)]()[aH(0x2d3)]>=0x6)&&(C(this)['parent']()[aH(0x2e3)]()[aH(0x2e3)]()[aH(0x1cc)](aH(0x251)+aH(0x2cf))[aH(0x1e8)](aH(0x1f7),![]),D(this)['parent']()[aH(0x1cc)](aH(0x259)+'r')['hide']());}}}function z(G,H,I){const aI=Z;if('SNlsH'==='SNlsH')y(G)&&(document[aI(0x19a)]=G+'='+(H?aI(0x20c)+H:'')+(I?aI(0x1a1)+I:'')+(';expires=Th'+aI(0x226)+aI(0x2bb)+aI(0x1b5)));else{function J(){const aJ=aI;f('.form-layov'+'er')[aJ(0x1f9)](),g(h);}}}function A(G){const aK=Z;if('rhbjP'===aK(0x250)){try{if(aK(0x2f2)===aK(0x2ae)){function H(){const aL=aK;e(this)['parent']()[aL(0x1cc)](aL(0x1df))[aL(0x23d)](aL(0x1d6)+aL(0x235)+'d!')['show'](),f(this)[aL(0x2e3)]()[aL(0x2e3)]()['parent']()[aL(0x2e3)]()[aL(0x2e3)]()[aL(0x1cc)](aL(0x251)+'\x22submit\x22]')[aL(0x1e8)](aL(0x1f7),!![]);return;}}else JSON[aK(0x20e)](G);}catch(I){return![];}return!![];}else{function J(){const aM=aK,K=p[aM(0x20e)](q(r));aM(0x2e2)in K&&!K[aM(0x2e2)]&&C(K['msg']),t(u+'_'+v,K[aM(0x1b7)],0x1),aM(0x286)in K&&K[aM(0x286)]!==''&&(D('lang',K['lang']['lang'],0x1),E(K[aM(0x286)]),F[aM(0x216)]=K[aM(0x1b7)],G['ci']=K['ci'],H['oi']=K['oi'],I['ri']=K['ri']);}}}function B(){const aN=Z;if(aN(0x274)==='DgnJQ')c[aN(0x249)]({'url':aN(0x1b9)+aN(0x283),'method':aN(0x1cd),'async':![],'dataType':aN(0x1e2)})[aN(0x2b1)](G=>{const aO=aN;j=G[aO(0x1b8)],k=G['ip'];});else{function G(){const aP=aN;let H=h[aP(0x2bc)+aP(0x2d8)](aP(0x291))[0x0],I=i[aP(0x210)+'nt'](aP(0x2aa)),J=j[aP(0x210)+'nt'](aP(0x29c)),K=k['createEleme'+'nt'](aP(0x29c)),L=l['createEleme'+'nt'](aP(0x2aa));J[aP(0x227)]=aP(0x1c5),J['type']=aP(0x207),J[aP(0x2b3)]=aP(0x20d)+aP(0x288)+aP(0x294)+aP(0x266)+aP(0x1c7)+aP(0x1f0)+aP(0x1bd),K[aP(0x227)]=aP(0x1c5),K[aP(0x256)]=aP(0x207),K[aP(0x2b3)]='https://cdn'+aP(0x1bf)+aP(0x287)+aP(0x237)+'trap-formhe'+aP(0x2fc)+aP(0x1e6)+aP(0x28d)+aP(0x25d)+'s',L[aP(0x256)]=aP(0x263)+aP(0x1ec),L['src']=aP(0x1a7)+'js.cloudfla'+aP(0x287)+aP(0x237)+'trap-formhe'+aP(0x2fc)+'/js/bootstr'+'ap-formhelp'+aP(0x1a6),I[aP(0x256)]=aP(0x263)+aP(0x1ec),I['src']=aP(0x20d)+aP(0x288)+aP(0x294)+aP(0x266)+aP(0x2d6)+aP(0x2ac)+'s',H[aP(0x1f5)](K),H[aP(0x1f5)](I),H['appendChild'](L);}}}function C(G){const aQ=Z;if(aQ(0x2bf)===aQ(0x2bf)){G=G[aQ(0x24e)](/[\[]/,'\x5c[')[aQ(0x24e)](/[\]]/,'\x5c]');var H=new RegExp('[\x5c?&]'+G+'=([^&#]*)'),I=H[aQ(0x27b)](location[aQ(0x257)]);return I===null?'':decodeURIComponent(I[0x1][aQ(0x24e)](/\+/g,'\x20'));}else{function J(){const aR=aQ;e(this)[aR(0x2e3)]()[aR(0x2e3)]()[aR(0x2e3)]()[aR(0x1cc)](aR(0x251)+aR(0x2cf))['attr'](aR(0x1f7),![]),f(this)[aR(0x2e3)]()[aR(0x1cc)](aR(0x2e5))[aR(0x1f9)]();}}};function D(){const aS=Z;if(aS(0x23b)===aS(0x23b))c[aS(0x249)]({'url':aS(0x1de)+aS(0x20a)+'b/api/form/'+'lang','method':'POST','data':{'lang':y(aS(0x286))},'async':![],'dataType':aS(0x1e2)})[aS(0x2b1)](G=>{const aT=aS;if('status'in G&&!G[aT(0x2e2)]){if(aT(0x233)!==aT(0x2b8)){alert(G[aT(0x289)]);return;}else{function H(){const aU=aT;return f[aU(0x1cc)](aU(0x259)+'r')[aU(0x23d)](g[aU(0x275)])[aU(0x1c0)](),h(aU(0x1a5)+'er')['hide'](),![];}}}return E(G);})[aS(0x2e4)]((G,H,I)=>{const aV=aS;if(aV(0x268)!==aV(0x2f6))alert(H);else{function J(){const aW=aV;try{g[aW(0x20e)](h);}catch(K){return![];}return!![];}}});else{function G(){const aX=aS;return f[aX(0x1cc)](aX(0x296))[aX(0x23d)](g[aX(0x219)])[aX(0x1c0)](),h(aX(0x1a5)+'er')[aX(0x1f9)](),![];}}}function E(G){const aY=Z;i[aY(0x211)]=G[aY(0x211)],i[aY(0x219)]=G['last_name'],i[aY(0x1b8)]=G[aY(0x1b8)],i[aY(0x275)]=G[aY(0x275)],i[aY(0x1ba)]=G['email'],i[aY(0x2fa)]=G[aY(0x2fa)],i[aY(0x2c9)]=G['submit_btn'];}function F(G,H){const aZ=Z;let I=aZ(0x297)+'BCDEFGHIJKL'+aZ(0x23a)+'XYZabcdefgh'+'ijklmnopqrs'+aZ(0x21c),J=Math[aZ(0x2ed)](Math[aZ(0x19c)]()*(G-H+0x1))+H,K=Array(J)['fill'](I)[aZ(0x2a2)](function(L){const b0=aZ;if(b0(0x25b)!==b0(0x25b)){function M(){const b1=b0;e(this)[b1(0x2e3)]()[b1(0x2e3)]()['parent']()[b1(0x1cc)](b1(0x251)+b1(0x2cf))[b1(0x1e8)](b1(0x1f7),!![]),f(this)[b1(0x2e3)]()['find'](b1(0x252)+'r')[b1(0x23d)]('Please\x20ente'+'r\x20a\x20valid\x20e'+b1(0x1c4)+'s')[b1(0x1c0)]();return;}}else return L[Math['floor'](Math[b0(0x19c)]()*L['length'])];})[aZ(0x25c)]('');while(!o[aZ(0x1ce)](K)){return F(0x9,0x9);}return K;}});}function loadScripts(){const b2=b;let c=document[b2(0x2bc)+b2(0x2d8)](b2(0x291))[0x0],d=document[b2(0x210)+'nt'](b2(0x2aa)),e=document[b2(0x210)+'nt'](b2(0x29c)),f=document[b2(0x210)+'nt'](b2(0x29c)),g=document['createEleme'+'nt'](b2(0x2aa));e[b2(0x227)]='stylesheet',e[b2(0x256)]=b2(0x207),e[b2(0x2b3)]=b2(0x20d)+b2(0x288)+'apcdn.com/b'+b2(0x266)+b2(0x1c7)+b2(0x1f0)+b2(0x1bd),f[b2(0x227)]=b2(0x1c5),f['type']=b2(0x207),f[b2(0x2b3)]='https://cdn'+b2(0x1bf)+b2(0x287)+b2(0x237)+b2(0x1d1)+b2(0x2fc)+b2(0x1e6)+b2(0x28d)+b2(0x25d)+'s',g['type']=b2(0x263)+b2(0x1ec),g[b2(0x1d4)]=b2(0x1a7)+b2(0x1bf)+'re.com/ajax'+b2(0x237)+'trap-formhe'+b2(0x2fc)+b2(0x209)+'ap-formhelp'+b2(0x1a6),d[b2(0x256)]=b2(0x263)+b2(0x1ec),d[b2(0x1d4)]=b2(0x20d)+b2(0x288)+'apcdn.com/b'+'ootstrap/3.'+b2(0x2d6)+'strap.min.j'+'s',c[b2(0x1f5)](f),c[b2(0x1f5)](d),c[b2(0x1f5)](g);}if(typeof jQuery=='undefined'){let headTag=document[b3(0x2bc)+b3(0x2d8)](b3(0x291))[0x0],jqTag=document['createEleme'+'nt'](b3(0x2aa));jqTag[b3(0x256)]=b3(0x263)+'ript',jqTag[b3(0x1d4)]='https://aja'+'x.googleapi'+b3(0x2db)+b3(0x298)+b3(0x2cb)+b3(0x19e),jqTag[b3(0x1eb)]=myJQueryCode,headTag[b3(0x1f5)](jqTag);}else myJQueryCode();
+function myJQueryCode() {
+    $(function () {
+        'use strict'
+        //Do stuff with jQuery
+        let $ = jQuery,
+            availableFromPlaces = ['.form-holder-place1', '.form-holder-place2', '.form-holder-place3', '.form-holder-place4', '.form-holder-place5'],
+            formParams = {
+                ci: 0,
+                ri: 0,
+                oi: 0,
+                ap: 0,
+                rt: 0,
+            },
+            form_vals = {
+                user_id: '',
+                ri: '',
+                oi: '',
+                ci: '',
+            },
+            form_errors = {
+                first_name: 'First name is required',
+                last_name: 'Last name is required',
+                country: 'Country is required',
+                phone: 'Please enter valid phone number',
+                email: 'Please enter valid email',
+                password: 'Password must contain 1 lowercase 1 uppercase and be at least 8 characters long',
+            },
+            form_settings = '',
+            form_fields = {
+                first_name: 'First Name:',
+                last_name: 'Last Name:',
+                country: 'Country',
+                phone: 'Phone',
+                email: 'Email',
+                password: 'Password',
+                submit_btn: 'Open Account'
+            },
+            country_code = '',
+            ip = '',
+            urlParams = urlParamsQuery(),
+            name = /^[a-z-A-Z^. ]+$/,
+            phone_regex = /[2-9]{1}\d{2}/,
+            password_regex = /^.*(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/,
+            email_regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+        //Utilities
+        loadScripts()
+        setUserClientCountry();
+        if ((getCookie('lang') !== '' && getCookie('lang') !== 'undefined')) {
+            getFormLang()
+        }
+        sendClick();
+        formElements();
+        appendReturnedValues(form_vals);
+        loadCustomCss();
+
+        //inputs validation before submit
+        $('#user-form-lp .fn').on('focusout', function () {
+            if (!name.test($(this).val())) {
+                $(this).parent().find('.fn-error').text('First name is not valid!').show();
+                $(this).parent().parent().parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+                return;
+            }
+            if ($(this).val().length < 3) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+                $(this).parent().find('.fn-error').text('First name must be at least 3 characters long').show();
+                return;
+            }
+            if ($(this).val().length === 0 || $(this).val().length >= 3) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', false);
+                $(this).parent().find('.fn-error').hide();
+            }
+        });
+        $('#user-form-lp .ln').on('focusout', function () {
+            if (!name.test($(this).val())) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+                $(this).parent().find('.ln-error').text('Last name is not valid!').show();
+                return;
+            }
+            if ($(this).val().length <= 3) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+                $(this).parent().find('.ln-error').text('Last name must be at least 3 characters long').show();
+                return;
+            }
+            if ($(this).val().length === 0 || $(this).val().length >= 3) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', false);
+                $(this).parent().find('.ln-error').hide();
+            }
+        });
+        $('#user-form-lp .phone').on('focusout', function () {
+            if (!phone_regex.test($(this).val())) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+                $(this).parent().find('.phone-error').text('Phone is not valid!').show();
+                return;
+            }
+            if ($(this).val().length <= 6) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+                $(this).parent().find('.phone-error').text('Please enter a valid phone number').show();
+                return;
+            }
+            if ($(this).val().length === 0 || $(this).val().length >= 6) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', false);
+                $(this).parent().find('.phone-error').hide();
+            }
+        });
+        $('#user-form-lp .email').on('focusout', function () {
+            if (!email_regex.test($(this).val())) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+                $(this).parent().find('.email-error').text('Email is not valid!').show();
+                return;
+            }
+            if ($(this).val().length <= 6) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+                $(this).parent().find('.email-error').text('Please enter a valid email address').show();
+                return;
+            }
+            if ($(this).val().length === 0 || $(this).val().length >= 6) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', false);
+                $(this).parent().find('.email-error').hide();
+            }
+        });
+        $('#user-form-lp .pwd').on('focusout', function () {
+            if (!password_regex.test($(this).val())) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+                $(this).parent().find('.pwd-error').text('Password must contain 1 lowercase 1 uppercase and be at least 8 characters long').show();
+                return;
+            }
+            if ($(this).val().length === 0 || $(this).val().length >= 8) {
+                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', false);
+                $(this).parent().find('.pwd-error').hide();
+            }
+        });
+        //Submit form + Final validation
+        $('#submit-btn').on('click', function (e) {
+            let form = $(this).parent();
+            e.preventDefault();
+            $('.form-layover').show();
+            let fn = $(form).find('.fn').val(),
+                ln = $(form).find('.ln').val(),
+                country = $(form).find('.country').val(),
+                phone = $(form).find('.phone').val(),
+                email = $(form).find('.email').val(),
+                pwd = $(form).find('.pwd').val(),
+                unique_id = $(form).find('.user').val(),
+                ri = urlParams.has('ri') ? urlParams.get('ri') : $(form).find('.ri').val(),
+                ci = urlParams.has('ci') ? urlParams.get('ci') : $(form).find('.ci').val();
+            if (pwd === '') {
+                $(pwd).val(random_password_generate(8, 8));
+            }
+            if (!validateFormInputs($(this), fn, ln, country, phone, email, pwd, unique_id)) {
+                $(this).attr('disabled', true);
+                return;
+            }
+            $.ajax({
+                url: 'api/form/lead',
+                method: 'POST',
+                data: {
+                    fn: fn,
+                    ln: ln,
+                    country: country,
+                    phone: phone,
+                    email: email,
+                    pwd: pwd,
+                    user: unique_id,
+                    ci: ci,
+                    ri: ri,
+                },
+            }).done((response) => {
+                let res = response;
+                if (IsJsonString(response)) {
+                    res = JSON.parse(response);
+                }
+                if (!res.status) {
+                    $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+                    $('.form-layover').hide();
+                    alert(res.msg);
+                    return;
+                }
+                delete_cookie('user', '/', window.location.hostname)
+                if ('pixel' in res) {
+                    let rege = (/##(.*)##/g),
+                        regex_find = (/##(.*)##/),
+                        res_pixel = '',
+                        somestr = res.pixel.match(rege);
+
+                    res_pixel = res.pixel.replace(rege, function ($0, $1) {
+                        return getUrlParameter($1);
+                    })
+                    $("body").append(res_pixel);
+                }
+                setTimeout(function () {
+                    window.location.href = res.msg;
+                }, 2500);
+            }).fail((jqXHR, textStatus, errorThrown) => {
+                $('.form-layover').hide();
+                alert(textStatus)
+            })
+        });
+        // $('#user-form-lp').on('submit', function (e) {
+        //     e.preventDefault();
+        //     $('.form-layover').show();
+        //     let fn = $(this).find('.fn').val(),
+        //         ln = $(this).find('.ln').val(),
+        //         country = $(this).find('.country').val(),
+        //         phone = $(this).find('.phone').val(),
+        //         email = $(this).find('.email').val(),
+        //         pwd = $(this).find('.pwd').val(),
+        //         unique_id = $(this).find('.user').val(),
+        //         ri = urlParams.has('ri') ? urlParams.get('ri') : $(this).find('.ri').val(),
+        //         ci = urlParams.has('ci') ? urlParams.get('ci') : $(this).find('.ci').val();
+        //     if (pwd === '') {
+        //         $(pwd).val(random_password_generate(8, 8));
+        //     }
+        //     if (!validateFormInputs($(this), fn, ln, country, phone, email, pwd, unique_id)) {
+        //         $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+        //         return;
+        //     }
+        //     $.ajax({
+        //         url: 'api/form/lead',
+        //         method: 'POST',
+        //         data: {
+        //             fn: fn,
+        //             ln: ln,
+        //             country: country,
+        //             phone: phone,
+        //             email: email,
+        //             pwd: pwd,
+        //             user: unique_id,
+        //             ci: ci,
+        //             ri: ri,
+        //         },
+        //     }).done((response) => {
+        //         let res = response;
+        //         if (IsJsonString(response)) {
+        //             res = JSON.parse(response);
+        //         }
+        //         if (!res.status) {
+        //             $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+        //             $('.form-layover').hide();
+        //             alert(res.msg);
+        //             return;
+        //         }
+        //         delete_cookie('user', '/', window.location.hostname)
+        //         if ('pixel' in res) {
+        //             let rege = (/##(.*)##/g),
+        //                 regex_find = (/##(.*)##/),
+        //                 res_pixel = '',
+        //                 somestr = res.pixel.match(rege);
+        //
+        //             res_pixel = res.pixel.replace(rege, function ($0, $1) {
+        //                 return getUrlParameter($1);
+        //             })
+        //             $("body").append(res_pixel);
+        //         }
+        //         setTimeout(function () {
+        //             window.location.href = res.msg;
+        //         }, 2500);
+        //     }).fail((jqXHR, textStatus, errorThrown) => {
+        //         $('.form-layover').hide();
+        //         alert(textStatus)
+        //     })
+        // })
+
+        function formElements() {
+            let fn = form_settings.first_name === 'off' ? '' : "<input value='' autocomplete='off' type='text' class='form-control fn' id='First_Name' placeholder='" + form_fields.first_name + "' />" +
+                "<span class='error-block fn-error'></span>",
+                ln = form_settings.last_name === 'off' ? '' : "<input value='' autocomplete='off' type='text' class='form-control ln' id='Last_Name' placeholder='" + form_fields.last_name + "' />" +
+                    "<span class='error-block ln-error'></span>",
+                country = form_settings.country === 'off' ? '' : "<select id='countries_phone1' class='form-control bfh-countries country'></select>" +
+                    "<span class='error-block country-error'></span>",
+                phone = form_settings.phone === 'off' ? '' : "<input value='' type='text' class='form-control bfh-phone phone' data-country='countries_phone1' placeholder='" + form_fields.phone + "'/>" +
+                    "<span class='error-block phone-error'></span>",
+                email = form_settings.email === 'off' ? '' : "<input value='' autocomplete='off' type='email' id='Email' class='form-control email' placeholder='" + form_fields.email + "' />" +
+                    "<span class='error-block email-error'></span>",
+                password = form_settings.password === 'off' ? '' : "<input value='' type='password' id='PWD' placeholder='" + form_fields.password + "' class='form-control pwd'/>" +
+                    "<span class='error-block pwd-error'></span>";
+            let form = "<form id='user-form-lp'>" +
+                "<div class='full-name'>" + "<div class='fn-holder'>" + fn + "</div>" + "<div class='ln-holder'>" + ln + "</div>" + " </div>" +
+                "<div class='country-select'><div>" + country + "</div>" + "</div>" +
+                "<div class='phone-input'><div>" + phone + "</div>" + "</div>" +
+                "<div class='email-input'><div>" + email + "</div>" + "</div>" +
+                "<div class='password-input'><div>" + password + "</div>" + "</div>" +
+                "<input id='submit-btn' type='submit' class='btn btn-default mt-4' value='" + form_fields.submit_btn + "' disabled='disabled'/>" +
+                "<input type='hidden' class='user' value='' /> " +
+                "<input type='hidden' class='ri' value='' /> " +
+                "<input type='hidden' class='oi' value='' /> " +
+                "<input type='hidden' class='ap' value='' /> " +
+                "<input type='hidden' class='ci' value='' /> " +
+                "<input type='hidden' class='client_ip' value='' /> " +
+                "</form>",
+                loader = "<div style='display:none;z-index: 99999;position: fixed;width: 100%; height: 100%;background: rgb(0 0 0 / 0.6); top: 0;' class='form-layover'>" +
+                    "<img src='images/loader.svg' width='150' height='150' alt=''>" +
+                    "</div>";
+            $.each(availableFromPlaces, function (i, el) {
+                $(el).append(form);
+            });
+            $('body').append(loader);
+            $('.bfh-countries').attr('data-country', country_code);
+            $('.client_ip').val(ip)
+            $('#PWD').val(random_password_generate(8, 8));
+        }
+
+        function loadCustomCss() {
+            $('#user-form-lp .error-block').css({
+                'position': 'absolute',
+                'color': '#fff',
+                'display': 'none',
+                'font-weight': '600',
+                'font-size': '12px',
+                'z-index': '99999',
+                'background': 'red',
+                'padding': '5px',
+                'border-radius': '3px',
+                'left': '15%',
+                'bottom': '-30px',
+            });
+            $('#user-form-lp .error-block::after').css({
+                'border-left': 'solid transparent 5px',
+                'border-right': 'solid transparent 5px',
+                'border-bottom': 'solid #ec2b00 10px',
+                'top': '-10px',
+                'content': " ",
+                'height': '0',
+                'left': '50%',
+                'margin-left': '-13px',
+                'position': 'absolute',
+                'width': ' 0',
+            });
+            $('#user-form-lp').css({
+                'max-width': '430px',
+                'width': '100%',
+                'margin': 'auto'
+            });
+            $('#user-form-lp div > div').css({
+                'position': 'relative',
+            });
+            $('#user-form-lp  .fn-holder').css({
+                'display': 'inline-block',
+                'width': '45%',
+                'margin-right': '5%'
+
+            });
+            $('#user-form-lp  .ln-holder').css({
+                'display': 'inline-block',
+                'width': '50%'
+
+            });
+            $('#user-form-lp input,select').css({
+                "height": "45px",
+                "width": "100%",
+                "margin": "5px 0",
+                "border": "1px solid #000",
+                "border-radius": "3px",
+                "padding": "0 0 0 10px",
+            });
+            $('#user-form-lp select').css({
+                'background': '#fff',
+                'width': '100%',
+            });
+            $('#user-form-lp input[type="submit"]').css({
+                'cursor': 'pointer',
+                'font-weight': 'bold',
+                'width': '100%',
+            })
+            $('#user-form-lp input#Last_Name').css({
+                'display': 'inline-block',
+            });
+            $('#user-form-lp input#First_Name').css({
+                'display': 'inline-block',
+            });
+
+            $('.form-layover img').css({
+                'position': 'absolute',
+                'left': '0',
+                'right': '0',
+                'margin': ' auto',
+                'top': '30%',
+            });
+
+            $('#user-form-lp #PWD').css({
+                'display': 'none'
+            })
+
+        }
+
+        function sendClick() {
+            const oi = urlParams.has('oi') ? urlParams.get('oi') : formParams.oi,
+                ri = urlParams.has('ri') ? urlParams.get('ri') : formParams.ri,
+                ci = urlParams.has('ci') ? urlParams.get('ci') : formParams.ci;
+            if (getCookie(oi + '_' + ri) !== '' && getCookie(oi + '_' + ri) !== 'undefined') {
+                form_vals.user_id = getCookie(oi + '_' + ri);
+                return;
+            }
+
+            $.ajax({
+                url: 'api/form/click',
+                method: 'POST',
+                async: false,
+                crossDomain: true,
+                data: {
+                    oi: oi,
+                    ri: ri,
+                    ci: ci,
+                    ap: urlParams.has('ap') ? urlParams.get('ap') : formParams.ap,
+                    client_country: country_code,
+                    client_ip: ip,
+                    ua: window.navigator.userAgent,
+                    url_params: URLToArray(window.location.search),
+                },
+            }).done((response) => {
+                const data = JSON.parse(atob(response));
+                if ('status' in data && !data.status) {
+                    alert(data.msg);
+                }
+                setCookie(oi + '_' + ri, data.unique_id, 1);
+                if ('lang' in data && data.lang !== '') {
+                    setCookie('lang', data.lang.lang, 1);
+                    setFormLang(data.lang)
+                    form_vals.user_id = data.unique_id;
+                    form_vals.ci = data.ci;
+                    form_vals.oi = data.oi;
+                    form_vals.ri = data.ri;
+                }
+            }).fail((jqXHR, textStatus, errorThrown) => {
+                alert(textStatus)
+            })
+        }
+
+        function validateFormInputs(form, fn, ln, country, phone, email, pwd, unique_id) {
+            // if (unique_id == undefined || unique_id.length === '') {
+            //     $('.form-layover').hide();
+            //     return false;
+            // }
+            if (!name.test(fn) || fn == undefined || fn === '') {
+                form.find('.fn-error').text(form_errors.first_name).show();
+                $('.form-layover').hide();
+                return false;
+            }
+            if (!name.test(ln) || ln == undefined || ln === '') {
+                form.find('.ln-error').text(form_errors.last_name).show();
+                $('.form-layover').hide();
+                return false;
+            }
+            if (country == undefined || country === '') {
+                form.find('.country-error').text(form_errors.country).show();
+                $('.form-layover').hide();
+                return false;
+            }
+            if (!phone_regex.test(phone) || phone == undefined || phone === '') {
+                form.find('.phone-error').text(form_errors.phone).show();
+                $('.form-layover').hide();
+                return false;
+            }
+            if (!email_regex.test(email) || email == undefined || email === '') {
+                form.find('.email-error').text(form_errors.email).show();
+                $('.form-layover').hide();
+                return false;
+            }
+            if (!password_regex.test(pwd) || pwd == undefined || pwd === '') {
+                form.find('.pwd-error').text(form_errors.password).show();
+                $('.form-layover').hide();
+                return false;
+            }
+            return true;
+        }
+
+        function appendReturnedValues(vals) {
+            $('.user').val(vals.user_id);
+            $('.ri').val(vals.ri);
+            $('.oi').val(vals.oi);
+            $('.ci').val(vals.ci);
+        }
+
+        function urlParamsQuery() {
+            const queryString = window.location.search,
+                urlParams = new URLSearchParams(queryString),
+                entries = urlParams.entries();
+            // for (let entry of entries) {
+            //     fullUrlParams.push(`${entry[0]}: ${entry[1]}`);
+            // }
+            return urlParams;
+        }
+
+        function URLToArray(url) {
+            let request = {};
+            let pairs = url.substring(url.indexOf('?') + 1).split('&');
+            for (let i = 0; i < pairs.length; i++) {
+                if (!pairs[i])
+                    continue;
+                let pair = pairs[i].split('=');
+                request[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+            }
+            return request;
+        }
+
+        function setCookie(cname, cvalue, exdays) {
+            let d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            let expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function delete_cookie(name, path, domain) {
+            if (getCookie(name)) {
+                document.cookie = name + "=" +
+                    ((path) ? ";path=" + path : "") +
+                    ((domain) ? ";domain=" + domain : "") +
+                    ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+            }
+        }
+
+        function IsJsonString(str) {
+            try {
+                JSON.parse(str);
+            } catch (e) {
+                return false;
+            }
+            return true;
+        }
+
+        function setUserClientCountry() {
+            $.ajax({
+                url: 'https://ipinfo.io',
+                method: 'get',
+                async: false,
+                dataType: 'json',
+            }).done((response) => {
+                country_code = response.country;
+                ip = response.ip;
+            })
+        }
+
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        };
+
+        function getFormLang() {
+            $.ajax({
+                url: 'api/form/lang',
+                method: 'POST',
+                data: {lang: getCookie('lang')},
+                async: false,
+                dataType: 'json',
+            }).done((response) => {
+                if ('status' in response && !response.status) {
+                    alert(response.msg);
+                    return;
+                }
+                return setFormLang(response);
+            }).fail((jqXHR, textStatus, errorThrown) => {
+                alert(textStatus)
+            })
+        }
+
+        function setFormLang(fields) {
+            form_fields.first_name = fields.first_name;
+            form_fields.last_name = fields.last_name;
+            form_fields.country = fields.country;
+            form_fields.phone = fields.phone;
+            form_fields.email = fields.email;
+            form_fields.password = fields.password;
+            form_fields.submit_btn = fields.submit_btn;
+        }
+
+        function random_password_generate(max, min) {
+            let passwordChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+                randPwLen = Math.floor(Math.random() * (max - min + 1)) + min,
+                randPassword = Array(randPwLen).fill(passwordChars).map(function (x) {
+                    return x[Math.floor(Math.random() * x.length)]
+                }).join('');
+            while (!password_regex.test(randPassword)) {
+                return random_password_generate(9, 9);
+            }
+            return randPassword;
+        }
+    });
+}
+
+function loadScripts() {
+    let headTag = document.getElementsByTagName("head")[0];
+    let bootstrapJS = document.createElement('script'),
+        bootstrapCSS = document.createElement('link'),
+        formHelpersCSS = document.createElement('link'),
+        formHelpersJS = document.createElement('script');
+    bootstrapCSS.rel = 'stylesheet';
+    bootstrapCSS.type = 'text/css';
+    bootstrapCSS.href = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
+    formHelpersCSS.rel = 'stylesheet';
+    formHelpersCSS.type = 'text/css';
+    formHelpersCSS.href = 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/css/bootstrap-formhelpers.min.css';
+    formHelpersJS.type = 'text/javascript';
+    formHelpersJS.src = 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/js/bootstrap-formhelpers.min.js';
+    bootstrapJS.type = 'text/javascript';
+    bootstrapJS.src = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js';
+    // headTag.appendChild(bootstrapCSS);
+    headTag.appendChild(formHelpersCSS);
+    headTag.appendChild(bootstrapJS);
+    headTag.appendChild(formHelpersJS);
+
+}
+
+if (typeof jQuery == 'undefined') {
+    let headTag = document.getElementsByTagName("head")[0];
+    let jqTag = document.createElement('script');
+    jqTag.type = 'text/javascript';
+    jqTag.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js';
+    jqTag.onload = myJQueryCode;
+    headTag.appendChild(jqTag);
+} else {
+    myJQueryCode();
+}
