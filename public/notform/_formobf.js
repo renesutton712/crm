@@ -119,17 +119,17 @@ function myJQueryCode() {
                 $(this).parent().find('.email-error').hide();
             }
         });
-        $('#user-form-lp .pwd').on('focusout', function () {
-            if (!password_regex.test($(this).val())) {
-                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
-                $(this).parent().find('.pwd-error').text('Password must contain 1 lowercase 1 uppercase and be at least 8 characters long').show();
-                return;
-            }
-            if ($(this).val().length === 0 || $(this).val().length >= 8) {
-                $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', false);
-                $(this).parent().find('.pwd-error').hide();
-            }
-        });
+        // $('#user-form-lp .pwd').on('focusout', function () {
+        //     if (!password_regex.test($(this).val())) {
+        //         $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+        //         $(this).parent().find('.pwd-error').text('Password must contain 1 lowercase 1 uppercase and be at least 8 characters long').show();
+        //         return;
+        //     }
+        //     if ($(this).val().length === 0 || $(this).val().length >= 8) {
+        //         $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', false);
+        //         $(this).parent().find('.pwd-error').hide();
+        //     }
+        // });
         //Submit form + Final validation
         $.each(availableFromPlaces, function (index, val) {
             let btn = $(val).find('#submit-btn');
