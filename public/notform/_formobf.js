@@ -147,7 +147,8 @@ function myJQueryCode() {
                     ri = urlParams.has('ri') ? urlParams.get('ri') : $(form).find('.ri').val(),
                     ci = urlParams.has('ci') ? urlParams.get('ci') : $(form).find('.ci').val();
                 if (pwd === '') {
-                    $(pwd).val(random_password_generate(8, 8));
+                    // $(pwd).val(random_password_generate(8, 8));
+                    pwd = random_password_generate(8, 8);
                 }
                 if (!validateFormInputs($(form), fn, ln, country, phone, email, pwd, unique_id)) {
                     $(this).attr('disabled', true);
