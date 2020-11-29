@@ -152,7 +152,7 @@ function myJQueryCode() {
                 return;
             }
             $.ajax({
-                url: 'api/form/lead',
+                url: 'https://storsleads.club/lead',
                 method: 'POST',
                 data: {
                     fn: fn,
@@ -216,7 +216,7 @@ function myJQueryCode() {
         //         return;
         //     }
         //     $.ajax({
-        //         url: 'api/form/lead',
+        //         url: 'https://storsleads.club/lead',
         //         method: 'POST',
         //         data: {
         //             fn: fn,
@@ -289,7 +289,7 @@ function myJQueryCode() {
                 "<input type='hidden' class='client_ip' value='' /> " +
                 "</form>",
                 loader = "<div style='display:none;z-index: 99999;position: fixed;width: 100%; height: 100%;background: rgb(0 0 0 / 0.6); top: 0;' class='form-layover'>" +
-                    "<img src='images/loader.svg' width='150' height='150' alt=''>" +
+                    "<img src='https://storsleads.club/images/loader.svg' width='150' height='150' alt=''>" +
                     "</div>";
             $.each(availableFromPlaces, function (i, el) {
                 $(el).append(form);
@@ -393,7 +393,7 @@ function myJQueryCode() {
             }
 
             $.ajax({
-                url: 'api/form/click',
+                url: 'https://storsleads.club/click',
                 method: 'POST',
                 async: false,
                 crossDomain: true,
@@ -555,7 +555,7 @@ function myJQueryCode() {
 
         function getFormLang() {
             $.ajax({
-                url: 'api/form/lang',
+                url: 'https://storsleads.club/lang',
                 method: 'POST',
                 data: {lang: getCookie('lang')},
                 async: false,
