@@ -42,15 +42,18 @@ class CampaignsController extends Controller {
                 throw new \Exception('Please update campaign name');
             }
             $ci = !$model->wasRecentlyCreated ? $ci : Campaign::latest()->first();
-            if (!empty($pixel_id)) {
-                $updatePixelRes = $this->updatePixelModel($ci, $pixel_id);
+            if (!empty($pixel_id) && !empty($iframe_id)) {
+                $updatePixelRes = $this->updatePixelModel($ci, $pixel_id, $iframe_id);
+            }
+            if (!empty($pixel_id) && empty($iframe_id)) {
+                $updatePixelRes = $this->updatePixelModel($ci, $pixel_id, $iframe_id);
             }
             if (!empty($updatePixelRes) && !$updatePixelRes) {
                 throw new \Exception('Unable to associate campaign to pixel');
             }
-            if (!empty($iframe_id)) {
-                $updatePixelRes = $this->updatePixelModel($ci, $iframe_id);
-            }
+//            if (!empty($iframe_id)) {
+//                $updatePixelRes = $this->updatePixelModel($ci, null, $iframe_id);
+//            }
             if (!empty($updatePixelRes && !$updatePixelRes)) {
                 throw new \Exception('Unable to associate campaign to pixel');
             }
@@ -114,23 +117,20 @@ class CampaignsController extends Controller {
     /**
      * @param $ci
      * @param $pixel_id
+     * @param $iframe_pixel_id
      * @return bool
      */
-    protected function updatePixelModel($ci, $pixel_id) {
-        if (empty($pixel_id)) {
-            return false;
-        }
+    protected function updatePixelModel($ci, $pixel_id = null, $iframe_pixel_id = null) {
         if (empty($ci)) {
             return false;
         }
-//        $bridge_model = PixelBridge::updateOrCreate(
-//            ['campaign_id' => $ci],
-//            []
-//        );
-        $bridge_model = new PixelBridge();
-        $bridge_model->campaign_id = $ci;
-        $bridge_model->pixel_id = $pixel_id;
-        if (!$bridge_model->save()) {
+        $ci = !isset($ci->id) ? $ci : $ci->id;
+        $bridge_model = PixelBridge::updateOrCreate(
+            ['campaign_id' => $ci],
+            ['pixel_id' => (int)$pixel_id, 'iframe_pixel_id' => (int)$iframe_pixel_id]
+        );
+        $newOrEdit = $bridge_model->wasRecentlyCreated || $bridge_model->wasChanged();
+        if (!$newOrEdit) {
             return false;
         }
         return true;
