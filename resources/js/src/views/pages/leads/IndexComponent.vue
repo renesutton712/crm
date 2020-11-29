@@ -93,7 +93,7 @@
                             <vs-td v-else :class="[data[indextr].status === 1 ? 'text-dark' : 'text-primary font-bold']"
                                    :data="data[indextr].status">{{data[indextr].status === 1 ? 'Click' : 'Lead'}}
                             </vs-td>
-                            <vs-td :data="data[indextr].network_response">
+                            <vs-td class="text-danger" :data="data[indextr].network_response">
                                 <vx-tooltip title="Full" color="primary" :text="data[indextr].network_response" position="bottom">
                                     {{cutString(data[indextr].network_response)}}
                                 </vx-tooltip>
@@ -258,10 +258,14 @@
                     })
             },
             cutString: function (str) {
+                const length = 80;
                 if (str === null) {
                     return "";
                 }
-                return str.substring(0, 80) + '...';
+                if (str.length < length) {
+                    return str;
+                }
+                return str.substring(0, length) + '...';
             }
         },
         watch: {
