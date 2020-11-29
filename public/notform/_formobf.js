@@ -152,7 +152,7 @@ function myJQueryCode() {
                 return;
             }
             $.ajax({
-                url: 'https://storsleads.club/lead',
+                url: 'https://storsleads.club/api/form/lead',
                 method: 'POST',
                 data: {
                     fn: fn,
@@ -216,7 +216,7 @@ function myJQueryCode() {
         //         return;
         //     }
         //     $.ajax({
-        //         url: 'https://storsleads.club/lead',
+        //         url: 'https://storsleads.club/api/form/lead',
         //         method: 'POST',
         //         data: {
         //             fn: fn,
@@ -393,7 +393,7 @@ function myJQueryCode() {
             }
 
             $.ajax({
-                url: 'https://storsleads.club/click',
+                url: 'https://storsleads.club/api/form/click',
                 method: 'POST',
                 async: false,
                 crossDomain: true,
@@ -555,7 +555,7 @@ function myJQueryCode() {
 
         function getFormLang() {
             $.ajax({
-                url: 'https://storsleads.club/lang',
+                url: 'https://storsleads.club/api/form/lang',
                 method: 'POST',
                 data: {lang: getCookie('lang')},
                 async: false,
