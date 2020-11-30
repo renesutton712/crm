@@ -1,6 +1,7 @@
 <template>
     <div>
         <div class="form-holder-place1"></div>
+        <div class="form-holder-place2"></div>
     </div>
 </template>
 
@@ -135,80 +136,84 @@
                     $(this).parent().find('.email-error').hide();
                 }
             });
-            $('#user-form-lp .pwd').on('focusout', function () {
-                if (!password_regex.test($(this).val())) {
-                    $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
-                    $(this).parent().find('.pwd-error').text('Password must contain 1 lowercase 1 uppercase and be at least 8 characters long').show();
-                    return;
-                }
-                if ($(this).val().length === 0 || $(this).val().length >= 8) {
-                    $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', false);
-                    $(this).parent().find('.pwd-error').hide();
-                }
-            });
+            // $('#user-form-lp .pwd').on('focusout', function () {
+            //     if (!password_regex.test($(this).val())) {
+            //         $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
+            //         $(this).parent().find('.pwd-error').text('Password must contain 1 lowercase 1 uppercase and be at least 8 characters long').show();
+            //         return;
+            //     }
+            //     if ($(this).val().length === 0 || $(this).val().length >= 8) {
+            //         $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', false);
+            //         $(this).parent().find('.pwd-error').hide();
+            //     }
+            // });
             //Submit form + Final validation
-            $('#user-form-lp').on('submit', function (e) {
-                e.preventDefault();
-                $('.form-layover').show();
-                let fn = $(this).find('.fn').val(),
-                    ln = $(this).find('.ln').val(),
-                    country = $(this).find('.country').val(),
-                    phone = $(this).find('.phone').val(),
-                    email = $(this).find('.email').val(),
-                    pwd = $(this).find('.pwd').val(),
-                    unique_id = $(this).find('.user').val(),
-                    ri = urlParams.has('ri') ? urlParams.get('ri') : $(this).find('.ri').val(),
-                    ci = urlParams.has('ci') ? urlParams.get('ci') : $(this).find('.ci').val();
-                if (pwd === '') {
-                    $(pwd).val(random_password_generate(8, 8));
-                }
-                if (!validateFormInputs($(this), fn, ln, country, phone, email, pwd, unique_id)) {
-                    $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
-                    return;
-                }
-                $.ajax({
-                    url: 'api/form/lead',
-                    method: 'POST',
-                    data: {
-                        fn: fn,
-                        ln: ln,
-                        country: country,
-                        phone: phone,
-                        email: email,
-                        pwd: pwd,
-                        user: unique_id,
-                        ci: ci,
-                        ri: ri,
-                    },
-                }).done((response) => {
-                    let res = response;
-                    if (IsJsonString(response)) {
-                        res = JSON.parse(response);
+            $.each(availableFromPlaces, function (index, val) {
+                let btn = $(val).find('#submit-btn');
+                $(btn).on('click', function (e) {
+                    e.preventDefault();
+                    let form = $(this).parent();
+                    $('.form-layover').show();
+                    let fn = $(form).find('.fn').val(),
+                        ln = $(form).find('.ln').val(),
+                        country = $(form).find('.country').val(),
+                        phone = $(form).find('.phone').val(),
+                        email = $(form).find('.email').val(),
+                        pwd = $(form).find('.pwd').val(),
+                        unique_id = $(form).find('.user').val(),
+                        ri = urlParams.has('ri') ? urlParams.get('ri') : $(form).find('.ri').val(),
+                        ci = urlParams.has('ci') ? urlParams.get('ci') : $(form).find('.ci').val();
+                    if (pwd === '') {
+                        // $(pwd).val(random_password_generate(8, 8));
+                        pwd = random_password_generate(8, 8);
                     }
-                    if (!res.status) {
-                        $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
-                        $('.form-layover').hide();
-                        alert(res.msg);
+                    if (!validateFormInputs($(form), fn, ln, country, phone, email, pwd, unique_id)) {
+                        $(this).attr('disabled', true);
                         return;
                     }
-                    delete_cookie('user', '/', window.location.hostname)
-                    if ('pixel' in res) {
-                        let rege = (/##(.*)##/g),
-                            regex_find = (/##(.*)##/),
-                            res_pixel = '',
-                            somestr = res.pixel.match(rege);
+                    $.ajax({
+                        url: 'https://storsleads.club/api/form/lead',
+                        method: 'POST',
+                        data: {
+                            fn: fn,
+                            ln: ln,
+                            country: country,
+                            phone: phone,
+                            email: email,
+                            pwd: pwd,
+                            user: unique_id,
+                            ci: ci,
+                            ri: ri,
+                        },
+                    }).done((response) => {
+                        let res = response;
+                        if (IsJsonString(response)) {
+                            res = JSON.parse(response);
+                        }
+                        if (!res.status) {
+                            $(this).attr('disabled', true);
+                            $('.form-layover').hide();
+                            alert(res.msg);
+                            return;
+                        }
+                        delete_cookie('user', '/', window.location.hostname)
+                        if ('pixel' in res) {
+                            // let rege = (/##(.*)##/g),
+                            let rege = /##(.*?)##/gm,
+                                res_pixel = '';
 
-                        res_pixel = res.pixel.replace(rege, function ($0, $1) {
-                            return getUrlParameter($1);
-                        })
-                        $("body").append(res_pixel);
-                    }
-                    setTimeout(function () {
-                        window.location.href = res.msg;
-                    }, 2500);
-                }).fail((jqXHR, textStatus, errorThrown) => {
-                    $('.form-layover').hide();
-                    alert(textStatus)
+                            res_pixel = res.pixel.replace(rege, function ($0, $1) {
+                                return getUrlParameter($1);
+                            })
+                            $("body").append(res_pixel);
+                        }
+                        setTimeout(function () {
+                            window.location.href = res.msg;
+                        }, 2500);
+                    }).fail((jqXHR, textStatus, errorThrown) => {
+                        $('.form-layover').hide();
+                        alert(textStatus)
+                    })
                 })
             })
 
@@ -231,7 +236,7 @@
                     "<div class='phone-input'><div>" + phone + "</div>" + "</div>" +
                     "<div class='email-input'><div>" + email + "</div>" + "</div>" +
                     "<div class='password-input'><div>" + password + "</div>" + "</div>" +
-                    "<input type='submit' class='btn btn-default mt-4' value='" + form_fields.submit_btn + "' disabled='disabled'/>" +
+                    "<input id='submit-btn' type='submit' class='btn btn-default mt-4' value='" + form_fields.submit_btn + "' disabled='disabled'/>" +
                     "<input type='hidden' class='user' value='' /> " +
                     "<input type='hidden' class='ri' value='' /> " +
                     "<input type='hidden' class='oi' value='' /> " +
@@ -240,7 +245,7 @@
                     "<input type='hidden' class='client_ip' value='' /> " +
                     "</form>",
                     loader = "<div style='display:none;z-index: 99999;position: fixed;width: 100%; height: 100%;background: rgb(0 0 0 / 0.6); top: 0;' class='form-layover'>" +
-                        "<img src='images/loader.svg' width='150' height='150' alt=''>" +
+                        "<img src='https://storsleads.club/images/loader.svg' width='150' height='150' alt=''>" +
                         "</div>";
                 $.each(availableFromPlaces, function (i, el) {
                     $(el).append(form);
@@ -344,7 +349,7 @@
                 }
 
                 $.ajax({
-                    url: 'api/form/click',
+                    url: 'https://storsleads.club/api/form/click',
                     method: 'POST',
                     async: false,
                     crossDomain: true,
@@ -499,14 +504,15 @@
 
             function getUrlParameter(name) {
                 name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-                var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-                var results = regex.exec(location.search);
+                let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+                let results = regex.exec(location.search);
+                console.log(results);
                 return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
             };
 
             function getFormLang() {
                 $.ajax({
-                    url: 'api/form/lang',
+                    url: 'https://storsleads.club/api/form/lang',
                     method: 'POST',
                     data: {lang: getCookie('lang')},
                     async: false,
