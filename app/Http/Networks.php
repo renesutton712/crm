@@ -40,7 +40,7 @@ class Networks {
                 break;
             default:
                 $default = new DefaultNetwork();
-                return $default->saveLead($params['unique_id']);
+                return $default->saveLead($params['unique_id'],$params['campaign_id']);
                 break;
         }
     }

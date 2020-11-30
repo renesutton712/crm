@@ -36,7 +36,8 @@ abstract class NetworkFactory {
      * @return mixed
      */
     protected function getIframePixel($camp_id) {
-        return PixelIframe::select('iframe_content')->where('campaign_id', '=', "{$camp_id}")->first();
+        $iframe_id = PixelBridge::select('iframe_pixel_id')->where('campaign_id', '=', "{$camp_id}")->first();
+        return PixelIframe::select('iframe_content')->where('id', '=', "{$iframe_id->iframe_pixel_id}")->first();
     }
 
     /**
