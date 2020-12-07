@@ -118,12 +118,12 @@ class Trafficon extends NetworkFactory {
                 'form_params' => $params
             ]);
             $data = json_decode($res->getBody()->getContents(), true);
-//            if ($res->getStatusCode() !== 200) {
-//                throw  new \Exception('Not found');
-//            }
-            if ($data['status'] !== 'success') {
-                throw new \Exception($data['message']);
+            if ($res->getStatusCode() !== 200) {
+                throw  new \Exception('Not found');
             }
+//            if ($data['status'] !== 'success') {
+//                throw new \Exception($data['message']);
+//            }
             $pixel_res = $this->sendPixel($unique_id);
             if (isset($pixel_res['status']) && !$pixel_res['status']) {
                 throw new \Exception($pixel_res['msg']);
