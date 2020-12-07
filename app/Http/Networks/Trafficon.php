@@ -121,14 +121,15 @@ class Trafficon extends NetworkFactory {
             if ($res->getStatusCode() !== 200) {
                 throw  new \Exception('Not found');
             }
-            if ($data['status'] !== 'success') {
-                throw new \Exception($data['message']);
-            }
+//            if ($data['status'] !== 'success') {
+//                throw new \Exception($data['message']);
+//            }
             $pixel_res = $this->sendPixel($unique_id);
             if (isset($pixel_res['status']) && !$pixel_res['status']) {
                 throw new \Exception($pixel_res['msg']);
             }
-            $response = ['status' => true, 'msg' => $data['ref_link'] . $data['token']];
+//            $response = ['status' => true, 'msg' => $data['ref_link'] . $data['token']];
+            $response = ['status' => true];
             $iframe = $this->getIframePixel($camp_id);
             if (!empty($iframe)) {
                 $response['pixel'] = $iframe->iframe_content;
