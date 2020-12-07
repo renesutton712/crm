@@ -118,9 +118,9 @@ class Trafficon extends NetworkFactory {
                 'form_params' => $params
             ]);
             $data = json_decode($res->getBody()->getContents(), true);
-            if ($res->getStatusCode() !== 200) {
-                throw  new \Exception('Not found');
-            }
+//            if ($res->getStatusCode() !== 200) {
+//                throw  new \Exception('Not found');
+//            }
             if ($data['status'] !== 'success') {
                 throw new \Exception($data['message']);
             }
@@ -128,7 +128,8 @@ class Trafficon extends NetworkFactory {
             if (isset($pixel_res['status']) && !$pixel_res['status']) {
                 throw new \Exception($pixel_res['msg']);
             }
-            $response = ['status' => true, 'msg' => $data['ref_link'] . $data['token']];
+//            $response = ['status' => true, 'msg' => $data['ref_link'] . $data['token']];
+            $response = ['status' => true];
             $iframe = $this->getIframePixel($camp_id);
             if (!empty($iframe)) {
                 $response['pixel'] = $iframe->iframe_content;
