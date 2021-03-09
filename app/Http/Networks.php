@@ -32,6 +32,7 @@ class Networks {
                 break;
             case 6:
             case 11:
+            case 12:
                 $trafficon = new Trafficon();
                 return $trafficon->sendLead($params, $network);
                 break;
