@@ -31,6 +31,7 @@ class Networks {
                 return $supreme->prepareData($params, $network);
                 break;
             case 6:
+            case 11:
                 $trafficon = new Trafficon();
                 return $trafficon->sendLead($params, $network);
                 break;
@@ -40,7 +41,7 @@ class Networks {
                 break;
             default:
                 $default = new DefaultNetwork();
-                return $default->saveLead($params['unique_id'],$params['campaign_id']);
+                return $default->saveLead($params['unique_id'], $params['campaign_id']);
                 break;
         }
     }
