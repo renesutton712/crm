@@ -48,36 +48,6 @@ export default [
         slug: 'Offers',
         i18n: 'Offers'
     },
-    // {
-    //     url: null,
-    //     name: 'Postbacks',
-    //     icon: 'ClipboardIcon',
-    //     slug: 'Postbacks',
-    //     i18n: 'Postbacks',
-    //     submenu: [
-    //         {
-    //             url: '/conversions',
-    //             name: 'conversions',
-    //             icon: 'BookOpenIcon',
-    //             slug: 'Conversions',
-    //             i18n: 'Conversions'
-    //         },
-    //         {
-    //             url: '/postbacks',
-    //             name: 'postbacks',
-    //             icon: 'ClipboardIcon',
-    //             slug: 'Postbacks',
-    //             i18n: 'Postbacks'
-    //         },
-    //         {
-    //             url: '/iframepixel',
-    //             name: 'iframepixel',
-    //             icon: 'FramerIcon',
-    //             slug: 'Iframes',
-    //             i18n: 'Iframes'
-    //         },
-    //     ]
-    // },
     {
         url: '/postbacks',
         name: 'postbacks',

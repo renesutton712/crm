@@ -61,42 +61,48 @@
                         <vs-th sort-key="phone">Phone</vs-th>
                         <vs-th sort-key="status">Type</vs-th>
                         <vs-th sort-key="network_response">Network Response</vs-th>
+                        <vs-th sort-key="updated_at">Created</vs-th>
                     </template>
                     <template slot-scope="{data}">
                         <vs-tr :data="tr" :key="indextr" v-for="(tr,indextr) in data">
-                            <vs-td :data="data[indextr].unique_id">{{data[indextr].unique_id}}</vs-td>
-                            <vs-td v-if="data[indextr].campaign !== null" :data="data[indextr].campaign_name">
+                            <vs-td class="text-sm" :data="data[indextr].unique_id">{{data[indextr].unique_id}}</vs-td>
+                            <vs-td class="text-sm" v-if="data[indextr].campaign !== null" :data="data[indextr].campaign_name">
                                 {{data[indextr].campaign_name}}
                             </vs-td>
-                            <vs-td v-else>Campaign not found!</vs-td>
-                            <vs-td v-if="data[indextr].rotator_name !== null" :data="data[indextr].rotator_name">
+                            <vs-td class="text-sm" v-else>Campaign not found!</vs-td>
+                            <vs-td class="text-sm" v-if="data[indextr].rotator_name !== null" :data="data[indextr].rotator_name">
                                 {{data[indextr].rotator_name}}
                             </vs-td>
-                            <vs-td v-else>Rotator not found</vs-td>
-                            <vs-td v-if="data[indextr].network_name !== null" :data="data[indextr].network_name">
+                            <vs-td class="text-sm" v-else>Rotator not found</vs-td>
+                            <vs-td class="text-sm" v-if="data[indextr].network_name !== null" :data="data[indextr].network_name">
                                 {{data[indextr].network_name}}
                             </vs-td>
-                            <vs-td v-else>Network not found</vs-td>
-                            <vs-td v-if="data[indextr].offer_id !== null" :data="data[indextr].offer_id">
+                            <vs-td class="text-sm" v-else>Network not found</vs-td>
+                            <vs-td class="text-sm" v-if="data[indextr].offer_id !== null" :data="data[indextr].offer_id">
                                 {{data[indextr].offer_id}}
                             </vs-td>
-                            <vs-td v-else>Offer not found</vs-td>
-                            <vs-td :data="data[indextr].country">{{data[indextr].country}}</vs-td>
-                            <vs-td :data="data[indextr].first_name">{{data[indextr].first_name}}</vs-td>
-                            <vs-td :data="data[indextr].last_name">{{data[indextr].last_name}}</vs-td>
-                            <vs-td :data="data[indextr].email">{{data[indextr].email}}</vs-td>
-                            <vs-td :data="data[indextr].prefix">{{data[indextr].prefix}}</vs-td>
-                            <vs-td :data="data[indextr].phone">{{data[indextr].phone}}</vs-td>
-                            <vs-td v-if="data[indextr].status === 3" class="font-bold text-success" :data="data[indextr].status">
+                            <vs-td class="text-sm" v-else>Offer not found</vs-td>
+                            <vs-td class="text-sm" :data="data[indextr].country">{{data[indextr].country}}</vs-td>
+                            <vs-td class="text-sm" :data="data[indextr].first_name">{{data[indextr].first_name}}</vs-td>
+                            <vs-td class="text-sm" :data="data[indextr].last_name">{{data[indextr].last_name}}</vs-td>
+                            <vs-td class="text-sm" :data="data[indextr].email">{{data[indextr].email}}</vs-td>
+                            <vs-td class="text-sm" :data="data[indextr].prefix">{{data[indextr].prefix}}</vs-td>
+                            <vs-td class="text-sm" :data="data[indextr].phone">{{data[indextr].phone}}</vs-td>
+                            <vs-td v-if="data[indextr].status === 3" class="font-bold text-success text-sm"
+                                   :data="data[indextr].status">
                                 FTD
                             </vs-td>
-                            <vs-td v-else :class="[data[indextr].status === 1 ? 'text-dark' : 'text-primary font-bold']"
+                            <vs-td class="text-sm" v-else
+                                   :class="[data[indextr].status === 1 ? 'text-dark' : 'text-primary font-bold']"
                                    :data="data[indextr].status">{{data[indextr].status === 1 ? 'Click' : 'Lead'}}
                             </vs-td>
-                            <vs-td class="text-danger" :data="data[indextr].network_response">
+                            <vs-td class="text-sm text-danger" :data="data[indextr].network_response">
                                 <vx-tooltip title="Full" color="primary" :text="data[indextr].network_response" position="bottom">
                                     {{cutString(data[indextr].network_response)}}
                                 </vx-tooltip>
+                            </vs-td>
+                            <vs-td class="text-sm" :data="data[indextr].updated_at">
+                                {{data[indextr].updated_at}}
                             </vs-td>
                             <template class="expand-user" slot="expand">
                                 <vs-list>
@@ -182,7 +188,12 @@
                         if ("status" in response.data) {
                             throw response.data;
                         }
-                        this.networks_list = response.data;
+                        response.data.filter((item, index) => {
+                            this.networks_list.push(
+                                {network_name: item.network_name + ' (' + item.id + ')', id: item.id}
+                            )
+                        })
+                        // this.networks_list = response.data;
                     })
                     .catch(error => {
                         this.$vs.notify({
@@ -201,7 +212,9 @@
                         if ("status" in response.data) {
                             throw response.data;
                         }
-                        this.campaigns_list = response.data
+                        response.data.filter((item, index) => {
+                            this.campaigns_list.push({campaign_name: item.campaign_name + ' (' + item.id + ')', id: item.id})
+                        });
                         this.$vs.loading.close();
                     })
                     .catch(error => {
@@ -219,7 +232,11 @@
                 this.$vs.loading();
                 axios.get('rotators/get')
                     .then((response) => {
-                        this.rotators_list = response.data
+                        response.data.filter((item, index) => {
+                            this.rotators_list.push(
+                                {rotator_name: item.rotator_name + ' (' + item.id + ')', id: item.id}
+                            )
+                        })
                         if (this.rotators_list.length === 0) {
                             throw 'No rotators found'
                         }
