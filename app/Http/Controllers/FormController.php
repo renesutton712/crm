@@ -133,7 +133,8 @@ class FormController extends Controller {
             $this->storeErrorMsg($unique_id, 'Unable to connect network');
             return json_encode(['status' => false, 'msg' => 'An error has occurred, please try again later']);
         }
-        $lead_data = $model::latest()->first();
+        $lead_data = $model::where('unique_id', '=', $unique_id)->first()->toArray();
+//        $lead_data = $model::latest()->first();
         return $this->getNetwork($network, $lead_data);
     }
 
@@ -164,7 +165,7 @@ class FormController extends Controller {
      * @param null $ci
      * @param null $ri
      * @param null $unique_id
-     * @return bool | integer
+     * @return bool|mixed|string
      */
     protected function setRotator($ci = null, $ri = null, $unique_id = null) {
         if (is_null($ci) || is_null($ri)) {
@@ -217,15 +218,15 @@ class FormController extends Controller {
         if (is_null($network->network_id) || empty($network->network_id)) {
             return false;
         }
-        $params_arr = $lead_params->attributesToArray();
-        $country_name = $this->getFullCountryName($params_arr['country']);
+//        $params_arr = $lead_params->attributesToArray();
+        $country_name = $this->getFullCountryName($lead_params['country']);
         if (empty($country_name)) {
             return json_encode(['status' => false, 'msg' => 'country is missing!']);
         }
-        $params_arr['country_full'] = $country_name->country_name;
+        $lead_params['country_full'] = $country_name->country_name;
         $network_map = new Networks();
 
-        return $network_map->networksMap($network, $params_arr);
+        return $network_map->networksMap($network, $lead_params);
     }
 
     /**
