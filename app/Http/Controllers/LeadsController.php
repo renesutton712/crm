@@ -15,6 +15,7 @@ class LeadsController extends Controller {
         $rotator_id = filter_var(strip_tags($request->input('rotator_id')), FILTER_SANITIZE_STRING);
         $country_id = filter_var(strip_tags($request->input('country_id')), FILTER_SANITIZE_STRING);
         $type = filter_var(strip_tags($request->input('type')), FILTER_SANITIZE_STRING);
+        $datetime = filter_var(strip_tags($request->input('datetime')), FILTER_SANITIZE_STRING);
         $data = Lead::leadsWithAllRelations();
         $filters = [
             'network_id' => $network_id,
@@ -22,6 +23,7 @@ class LeadsController extends Controller {
             'rotator_id' => $rotator_id,
             'country_id' => $country_id,
             'type' => $type,
+            'datetime' => $datetime
         ];
         return $this->filterData($data->toArray(), $filters);
     }
@@ -47,6 +49,9 @@ class LeadsController extends Controller {
                 continue;
             }
             if ($item->status !== (int)$filters['type'] && !empty($filters['type'])) {
+                continue;
+            }
+            if (!empty($filters['datetime']) && $item->updated_at < $filters['datetime']) {
                 continue;
             }
             $output[] = $item;

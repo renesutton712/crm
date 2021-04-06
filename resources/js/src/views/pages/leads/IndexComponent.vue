@@ -13,33 +13,37 @@
         <vs-row class="mt-5" vs-type="flex" vs-justify="space-evenly" vs-align="center" vs-w="12">
             <vs-col vs-w="2">
                 <label for="Campaign">Campaigns:</label>
-                <v-select class="w-full" label="campaign_name" id="Campaign" :options="campaigns_list"
+                <v-select class="w-11/12" label="campaign_name" id="Campaign" :options="campaigns_list"
                           v-model="filters.campaign_id"
                           :reduce="campaign => campaign.id"/>
             </vs-col>
             <vs-col vs-w="2">
                 <label for="Network">Networks:</label>
-                <v-select class="w-full" label="network_name" id="Network" :options="networks_list"
+                <v-select class="w-11/12" label="network_name" id="Network" :options="networks_list"
                           v-model="filters.network_id"
                           :reduce="network => network.id"/>
             </vs-col>
             <vs-col vs-w="2">
                 <label for="Rotator">Rotators:</label>
-                <v-select class="w-full" label="rotator_name" id="Rotator" :options="rotators_list"
+                <v-select class="w-11/12" label="rotator_name" id="Rotator" :options="rotators_list"
                           v-model="filters.rotator_id"
                           :reduce="rotator => rotator.id"/>
             </vs-col>
             <vs-col vs-w="2">
                 <label for="Country">Countries:</label>
-                <v-select class="w-full" label="country_name" id="Country" :options="countries_list"
+                <v-select class="w-11/12" label="country_name" id="Country" :options="countries_list"
                           v-model="filters.country_id"
                           :reduce="country => country.country_iso_code"/>
             </vs-col>
             <vs-col vs-w="2">
                 <label for="Type">Lead Type:</label>
-                <v-select class="w-full" label="type" id="Type" :options="type_list"
+                <v-select class="w-11/12" label="type" id="Type" :options="type_list"
                           v-model="filters.type"
                           :reduce="type => type.val"/>
+            </vs-col>
+            <vs-col vs-w="2">
+                <label class="block" for="Type">Datetime:</label>
+                <flat-pickr class="w-11/12" :config="configdateTimePicker" v-model="filters.datetime" placeholder="Date Time"/>
             </vs-col>
         </vs-row>
         <vs-divider/>
@@ -127,14 +131,21 @@
 <script>
     import axios from "../../../axios";
     import vSelect from "vue-select";
+    import flatPickr from 'vue-flatpickr-component';
+    import 'flatpickr/dist/flatpickr.css';
 
     export default {
         components: {
             'v-select': vSelect,
+            flatPickr
         },
         name: "IndexComponent",
         data: () => {
             return {
+                configdateTimePicker: {
+                    enableTime: true,
+                    dateFormat: 'Y-m-d H:i'
+                },
                 leads_list: [],
                 selected_leads: [],
                 networks_list: [],
@@ -153,6 +164,7 @@
                     rotator_id: '',
                     country_id: '',
                     type: '',
+                    datetime: '',
                 }
 
             }
