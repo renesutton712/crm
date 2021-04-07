@@ -17,7 +17,7 @@ use GuzzleHttp\Exception\GuzzleException;
 class Networks {
 
     public function networksMap($network, $params) {
-        $network_id = $network instanceof \stdClass ? $network->network_id : $network;
+        $network_id = $network instanceof \stdClass ? (int)$network->network_id : (int)$network;
         switch ($network_id) {
             case 7:
                 $cod = new COD();
