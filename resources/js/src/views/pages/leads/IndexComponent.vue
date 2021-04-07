@@ -7,6 +7,7 @@
                 </div>
             </vs-col>
             <vs-col vs-w="6" vs-type="flex" vs-justify="flex-end" vs-align="center">
+                <vs-button @click="activePopup=true" color="primary" type="border">Resend leads</vs-button>
             </vs-col>
         </vs-row>
         <vs-divider/>
@@ -125,6 +126,34 @@
                 </vs-table>
             </vs-col>
         </vs-row>
+        <vs-popup title="Send leads" :active.sync="activePopup">
+            <vs-row>
+                <vs-col>
+                    <p>Please select options from all of the filters below, in order the send leads:</p>
+                </vs-col>
+            </vs-row>
+            <vs-row class="mt-5">
+                <vs-col>
+                    <label for="LeadCampaign">Select Campaigns:</label>
+                    <v-select class="w-full" label="campaign_name" id="LeadCampaign" :options="campaigns_list"
+                              v-model="resend.campaign"
+                              :reduce="campaign => campaign.id"/>
+                </vs-col>
+            </vs-row>
+            <vs-row class="mt-5">
+                <vs-col>
+                    <label for="LeadNetwork">Select Network:</label>
+                    <v-select class="w-full" label="network_name" id="LeadNetwork" :options="networks_list"
+                              v-model="resend.network"
+                              :reduce="network => network.id"/>
+                </vs-col>
+            </vs-row>
+            <vs-row class="mt-5">
+                <vs-col>
+                    <vs-button @click="sendLeads" color="primary" type="border">Send</vs-button>
+                </vs-col>
+            </vs-row>
+        </vs-popup>
     </vs-card>
 </template>
 
@@ -146,6 +175,7 @@
                     enableTime: true,
                     dateFormat: 'Y-m-d H:i'
                 },
+                activePopup: false,
                 leads_list: [],
                 selected_leads: [],
                 networks_list: [],
@@ -165,6 +195,10 @@
                     country_id: '',
                     type: '',
                     datetime: '',
+                },
+                resend: {
+                    campaign: '',
+                    network: ''
                 }
 
             }
@@ -295,6 +329,36 @@
                     return str;
                 }
                 return str.substring(0, length) + '...';
+            },
+            sendLeads: function () {
+                this.$vs.loading();
+                axios.post('leads/resend', this.resend)
+                    .then((response) => {
+                        if (!response.data.status) {
+                            throw response.data.msg;
+                        }
+                        this.$vs.notify({
+                            title: 'Success',
+                            text: response.data.msg,
+                            iconPack: 'feather',
+                            icon: 'icon-smile',
+                            color: 'success'
+                        })
+                        this.$vs.loading.close();
+                    })
+                    .then(() => {
+                        this.activePopup = false;
+                    })
+                    .catch(error => {
+                        this.$vs.loading.close();
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'warning'
+                        })
+                    })
             }
         },
         watch: {
@@ -320,5 +384,13 @@
 <style scoped>
     #FilterBtn {
         padding: 7px 20px;
+    }
+
+    .vs-popup--content {
+        height: 100%;
+    }
+
+    .con-vs-popup {
+        height: 100%;
     }
 </style>

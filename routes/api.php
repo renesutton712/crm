@@ -35,6 +35,7 @@ Route::middleware(['auth:api', 'role'])->group(function () {
     Route::post('offers/store', 'OffersController@store');
     //Leads
     Route::post('leads/get', 'LeadsController@get');
+    Route::post('leads/resend', 'LeadsController@resend');
     //Postbacks
     Route::get('postbacks/get', 'PostbackController@get');
     //Rotators

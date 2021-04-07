@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Networks;
 use App\Lead;
 use App\User;
+use App\Utilities;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -57,6 +59,29 @@ class LeadsController extends Controller {
             $output[] = $item;
         }
         return $output;
+    }
+
+    public function resend(Request $request) {
+        $network = filter_var(strip_tags($request->input('network')), FILTER_SANITIZE_STRING);
+        $campaign = filter_var(strip_tags($request->input('campaign')), FILTER_SANITIZE_STRING);
+        if (empty($network) or empty($campaign)) {
+            return json_encode(['status' => false, 'msg' => 'All fields required']);
+        }
+        $clicks = Lead::where('status', '=', 1)->where('first_name', '!=', null)->get()->toArray();
+        if (empty($clicks)) {
+            return json_encode(['status' => false, 'msg' => 'No leads found']);
+        }
+        foreach ($clicks as $click) {
+            $country_name = Utilities::getFullCountryName($click['country']);
+            $click['country_full'] = $country_name->country_name;
+            $networks = new Networks();
+            $res = $networks->networksMap($network, $click);
+            $res = json_decode($res);
+            if (!$res->status) {
+                return json_encode(['status' => false, 'msg' => $res['msg']]);
+            }
+        }
+        return json_encode(['status' => true, 'msg' => 'All leads sent successfully']);
     }
 
 }
