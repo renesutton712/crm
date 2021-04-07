@@ -51,7 +51,11 @@
         <vs-row>
             <vs-col>
                 <vs-table v-model="selected_leads" search :data="leads_list" max-items="25" pagination>
-                    <template slot="header"></template>
+                    <template slot="header">
+                        <vs-button @click="getLeads" color="primary" type="border">
+                            <i class="feather icon-refresh-cw"></i>
+                        </vs-button>
+                    </template>
                     <template slot="thead">
                         <vs-th sort-key="unique_id">ID</vs-th>
                         <vs-th sort-key="campaign_name">Campaign</vs-th>
@@ -359,7 +363,7 @@
                             color: 'warning'
                         })
                     })
-            }
+            },
         },
         watch: {
             filters: {
