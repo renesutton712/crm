@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Campaign;
 use App\Lead;
 use App\Pixel;
+use App\PixelBridge;
 use App\PixelGroup;
 use App\Postback;
 use GuzzleHttp\Client;
@@ -21,6 +22,7 @@ class PostbackController extends Controller {
      * @param null $unique_id
      * @param null $payout
      * @return false|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function store($unique_id = null, $payout = null) {
         if (is_null($unique_id) || empty($unique_id)) {
@@ -86,8 +88,9 @@ class PostbackController extends Controller {
      */
     private function sendFTD($lead_data, $payout) {
         $lead_url_params = json_decode($lead_data->url_params, true);
-        $camp = Pixel::where('campaign_id', '=', $lead_data->campaign_id)->first();
-        $pixel = PixelGroup::where('pixel_id', '=', "{$camp->id}")->where('type', '=', 'FTD')->first();
+//        $camp = Pixel::where('campaign_id', '=', $lead_data->campaign_id)->first();
+        $camp = PixelBridge::where('campaign_id', '=', $lead_data->campaign_id)->first();
+        $pixel = PixelGroup::where('pixel_id', '=', "{$camp->pixel_id}")->where('type', '=', 'FTD')->first();
         $pixel = $pixel->url;
         $fire = str_replace('{cid}', $lead_url_params['cid'], $pixel);
         $fire = str_replace('{payout}', $payout, $fire);
