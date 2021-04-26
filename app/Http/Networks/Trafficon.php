@@ -2,6 +2,7 @@
 
 namespace App\Http\Networks;
 
+use App\Utilities;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 
@@ -85,6 +86,7 @@ class Trafficon extends NetworkFactory {
     }
 
     public function sendLead(array $params, $network) {
+        $urlParams = Utilities::parseURLParamsToArr($params['unique_id']);
         $tokens_name = explode(',', $network->TN);
         $tokens = explode(',', $network->T);
         if (!isset($params['offer_id'])) {
@@ -98,7 +100,11 @@ class Trafficon extends NetworkFactory {
             'password' => "{$params['password']}", 'area_code' => "{$params['prefix']}", 'phone' => "{$params['phone']}",
             'ip' => "{$params['ip']}",
             'country' => "{$params['country_full']}", 'iso' => "{$params['country']}",
-            'aff_sub1' => "{$params['unique_id']}"
+            'aff_sub1' => "{$params['unique_id']}",
+            'aff_sub2' => isset($urlParams['aff_sub2']) ? $urlParams['aff_sub2'] : '',
+            'aff_sub3' => isset($urlParams['aff_sub3']) ? $urlParams['aff_sub3'] : '',
+            'aff_sub4' => isset($urlParams['aff_sub4']) ? $urlParams['aff_sub4'] : '',
+            'aff_sub5' => isset($urlParams['aff_sub5']) ? $urlParams['aff_sub5'] : ''
         ];
         return $this->TrafficonLead($data, $params['unique_id'], $params['campaign_id']);
     }
