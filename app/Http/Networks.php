@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Campaign;
+use App\Http\Networks\AffClub;
 use App\Http\Networks\COD;
 use App\Http\Networks\Convertick;
 use App\Http\Networks\DefaultNetwork;
@@ -40,6 +41,10 @@ class Networks {
             case 9:
                 $convertick = new Convertick();
                 return $convertick->prepareData($params, $network);
+                break;
+            case 13:
+                $affClub = new AffClub();
+                return $affClub->prepareData($params, $network);
                 break;
             default:
                 $default = new DefaultNetwork();
