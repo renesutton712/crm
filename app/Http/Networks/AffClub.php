@@ -19,6 +19,11 @@ class AffClub extends NetworkFactory {
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function prepareData($params, $network) {
+        //DEV
+//        $params['ip'] = '93.213.79.63';
+//        $params['prefix'] = '+49';
+//        $params['phone'] = '05082500195';
+//        $params['country'] = 'DE';
         $urlParams = Utilities::parseURLParamsToArr($params['unique_id']);
 //        $tokens_name = explode(',', $network->TN);
         $tokens = explode(',', $network->T);
@@ -61,14 +66,11 @@ class AffClub extends NetworkFactory {
             if ($res->getStatusCode() !== 200) {
                 throw  new \Exception('Not found');
             }
-            if ($data['status'] !== 'success') {
-                throw new \Exception($data['message']);
-            }
             $pixel_res = $this->sendPixel($unique_id);
             if (isset($pixel_res['status']) && !$pixel_res['status']) {
                 throw new \Exception($pixel_res['msg']);
             }
-            $response = ['status' => true, 'msg' => $data['ref_link'] . $data['token']];
+            $response = ['status' => true, 'msg' => $data['result']['url']];
             $iframe = $this->getIframePixel($camp_id);
             if (!empty($iframe)) {
                 $response['pixel'] = $iframe->iframe_content;
