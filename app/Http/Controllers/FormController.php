@@ -44,7 +44,7 @@ class FormController extends Controller {
         $campaign_settings = $this->getCampaignSettings($ci);
         $lang = $this->getCampaignLang($ci);
         try {
-            $referrer = $_SERVER['HTTP_REFERER'];
+            $referrer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
             $host = $_SERVER['REMOTE_ADDR'];
             $unique_id = $this->v4();
             $ua = $request->input('ua');
