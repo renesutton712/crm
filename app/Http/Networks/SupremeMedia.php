@@ -31,7 +31,12 @@ class SupremeMedia extends NetworkFactory {
             'firstname' => $params['first_name'], 'lastname' => $params['last_name'], 'email' => $params['email'],
             'password' => $params['password'], 'phone' => $params['prefix'] . $params['phone'], 'ip' => $params['ip'],
             'country_code' => $params['country'], $offer->offer_token => $offer->offer_token_value,
-            'aff_sub' => $params['unique_id']
+            'aff_sub' => $params['unique_id'],
+            'sub1' => isset($urlParams['sub1']) ? $urlParams['sub1'] : '',
+            'sub2' => isset($urlParams['sub2']) ? $urlParams['sub2'] : '',
+            'sub3' => isset($urlParams['sub3']) ? $urlParams['sub3'] : '',
+            'sub4' => isset($urlParams['sub4']) ? $urlParams['sub4'] : '',
+            'sub5' => isset($urlParams['sub5']) ? $urlParams['sub5'] : ''
         ];
         return $this->supremeLead($data, $params['unique_id'], $params['campaign_id']);
     }
