@@ -37,7 +37,8 @@ class AffClub extends NetworkFactory {
             'ip' => $params['ip'],
             'country_code' => $params['country'],
             'source' => isset($urlParams['source']) ? $urlParams['source'] : '',
-            'aff_sub1' => $params['unique_id'],
+            'aff_sub' => $params['unique_id'],
+            'aff_sub1' => isset($urlParams['aff_sub1']) ? $urlParams['aff_sub1'] : '',
             'aff_sub2' => isset($urlParams['aff_sub2']) ? $urlParams['aff_sub2'] : '',
             'aff_sub3' => isset($urlParams['aff_sub3']) ? $urlParams['aff_sub3'] : '',
             'aff_sub4' => isset($urlParams['aff_sub4']) ? $urlParams['aff_sub4'] : '',
@@ -69,6 +70,9 @@ class AffClub extends NetworkFactory {
             $pixel_res = $this->sendPixel($unique_id);
             if (isset($pixel_res['status']) && !$pixel_res['status']) {
                 throw new \Exception($pixel_res['msg']);
+            }
+            if (!$data['result']['success']) {
+                throw new \Exception($data['result']['message']);
             }
             $response = ['status' => true, 'msg' => $data['result']['url']];
             $iframe = $this->getIframePixel($camp_id);
