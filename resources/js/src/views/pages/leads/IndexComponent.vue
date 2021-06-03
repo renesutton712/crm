@@ -6,9 +6,9 @@
                     <h3>Leads</h3>
                 </div>
             </vs-col>
-            <vs-col vs-w="6" vs-type="flex" vs-justify="flex-end" vs-align="center">
-                <vs-button @click="activePopup=true" color="primary" type="border">Resend leads</vs-button>
-            </vs-col>
+            <!--            <vs-col vs-w="6" vs-type="flex" vs-justify="flex-end" vs-align="center">-->
+            <!--                <vs-button @click="activePopup=true" color="primary" type="border">Resend leads</vs-button>-->
+            <!--            </vs-col>-->
         </vs-row>
         <vs-divider/>
         <vs-row class="mt-5" vs-type="flex" vs-justify="space-evenly" vs-align="center" vs-w="12">
@@ -42,15 +42,24 @@
                           v-model="filters.type"
                           :reduce="type => type.val"/>
             </vs-col>
-            <vs-col vs-w="2">
-                <label class="block" for="Type">Datetime:</label>
-                <flat-pickr class="w-11/12" :config="configdateTimePicker" v-model="filters.datetime" placeholder="Date Time"/>
-            </vs-col>
+            <vs-row class="mt-5" vs-type="flex" vs-justify="space-evenly" vs-align="center" vs-w="12">
+                <vs-col vs-w="2">
+                    <datepicker class="w-11/12" @input="setDateRange" placeholder="Start Date"
+                                v-model="filters.start_date"></datepicker>
+                </vs-col>
+                <vs-col vs-w="2">
+                    <datepicker class="w-11/12" @input="setDateRange" placeholder="End Date"
+                                v-model="filters.end_date"></datepicker>
+                </vs-col>
+                <vs-col vs-w="2"></vs-col>
+                <vs-col vs-w="2"></vs-col>
+                <vs-col vs-w="2"></vs-col>
+            </vs-row>
         </vs-row>
         <vs-divider/>
         <vs-row>
             <vs-col>
-                <vs-table v-model="selected_leads" search :data="leads_list" max-items="25" pagination>
+                <vs-table v-Hamodel="selected_leads" search :data="leads_list" max-items="25" pagination>
                     <template slot="header">
                         <vs-button @click="getLeads" color="primary" type="border">
                             <i class="feather icon-refresh-cw"></i>
@@ -166,11 +175,13 @@
     import vSelect from "vue-select";
     import flatPickr from 'vue-flatpickr-component';
     import 'flatpickr/dist/flatpickr.css';
+    import Datepicker from 'vuejs-datepicker';
 
     export default {
         components: {
             'v-select': vSelect,
-            flatPickr
+            flatPickr,
+            Datepicker,
         },
         name: "IndexComponent",
         data: () => {
@@ -199,6 +210,8 @@
                     country_id: '',
                     type: '',
                     datetime: '',
+                    start_date: '',
+                    end_date: ''
                 },
                 resend: {
                     campaign: '',
@@ -363,6 +376,16 @@
                             color: 'warning'
                         })
                     })
+            },
+            setDateRange: function () {
+                let start_date = new Date(this.filters.start_date),
+                    end_date = new Date(this.filters.end_date);
+                const start_day = (start_date.getDate() < 10 ? '0' : '') + start_date.getDate(),
+                    end_day = (end_date.getDate() < 10 ? '0' : '') + end_date.getDate(),
+                    start_month = ((start_date.getMonth() + 1) < 10 ? '0' : '') + (start_date.getMonth() + 1),
+                    end_month = ((end_date.getMonth() + 1) < 10 ? '0' : '') + (end_date.getMonth() + 1);
+                this.filters.start_date = this.filters.start_date !== '' ? start_date.getFullYear() + '-' + (start_month) + '-' + start_day : '';
+                this.filters.end_date = this.filters.end_date !== '' ? end_date.getFullYear() + '-' + (end_month) + '-' + end_day : '';
             },
         },
         watch: {

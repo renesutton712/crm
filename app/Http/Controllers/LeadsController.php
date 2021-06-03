@@ -17,17 +17,18 @@ class LeadsController extends Controller {
         $rotator_id = filter_var(strip_tags($request->input('rotator_id')), FILTER_SANITIZE_STRING);
         $country_id = filter_var(strip_tags($request->input('country_id')), FILTER_SANITIZE_STRING);
         $type = filter_var(strip_tags($request->input('type')), FILTER_SANITIZE_STRING);
-        $datetime = filter_var(strip_tags($request->input('datetime')), FILTER_SANITIZE_STRING);
-        $data = Lead::leadsWithAllRelations();
+        $start_date = filter_var(strip_tags($request->input('start_date')), FILTER_SANITIZE_STRING);
+        $end_date = filter_var(strip_tags($request->input('end_date')), FILTER_SANITIZE_STRING);
         $filters = [
             'network_id' => $network_id,
             'campaign_id' => $campaign_id,
             'rotator_id' => $rotator_id,
             'country_id' => $country_id,
+            'start_date' => $start_date,
+            'end_date' => $end_date,
             'type' => $type,
-            'datetime' => $datetime
         ];
-        return $this->filterData($data->toArray(), $filters);
+        return Lead::leadsWithAllRelations($filters);
     }
 
     /**

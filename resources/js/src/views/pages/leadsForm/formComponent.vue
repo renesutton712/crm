@@ -1,7 +1,6 @@
 <template>
     <div>
         <div class="form-holder-place1"></div>
-        <div class="form-holder-place2"></div>
     </div>
 </template>
 
