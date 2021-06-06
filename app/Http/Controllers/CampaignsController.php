@@ -87,6 +87,32 @@ class CampaignsController extends Controller {
         return json_encode(['status' => true]);
     }
 
+    public function duplicateCampaign(Request $request) {
+        $camp_data = [];
+        $camp_id = filter_var(strip_tags($request->input('camp_id')), FILTER_SANITIZE_NUMBER_INT);
+        $campaign = DB::table('campaigns')->select('campaign_name',
+            'offer_id',
+            'pixel_id',
+            'iframe_id',
+            'rotator_id',
+            'platform',
+            'lang_id', 'status')->where('id', '=', $camp_id)->get()->toArray();
+        $model = new Campaign();
+        $model->campaign_name = $campaign[0]->campaign_name;
+        $model->user_id = Auth::user()->id;
+        $model->offer_id = $campaign[0]->offer_id;
+        $model->pixel_id = $campaign[0]->pixel_id;
+        $model->iframe_id = $campaign[0]->iframe_id;
+        $model->rotator_id = $campaign[0]->rotator_id;
+        $model->platform = $campaign[0]->platform;
+        $model->lang_id = $campaign[0]->lang_id;
+        $model->status = $campaign[0]->status;
+        if (!$model->save()) {
+            return json_encode(['status' => false, 'msg' => 'Error while saving']);
+        }
+        return json_encode(['status' => true, 'msg' => 'Campaign ' . $camp_id . ' duplicated successfully']);
+    }
+
     /**
      * @param $ci
      * @param $form_settings

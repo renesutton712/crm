@@ -23,6 +23,7 @@ Route::middleware(['auth:api', 'role'])->group(function () {
     Route::get('campaigns/get/{id}', 'CampaignsController@getCampaign');
     Route::post('campaigns/store', 'CampaignsController@store');
     Route::post('campaigns/alter', 'CampaignsController@alterCampaign');
+    Route::post('campaigns/duplicate', 'CampaignsController@duplicateCampaign');
     //Networks
     Route::get('networks/get', 'NetworksController@get');
     Route::get('networks/get/{id}', 'NetworksController@getNetwork');

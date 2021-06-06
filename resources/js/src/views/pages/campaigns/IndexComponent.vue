@@ -55,6 +55,9 @@
                                 <vs-button @click="editCampaign(data[indextr].id)" color="success"
                                            size="small">Edit
                                 </vs-button>
+                                <vs-button @click="duplicateCampaign(data[indextr].id)" color="primary"
+                                           size="small">Duplicate
+                                </vs-button>
                             </vs-td>
                         </vs-tr>
                     </template>
@@ -133,6 +136,39 @@
             editCampaign: function (ci) {
                 this.campaign_id = ci;
                 this.showModal();
+            },
+            duplicateCampaign: function (ci) {
+                if (!confirm(`Are you sure you want to duplicate campaign ${ci}`)) {
+                    return;
+                }
+                this.$vs.loading();
+                axios.post('campaigns/duplicate', {
+                    camp_id: ci,
+                })
+                    .then((response) => {
+                        if (!response.data.status) {
+                            throw response.data.msg;
+                        }
+                        this.$vs.loading.close();
+                        this.$vs.notify({
+                            title: 'Sucess',
+                            text: response.data.msg,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'success'
+                        })
+                        window.location.reload();
+                    })
+                    .catch(error => {
+                        this.$vs.loading.close();
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.msg,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'warning'
+                        })
+                    })
             },
             destroyci: function () {
                 this.campaign_id = null;
