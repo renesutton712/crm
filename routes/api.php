@@ -55,6 +55,7 @@ Route::middleware(['auth:api', 'role'])->group(function () {
     Route::get('iframe/get/{id}', 'PixelIframeController@getIframePixel');
     Route::get('iframe/delete/{id}', 'PixelIframeController@deleteIframePixel');
     Route::post('iframe/store', 'PixelIframeController@store');
+    Route::post('iframe/duplicate', 'PixelIframeController@duplicateIframePixel');
 
     Route::get('lang/get', 'LanguageController@get');
 });

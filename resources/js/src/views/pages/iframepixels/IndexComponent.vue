@@ -32,9 +32,11 @@
                             </vs-td>
                             <vs-td>
                                 <vs-icon @click="EditIframePixel(data[indextr].id)" icon="create" size="small"
-                                         color="success" class="mr-3"></vs-icon>
-                                <vs-icon @click="deleteIframePixel(data[indextr].id)" icon="delete" size="small"
+                                         color="success"></vs-icon>
+                                <vs-icon class="mr-3 ml-3" @click="deleteIframePixel(data[indextr].id)" icon="delete" size="small"
                                          color="danger"></vs-icon>
+                                <vs-icon @click="duplicateIframePixel(data[indextr].id)" icon="content_copy" size="small"
+                                         color="primary"></vs-icon>
                             </vs-td>
                         </vs-tr>
                     </template>
@@ -129,7 +131,40 @@
             },
             cutString: function (str) {
                 return str.substring(0, 150) + '...';
-            }
+            },
+            duplicateIframePixel: function (id) {
+                if (!confirm(`Are you sure you want to duplicate iframe ${id}`)) {
+                    return;
+                }
+                this.$vs.loading();
+                axios.post('iframe/duplicate', {
+                    iframe_id: id,
+                })
+                    .then((response) => {
+                        if (!response.data.status) {
+                            throw response.data.msg;
+                        }
+                        this.$vs.loading.close();
+                        this.$vs.notify({
+                            title: 'Success',
+                            text: response.data.msg,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'success'
+                        })
+                        window.location.reload();
+                    })
+                    .catch(error => {
+                        this.$vs.loading.close();
+                        this.$vs.notify({
+                            title: 'Error',
+                            text: error.msg,
+                            iconPack: 'feather',
+                            icon: 'icon-alert-circle',
+                            color: 'warning'
+                        })
+                    })
+            },
         },
         beforeMount() {
             this.getPixels();

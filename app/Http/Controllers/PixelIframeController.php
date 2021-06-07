@@ -48,6 +48,25 @@ class PixelIframeController extends Controller {
         return PixelIframe::where('id', '=', "{$p_id}")->first();
     }
 
+    public function duplicateIframePixel(Request $request) {
+        $id = filter_var(strip_tags($request->input('iframe_id')), FILTER_SANITIZE_NUMBER_INT);
+        if (empty($id)) {
+            return json_encode(['status' => false, 'msg' => 'No ID found']);
+        }
+        $iframe = DB::table('pixel_iframes')->select('campaign_id',
+            'iframe_name',
+            'iframe_content')->where('id', '=', $id)->get()->toArray();
+        $model = new PixelIframe();
+        $model->user_id = Auth::user()->id;
+        $model->iframe_name = $iframe[0]->iframe_name;
+        $model->iframe_content = $iframe[0]->iframe_content;
+        $model->status = 1;
+        if (!$model->save()) {
+            return json_encode(['status' => false, 'msg' => 'Unable to duplicate pixel ' . $id]);
+        }
+        return json_encode(['status' => true, 'msg' => 'Success!']);
+    }
+
     public function deleteIframePixel($id) {
         $p_id = filter_var(strip_tags($id), FILTER_SANITIZE_STRING);
         if (empty($p_id)) {
