@@ -171,6 +171,7 @@ function myJQueryCode() {
                     $(this).attr('disabled', true);
                     return;
                 }
+                $("#defaultModal").modal("show");
                 $.ajax({
                     url: 'https://storsleads.club/api/form/lead',
                     method: 'POST',
@@ -207,7 +208,6 @@ function myJQueryCode() {
                         })
                         $("body").append(res_pixel);
                     }
-                    $("#defaultModal").modal("show");
                     setTimeout(function () {
                         window.location.href = res.msg;
                     }, 30000);
