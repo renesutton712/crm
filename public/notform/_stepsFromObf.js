@@ -153,7 +153,7 @@ function myJQueryCode() {
             $(btn).on('click', function (e) {
                 e.preventDefault();
                 let form = $(this).parent().parent();
-                $('.form-layover').show();
+                // $('.form-layover').show();
                 let fn = $(form).find('.fn').val(),
                     ln = $(form).find('.ln').val(),
                     country = $(form).find('.country').val(),
