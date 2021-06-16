@@ -29,6 +29,7 @@ class Networks {
             case 3:
             case 4:
             case 5:
+            case 14:
                 $supreme = new SupremeMedia();
                 return $supreme->prepareData($params, $network);
                 break;

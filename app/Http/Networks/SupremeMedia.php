@@ -9,7 +9,8 @@ use GuzzleHttp\Exception\GuzzleException;
 
 class SupremeMedia extends NetworkFactory {
 
-    private $create_lead_url = "https://api.rhkoco.com/v2/affiliates/lead/create";
+//    private $create_lead_url = "https://api.rhkoco.com/v2/affiliates/lead/create";
+    private $create_lead_url = "https://api.sdkapilead.com/v2/affiliates/lead/create";
     private $token = null;
 
     /**
