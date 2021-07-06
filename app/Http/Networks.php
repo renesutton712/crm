@@ -43,7 +43,7 @@ class Networks {
                 $convertick = new Convertick();
                 return $convertick->prepareData($params, $network);
                 break;
-            case 13:
+            case 15:
                 $affClub = new AffClub();
                 return $affClub->prepareData($params, $network);
                 break;
