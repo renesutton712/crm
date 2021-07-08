@@ -85,8 +85,9 @@ class AffClub extends NetworkFactory {
             $getResponse = explode('response:', $e->getMessage());
             $res = isset($getResponse[1]) ? $getResponse[1] : $e->getMessage();
             $parsedResponse = json_decode($res, true);
-            $this->storeNetworkResponse($unique_id, $parsedResponse['result']);
-            return json_encode(['status' => false, 'msg' => $parsedResponse['result']]);
+            $parsedResponse = is_array($parsedResponse) ? $parsedResponse['result'] : $res;
+            $this->storeNetworkResponse($unique_id, $parsedResponse);
+            return json_encode(['status' => false, 'msg' => $parsedResponse]);
         }
     }
 
