@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Campaign;
 use App\Http\Networks\AffClub;
+use App\Http\Networks\Affiliate360;
 use App\Http\Networks\COD;
 use App\Http\Networks\Convertick;
 use App\Http\Networks\DefaultNetwork;
@@ -47,6 +48,10 @@ class Networks {
             case 15:
                 $affClub = new AffClub();
                 return $affClub->prepareData($params, $network);
+                break;
+            case 17:
+                $affiliate360 = new Affiliate360();
+                return $affiliate360->prepareData($params, $network);
                 break;
             default:
                 $default = new DefaultNetwork();
