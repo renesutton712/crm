@@ -11,6 +11,7 @@ class Affiliate360 extends NetworkFactory {
 
     private $create_lead_url = "https://api.wickedtrack.com/leads";
     private $token = null;
+    private $res = null;
 
     /**
      * @param array $params
@@ -49,15 +50,15 @@ class Affiliate360 extends NetworkFactory {
     protected function affiliate360Lead(array $params, $unique_id, $camp_id = null) {
         $client = new Client();
         try {
-            $res = $client->request('POST', $this->create_lead_url, [
+            $this->res = $client->request('POST', $this->create_lead_url, [
                 'headers' => [
                     'affid' => $this->getToken()
                 ],
                 'form_params' => $params
             ]);
 
-            $data = json_decode($res->getBody()->getContents(), true);
-            if ($res->getStatusCode() !== 200) {
+            $data = json_decode($this->res->getBody()->getContents(), true);
+            if ($this->res->getStatusCode() !== 200) {
                 throw new \Exception('Url not found');
             }
             $pixel_res = $this->sendPixel($unique_id);
@@ -78,14 +79,14 @@ class Affiliate360 extends NetworkFactory {
         } catch (ClientException $e) {
             $response = $e->getResponse()->getBody();
             $response = json_decode($response->getContents());
-            $data = json_decode($res->getBody()->getContents(), true);
+            $data = json_decode($this->res->getBody()->getContents(), true);
             if ($response === null) {
                 return json_encode(['status' => false, 'msg' => $e->getMessage()]);
             }
             $this->storeNetworkResponse($unique_id, $data['extras']['redirect']['url']);
             return json_encode(['status' => false, 'msg' => $response->result]);
         } catch (\Exception $e) {
-            $data = json_decode($res->getBody()->getContents(), true);
+            $data = json_decode($this->res->getBody()->getContents(), true);
             $this->storeNetworkResponse($unique_id, $data['extras']['redirect']['url']());
             return json_encode(['status' => false, 'msg' => $e->getMessage()]);
         }
