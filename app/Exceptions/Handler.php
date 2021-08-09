@@ -50,12 +50,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        // custom error message
-        if ($exception instanceof \ErrorException) {
-            return response()->view('errors.500', [], 500);
-        } else {
-            return parent::render($request, $exception);
-        }
-
+        return parent::render($request, $exception);
     }
 }
