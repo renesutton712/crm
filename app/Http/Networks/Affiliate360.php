@@ -83,10 +83,8 @@ class Affiliate360 extends NetworkFactory {
             if ($response === null) {
                 return json_encode(['status' => false, 'msg' => $e->getMessage()]);
             }
-            $this->storeNetworkResponse($unique_id, $this->data['extras']['redirect']['url']);
-            return json_encode(['status' => false, 'msg' => $response->result]);
+            return json_encode(['status' => false, 'msg' => $response]);
         } catch (\Exception $e) {
-            $this->storeNetworkResponse($unique_id, $this->data['extras']['redirect']['url']());
             return json_encode(['status' => false, 'msg' => $e->getMessage()]);
         }
     }
