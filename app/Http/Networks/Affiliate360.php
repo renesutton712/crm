@@ -83,7 +83,7 @@ class Affiliate360 extends NetworkFactory {
             if ($response === null) {
                 return json_encode(['status' => false, 'msg' => $e->getMessage()]);
             }
-            return json_encode(['status' => false, 'msg' => $response["errors"][0]]);
+            return json_encode(['status' => false, 'msg' => $response->errors[0]]);
         } catch (\Exception $e) {
             return json_encode(['status' => false, 'msg' => $e->getMessage()]);
         }
