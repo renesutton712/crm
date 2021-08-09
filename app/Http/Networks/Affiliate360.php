@@ -60,9 +60,6 @@ class Affiliate360 extends NetworkFactory {
             if ($res->getStatusCode() !== 200) {
                 throw new \Exception('Url not found');
             }
-            if (!$data['status']) {
-                throw new \Exception($data['result']);
-            }
             $pixel_res = $this->sendPixel($unique_id);
             if (isset($pixel_res['status']) && !$pixel_res['status']) {
                 throw new \Exception($pixel_res['msg']);
@@ -70,8 +67,8 @@ class Affiliate360 extends NetworkFactory {
             if (!$data['result']['success']) {
                 throw new \Exception('Duplicate found');
             }
-            $response = ['status' => true, 'msg' => $data['result']['url']];
-            $this->storeNetworkResponse($unique_id, 'lead_id ' . $data['result']['lead_id']);
+            $response = ['status' => true, 'msg' => $data['extras']['redirect']['url']];
+            $this->storeNetworkResponse($unique_id, 'lead_id ' . $data['lead']['id']);
             $iframe = $this->getIframePixel($camp_id);
             if (!empty($iframe)) {
                 $response['pixel'] = $iframe->iframe_content;
@@ -81,13 +78,15 @@ class Affiliate360 extends NetworkFactory {
         } catch (ClientException $e) {
             $response = $e->getResponse()->getBody();
             $response = json_decode($response->getContents());
+            $data = json_decode($res->getBody()->getContents(), true);
             if ($response === null) {
                 return json_encode(['status' => false, 'msg' => $e->getMessage()]);
             }
-            $this->storeNetworkResponse($unique_id, $response->result);
+            $this->storeNetworkResponse($unique_id, $data['extras']['redirect']['url']);
             return json_encode(['status' => false, 'msg' => $response->result]);
         } catch (\Exception $e) {
-            $this->storeNetworkResponse($unique_id, $e->getMessage());
+            $data = json_decode($res->getBody()->getContents(), true);
+            $this->storeNetworkResponse($unique_id, $data['extras']['redirect']['url']());
             return json_encode(['status' => false, 'msg' => $e->getMessage()]);
         }
     }
