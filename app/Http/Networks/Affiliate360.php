@@ -56,7 +56,7 @@ class Affiliate360 extends NetworkFactory {
             ]);
             $data = json_decode($res->getBody()->getContents(), true);
             $this->data = json_decode($res->getBody()->getContents(), true);
-            if ($res->getStatusCode() !== 200 || $res->getStatusCode() !== 201) {
+            if (!in_array($res->getStatusCode(), [201, 200])) {
                 throw new \Exception('Status code is not what expected, got:'.$res->getStatusCode());
             }
             $pixel_res = $this->sendPixel($unique_id);
