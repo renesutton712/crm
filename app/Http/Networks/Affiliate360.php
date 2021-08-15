@@ -53,23 +53,15 @@ class Affiliate360 extends NetworkFactory {
         try {
             $res = $client->request('POST', $this->create_lead_url, [
                 'form_params' => $params
-//            'headers' => [
-//                    'affid' => $this->getToken()
-//                ],
-//                'form_params' => $params
             ]);
             $data = json_decode($res->getBody()->getContents(), true);
             $this->data = json_decode($res->getBody()->getContents(), true);
-            throw new \Exception(json_encode([$res->getStatusCode(), $params]));
-            if ($res->getStatusCode() !== 200) {
-                throw new \Exception('Url not found');
+            if ($res->getStatusCode() !== 200 || $res->getStatusCode() !== 201) {
+                throw new \Exception('Status code is not 200 or 201');
             }
             $pixel_res = $this->sendPixel($unique_id);
             if (isset($pixel_res['status']) && !$pixel_res['status']) {
                 throw new \Exception($pixel_res['msg']);
-            }
-            if (!$data['result']['success']) {
-                throw new \Exception('Duplicate found');
             }
             $response = ['status' => true, 'msg' => $data['extras']['redirect']['url']];
             $this->storeNetworkResponse($unique_id, 'lead_id ' . $data['lead']['id']);
