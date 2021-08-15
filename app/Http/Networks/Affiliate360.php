@@ -32,6 +32,7 @@ class Affiliate360 extends NetworkFactory {
             'phone' => $params['prefix'] . $params['phone'],
             '_ip' => $params['ip'],
             'area_code' => $params['prefix'],
+            'affid' => $this->getToken(),
             $offer->offer_token => $offer->offer_token_value
         ];
         return $this->affiliate360Lead($data, $params['unique_id'], $params['campaign_id']);
@@ -51,14 +52,15 @@ class Affiliate360 extends NetworkFactory {
         $client = new Client();
         try {
             $res = $client->request('POST', $this->create_lead_url, [
-                'headers' => [
-                    'affid' => $this->getToken()
-                ],
                 'form_params' => $params
+//            'headers' => [
+//                    'affid' => $this->getToken()
+//                ],
+//                'form_params' => $params
             ]);
-
             $data = json_decode($res->getBody()->getContents(), true);
             $this->data = json_decode($res->getBody()->getContents(), true);
+            throw new \Exception(json_encode([$res->getStatusCode(), $params]));
             if ($res->getStatusCode() !== 200) {
                 throw new \Exception('Url not found');
             }
