@@ -56,10 +56,14 @@ class Convertick extends NetworkFactory {
             if ($res->getStatusCode() !== 200) {
                 throw new \Exception('Url not found');
             }
+            $content = $res->getBody()->getContents();
+//            $data = json_decode(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $res->getBody()->getContents()), true);
             Log::debug('(S) Response logs - Register Lead');
             Log::debug($res->getBody()->getContents());
             Log::debug("clean json");
             Log::debug($this->cleanJson($res->getBody()->getContents()));
+            Log::debug("after clean");
+            Log::debug($res->getBody()->getContents());
             $data = json_decode(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $res->getBody()->getContents()), true);
             Log::debug("Data Json");
             Log::debug("New Json Error");
