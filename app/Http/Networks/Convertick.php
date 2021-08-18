@@ -60,7 +60,8 @@ class Convertick extends NetworkFactory {
             Log::debug($res->getBody()->getContents());
             $data = json_decode(stripslashes($res->getBody()->getContents()), true);
             Log::debug("Data Json");
-            Log::debug("New");
+            Log::debug("New Json Error");
+            Log::debug(json_last_error());
             Log::debug(var_dump($data));
             if (!isset($data['data'])) {
                 throw new \Exception($data['messages']);
