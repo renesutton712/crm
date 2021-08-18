@@ -58,7 +58,7 @@ class Convertick extends NetworkFactory {
             }
             Log::debug('(S) Response logs - Register Lead');
             Log::debug($res->getBody()->getContents());
-            $data = json_decode(stripslashes($res->getBody()->getContents()), true);
+            $data = json_decode($this->removeBOM($res->getBody()->getContents()), true);
             Log::debug("Data Json");
             Log::debug("New Json Error");
             Log::debug(json_last_error());
@@ -91,6 +91,13 @@ class Convertick extends NetworkFactory {
             $this->storeNetworkResponse($unique_id, $response->messages[0]);
             return json_encode(['status' => false, 'msg' => $response->messages[0]]);
         }
+    }
+
+    private function removeBOM($data) {
+        if (0 === strpos(bin2hex($data), 'efbbbf')) {
+            return substr($data, 3);
+        }
+        return $data;
     }
 
     private function brokerAutoLoginUrl($signupId) {
