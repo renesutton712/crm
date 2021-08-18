@@ -33,6 +33,7 @@ class Convertick extends NetworkFactory {
             'ip' => $params['ip'], 'custom1' => $params['unique_id'], $offer->offer_token => $offer->offer_token_value,
             'custom2' => $params['unique_id']
         ];
+        Log::debug('Before registerLead');
         return $this->registerLead($data, $params['unique_id'], $params['campaign_id']);
     }
 
@@ -53,6 +54,7 @@ class Convertick extends NetworkFactory {
                 ],
                 'form_params' => $params
             ]);
+            Log::debug('Before Exception');
             if ($res->getStatusCode() !== 200) {
                 throw new \Exception('Url not found');
             }
@@ -63,11 +65,12 @@ class Convertick extends NetworkFactory {
             Log::debug("content again");
             Log::debug($content);
             Log::debug("preg json");
-            Log::debug(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $content));
+            $content = $this->cleanJson($content);
             Log::debug("after clean");
             Log::debug($content);
-            $data = json_decode(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $content), true);
+            $data = json_decode($content, true);
             Log::debug("Data Json");
+            Log::debug($data);
             Log::debug("New Json Error");
             Log::debug(json_last_error());
             Log::debug(var_dump($data));
@@ -102,19 +105,19 @@ class Convertick extends NetworkFactory {
     }
 
     private function cleanJson($data) {
-//        // This will remove unwanted characters.
-//        // Check http://www.php.net/chr for details
-//        for ($i = 0; $i <= 31; ++$i) {
-//            $data = str_replace(chr($i), "", $data);
-//        }
-//        $data = str_replace(chr(127), "", $data);
-//
-//        // This is the most common part
-//        // Some file begins with 'efbbbf' to mark the beginning of the file. (binary level)
-//        // here we detect it and we remove it, basically it's the first 3 characters
-//        if (0 === strpos(bin2hex($data), 'efbbbf')) {
-//            $checkLogin = substr($data, 3);
-//        }
+        // This will remove unwanted characters.
+        // Check http://www.php.net/chr for details
+        for ($i = 0; $i <= 31; ++$i) {
+            $data = str_replace(chr($i), "", $data);
+        }
+        $data = str_replace(chr(127), "", $data);
+
+        // This is the most common part
+        // Some file begins with 'efbbbf' to mark the beginning of the file. (binary level)
+        // here we detect it and we remove it, basically it's the first 3 characters
+        if (0 === strpos(bin2hex($data), 'efbbbf')) {
+            $checkLogin = substr($data, 3);
+        }
 
         return stripslashes($data);
     }
