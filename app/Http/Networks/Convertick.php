@@ -128,11 +128,11 @@ class Convertick extends NetworkFactory {
             Log::debug($content);
             $data = json_decode($content, true);
             Log::debug($content);
-            if (empty($data['data'])) {
+            if (!isset($data['data'])) {
                 throw new \Exception($data['messages']);
             }
             return [
-                'status' => true, 'msg' => "{$data['url']}/{$data['parameters']['action']}?token={$data['parameters']['token']}"
+                'status' => true, 'msg' => "{$data['data']['url']}"
             ];
         } catch (\Exception $e) {
             Log::debug("in exception");
