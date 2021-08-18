@@ -31,6 +31,7 @@ class Convertick extends NetworkFactory {
             'firstName' => $params['first_name'], 'lastName' => $params['last_name'], 'email' => $params['email'],
             'password' => $params['password'], 'phone' => $params['prefix'] . $params['phone'],
             'ip' => $params['ip'], 'custom1' => $params['unique_id'], $offer->offer_token => $offer->offer_token_value,
+            'custom2' => $params['unique_id']
         ];
         return $this->registerLead($data, $params['unique_id'], $params['campaign_id']);
     }
