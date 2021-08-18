@@ -58,7 +58,7 @@ class Convertick extends NetworkFactory {
             Log::debug('(S) Response logs - Register Lead');
             Log::debug($res->getBody()->getContents());
             $data = json_decode($res->getBody()->getContents(), true);
-            if (empty($data['data'])) {
+            if (!isset($data['data'])) {
                 throw new \Exception($data['messages']);
             }
             $pixel_res = $this->sendPixel($unique_id);
