@@ -18,6 +18,7 @@ class Convertick extends NetworkFactory {
      * @return array|false|string
      */
     public function prepareData(array $params, $network) {
+        Log::debug('(S) Response logs - Starting App');
         if (!isset($params['offer_id'])) {
             return ['status' => false, 'msg' => 'No offer id supplied'];
         }
@@ -54,6 +55,8 @@ class Convertick extends NetworkFactory {
             if ($res->getStatusCode() !== 200) {
                 throw new \Exception('Url not found');
             }
+            Log::debug('(S) Response logs - Register Lead');
+            Log::debug($res->getBody()->getContents());
             $data = json_decode($res->getBody()->getContents(), true);
             if (empty($data['data'])) {
                 throw new \Exception($data['messages']);
