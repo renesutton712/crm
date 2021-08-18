@@ -61,19 +61,8 @@ class Convertick extends NetworkFactory {
             $content = $res->getBody()->getContents();
 //            $data = json_decode(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $res->getBody()->getContents()), true);
             Log::debug('(S) Response logs - Register Lead');
-            Log::debug($content);
-            Log::debug("content again");
-            Log::debug($content);
-            Log::debug("preg json");
             $content = $this->cleanJson($content);
-            Log::debug("after clean");
-            Log::debug($content);
             $data = json_decode($content, true);
-            Log::debug("Data Json");
-            Log::debug($data);
-            Log::debug("New Json Error");
-            Log::debug(json_last_error());
-            Log::debug(var_dump($data));
             if (!isset($data['data'])) {
                 throw new \Exception($data['messages']);
             }
@@ -133,9 +122,11 @@ class Convertick extends NetworkFactory {
             if ($res->getStatusCode() !== 200) {
                 throw new \Exception('Url not found');
             }
-            Log::debug('(S) Response logs');
-            Log::debug($res->getBody()->getContents());
-            $data = json_decode($res->getBody()->getContents(), true);
+            $content = $res->getBody()->getContents();
+            Log::debug('(S) Response logs - brokerAutoLoginUrl');
+            Log::debug($content);
+            $data = json_decode($content, true);
+            Log::debug($content);
             if (empty($data['data'])) {
                 throw new \Exception($data['messages']);
             }
