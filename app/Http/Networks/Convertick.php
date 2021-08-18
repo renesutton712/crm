@@ -60,7 +60,7 @@ class Convertick extends NetworkFactory {
             Log::debug($res->getBody()->getContents());
             Log::debug("clean json");
             Log::debug($this->cleanJson($res->getBody()->getContents()));
-            $data = json_decode($this->cleanJson($res->getBody()->getContents()), true);
+            $data = json_decode(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $res->getBody()->getContents()), true);
             Log::debug("Data Json");
             Log::debug("New Json Error");
             Log::debug(json_last_error());
@@ -96,19 +96,19 @@ class Convertick extends NetworkFactory {
     }
 
     private function cleanJson($data) {
-        // This will remove unwanted characters.
-        // Check http://www.php.net/chr for details
-        for ($i = 0; $i <= 31; ++$i) {
-            $data = str_replace(chr($i), "", $data);
-        }
-        $data = str_replace(chr(127), "", $data);
-
-        // This is the most common part
-        // Some file begins with 'efbbbf' to mark the beginning of the file. (binary level)
-        // here we detect it and we remove it, basically it's the first 3 characters
-        if (0 === strpos(bin2hex($data), 'efbbbf')) {
-            $checkLogin = substr($data, 3);
-        }
+//        // This will remove unwanted characters.
+//        // Check http://www.php.net/chr for details
+//        for ($i = 0; $i <= 31; ++$i) {
+//            $data = str_replace(chr($i), "", $data);
+//        }
+//        $data = str_replace(chr(127), "", $data);
+//
+//        // This is the most common part
+//        // Some file begins with 'efbbbf' to mark the beginning of the file. (binary level)
+//        // here we detect it and we remove it, basically it's the first 3 characters
+//        if (0 === strpos(bin2hex($data), 'efbbbf')) {
+//            $checkLogin = substr($data, 3);
+//        }
 
         return stripslashes($data);
     }
