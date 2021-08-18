@@ -63,10 +63,9 @@ class Convertick extends NetworkFactory {
             }
             $this->storeNetworkResponse($unique_id, $data['data']['signupRequestID']);
             $broker_res = $this->brokerAutoLoginUrl($data['data']['signupRequestID']);
-            throw new \Exception(json_encode($broker_res));
+//            throw new \Exception(json_encode($broker_res));
             if (!isset($broker_res['status'])) {
                 throw new \Exception(json_encode($broker_res));
-//                throw new \Exception($broker_res['msg']);
             }
             $response = ['status' => true, 'msg' => $broker_res['msg']];
             $iframe = $this->getIframePixel($camp_id);
