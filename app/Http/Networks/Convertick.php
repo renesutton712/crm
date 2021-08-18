@@ -58,7 +58,7 @@ class Convertick extends NetworkFactory {
             }
             Log::debug('(S) Response logs - Register Lead');
             Log::debug($res->getBody()->getContents());
-            $data = json_decode($res->getBody()->getContents(), true);
+            $data = json_decode(stripslashes($res->getBody()->getContents()), true);
             Log::debug("Data Json");
             Log::debug("New");
             Log::debug(var_dump($data));
