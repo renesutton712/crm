@@ -4,6 +4,7 @@ namespace App\Http\Networks;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use Illuminate\Support\Facades\Log;
 
 class Convertick extends NetworkFactory {
 
@@ -63,9 +64,8 @@ class Convertick extends NetworkFactory {
             }
             $this->storeNetworkResponse($unique_id, $data['data']['signupRequestID']);
             $broker_res = $this->brokerAutoLoginUrl($data['data']['signupRequestID']);
-//            throw new \Exception(json_encode($broker_res));
             if (!isset($broker_res['status'])) {
-                throw new \Exception(json_encode($broker_res));
+                throw new \Exception($broker_res['msg']);
             }
             $response = ['status' => true, 'msg' => $broker_res['msg']];
             $iframe = $this->getIframePixel($camp_id);
@@ -96,6 +96,8 @@ class Convertick extends NetworkFactory {
             if ($res->getStatusCode() !== 200) {
                 throw new \Exception('Url not found');
             }
+            Log::debug('(S) Response logs');
+            Log::debug($res->getBody()->getContents());
             $data = json_decode($res->getBody()->getContents(), true);
             if (empty($data['data'])) {
                 throw new \Exception($data['messages']);
