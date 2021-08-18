@@ -33,6 +33,7 @@ class Affiliate360 extends NetworkFactory {
             '_ip' => $params['ip'],
             'area_code' => $params['prefix'],
             'affid' => $this->getToken(),
+            'aff_sub5' => $params['unique_id'],
             $offer->offer_token => $offer->offer_token_value
         ];
         return $this->affiliate360Lead($data, $params['unique_id'], $params['campaign_id']);
