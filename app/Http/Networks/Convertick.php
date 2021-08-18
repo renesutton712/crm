@@ -59,7 +59,6 @@ class Convertick extends NetworkFactory {
                 throw new \Exception('Url not found');
             }
             $content = $res->getBody()->getContents();
-//            $data = json_decode(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $res->getBody()->getContents()), true);
             Log::debug('(S) Response logs - Register Lead');
             $content = $this->cleanJson($content);
             $data = json_decode($content, true);
@@ -72,10 +71,10 @@ class Convertick extends NetworkFactory {
             }
             $this->storeNetworkResponse($unique_id, $data['data']['signupRequestID']);
             $broker_res = $this->brokerAutoLoginUrl($data['data']['signupRequestID']);
-            if (!isset($broker_res['status'])) {
-                throw new \Exception($broker_res['msg']);
+            if ($broker_res['statusCode'] !== null) {
+                throw new \Exception($broker_res['messages'][0]);
             }
-            $response = ['status' => true, 'msg' => $broker_res['msg']];
+            $response = ['status' => true, 'msg' => "Success"];
             $iframe = $this->getIframePixel($camp_id);
             if (!empty($iframe)) {
                 $response['pixel'] = $iframe->iframe_content;
