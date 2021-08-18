@@ -71,10 +71,12 @@ class Convertick extends NetworkFactory {
             }
             $this->storeNetworkResponse($unique_id, $data['data']['signupRequestID']);
             $broker_res = $this->brokerAutoLoginUrl($data['data']['signupRequestID']);
-            if ($broker_res['statusCode'] !== null) {
-                throw new \Exception($broker_res['messages'][0]);
+            Log::debug('(S) Response logs - brokerAutoLoginUrl - above function');
+            Log::debug($broker_res);
+            if (!$broker_res['status']) {
+                throw new \Exception($broker_res['msg']);
             }
-            $response = ['status' => true, 'msg' => "Success"];
+            $response = ['status' => true, 'msg' => $broker_res['msg']];
             $iframe = $this->getIframePixel($camp_id);
             if (!empty($iframe)) {
                 $response['pixel'] = $iframe->iframe_content;
@@ -133,6 +135,7 @@ class Convertick extends NetworkFactory {
                 'status' => true, 'msg' => "{$data['url']}/{$data['parameters']['action']}?token={$data['parameters']['token']}"
             ];
         } catch (\Exception $e) {
+            Log::debug("in exception");
             return json_encode(['status' => false, 'msg' => $e->getMessage()]);
         }
     }
