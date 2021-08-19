@@ -15,6 +15,7 @@ use App\Pixel;
 use App\PixelGroup;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Facades\Log;
 
 class Networks {
 
@@ -42,7 +43,10 @@ class Networks {
                 break;
             case 9:
                 $convertick = new Convertick();
-                return $convertick->prepareData($params, $network);
+                $data = $convertick->prepareData($params, $network);
+                Log::debug("In Network prepare Data");
+                Log::debug($data);
+                return $data;
                 break;
             case 13:
             case 15:

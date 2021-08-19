@@ -135,7 +135,6 @@ class Convertick extends NetworkFactory {
                 'status' => true, 'msg' => "{$data['data']['url']}"
             ];
         } catch (\Exception $e) {
-            Log::debug("in exception");
             return json_encode(['status' => false, 'msg' => $e->getMessage()]);
         }
     }
