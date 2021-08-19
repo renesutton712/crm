@@ -47,7 +47,7 @@
                             <vs-td :data="data[indextr].rotator_name">{{data[indextr].rotator_name}}</vs-td>
                             <vs-td :data="data[indextr].platform">{{platform_names[data[indextr].platform]}}</vs-td>
                             <vs-td>{{'&ci=' + data[indextr].id + '&ri=' + data[indextr].rotator_id + '&oi=' +
-                                data[indextr].offer_id}}
+                                data[indextr].offer_id + "&cid={clickid}"}}
                             </vs-td>
                             <vs-td v-if="data[indextr].status === 2" :data="data[indextr].status">Active</vs-td>
                             <vs-td v-else :data="data[indextr].status">Paused</vs-td>
