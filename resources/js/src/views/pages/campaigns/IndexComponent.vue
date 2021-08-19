@@ -202,6 +202,8 @@
             }
         },
         beforeMount() {
+            console.log("in mount");
+            this.$forceUpdate();
             this.getCampaigns();
         }
     }
