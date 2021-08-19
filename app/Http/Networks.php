@@ -44,8 +44,6 @@ class Networks {
             case 9:
                 $convertick = new Convertick();
                 $data = $convertick->prepareData($params, $network);
-                Log::debug("In Network prepare Data");
-                Log::debug($data);
                 return $data;
                 break;
             case 13:
@@ -54,6 +52,7 @@ class Networks {
                 return $affClub->prepareData($params, $network);
                 break;
             case 17:
+            case 19:
                 $affiliate360 = new Affiliate360();
                 return $affiliate360->prepareData($params, $network);
                 break;

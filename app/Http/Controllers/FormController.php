@@ -83,8 +83,6 @@ class FormController extends Controller {
      * @return false|string
      */
     public function lead(Request $request) {
-        Log::debug("In lead log");
-        Log::debug($request);
         $phone_arr = explode(" ", $request->input('phone'), 2);
         if (is_array($phone_arr) && !isset($phone_arr[1])) {
             return json_encode(['status' => false, 'msg' => 'Phone field is required']);
@@ -114,8 +112,6 @@ class FormController extends Controller {
 //            return json_encode(['status' => false, 'msg' => 'Missing Campaign']);
         }
 
-        Log::debug("Before storeErrorMsg");
-
         if (empty($fn) || empty($ln) || empty($email) || empty($country) || empty($prefix) || empty($phone) || empty($pwd)) {
             $this->storeErrorMsg($unique_id, 'Empty form field error');
             return json_encode(['status' => false, 'msg' => 'Please fill all required fields']);
@@ -134,7 +130,6 @@ class FormController extends Controller {
                 'password' => $pwd, 'status' => 1
             ]
         );
-        Log::debug("After Lead::updateOrCreate");
         if (!isset($network->network_id) || !is_int($network->network_id)) {
             $this->storeErrorMsg($unique_id, 'Unable to connect network');
             return json_encode(['status' => false, 'msg' => 'An error has occurred, please try again later']);

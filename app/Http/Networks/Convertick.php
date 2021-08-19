@@ -18,7 +18,6 @@ class Convertick extends NetworkFactory {
      * @return array|false|string
      */
     public function prepareData(array $params, $network) {
-        Log::debug('(S) Response logs - Starting App');
         if (!isset($params['offer_id'])) {
             return ['status' => false, 'msg' => 'No offer id supplied'];
         }
@@ -33,7 +32,6 @@ class Convertick extends NetworkFactory {
             'ip' => $params['ip'], 'custom1' => $params['unique_id'], $offer->offer_token => $offer->offer_token_value,
             'custom2' => $params['unique_id']
         ];
-        Log::debug('Before registerLead');
         return $this->registerLead($data, $params['unique_id'], $params['campaign_id']);
     }
 
@@ -54,12 +52,10 @@ class Convertick extends NetworkFactory {
                 ],
                 'form_params' => $params
             ]);
-            Log::debug('Before Exception');
             if ($res->getStatusCode() !== 200) {
                 throw new \Exception('Url not found');
             }
             $content = $res->getBody()->getContents();
-            Log::debug('(S) Response logs - Register Lead');
             $content = $this->cleanJson($content);
             $data = json_decode($content, true);
             if (!isset($data['data'])) {
@@ -71,8 +67,6 @@ class Convertick extends NetworkFactory {
             }
             $this->storeNetworkResponse($unique_id, $data['data']['signupRequestID']);
             $broker_res = $this->brokerAutoLoginUrl($data['data']['signupRequestID']);
-            Log::debug('(S) Response logs - brokerAutoLoginUrl - above function');
-            Log::debug($broker_res);
             if (!$broker_res['status']) {
                 throw new \Exception($broker_res['msg']);
             }
@@ -124,10 +118,7 @@ class Convertick extends NetworkFactory {
                 throw new \Exception('Url not found');
             }
             $content = $res->getBody()->getContents();
-            Log::debug('(S) Response logs - brokerAutoLoginUrl');
-            Log::debug($content);
             $data = json_decode($content, true);
-            Log::debug($content);
             if (!isset($data['data'])) {
                 throw new \Exception($data['messages']);
             }
