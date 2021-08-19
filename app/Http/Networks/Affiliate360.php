@@ -6,6 +6,7 @@ use App\Offer;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Facades\Log;
 
 class Affiliate360 extends NetworkFactory {
 
@@ -55,6 +56,8 @@ class Affiliate360 extends NetworkFactory {
             $res = $client->request('POST', $this->create_lead_url, [
                 'form_params' => $params
             ]);
+            Log::debug("Affiliate 360 request");
+            Log::debug(['form_params' => $params]);
             $data = json_decode($res->getBody()->getContents(), true);
             $this->data = json_decode($res->getBody()->getContents(), true);
             if (!in_array($res->getStatusCode(), [201, 200])) {
