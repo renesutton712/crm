@@ -15,9 +15,11 @@ class Convertick extends NetworkFactory {
     /**
      * @param array $params
      * @param $network
+     * @param $platform
      * @return array|false|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function prepareData(array $params, $network) {
+    public function prepareData(array $params, $network, $platform) {
         if (!isset($params['offer_id'])) {
             return ['status' => false, 'msg' => 'No offer id supplied'];
         }
@@ -30,7 +32,7 @@ class Convertick extends NetworkFactory {
             'firstName' => $params['first_name'], 'lastName' => $params['last_name'], 'email' => $params['email'],
             'password' => $params['password'], 'phone' => $params['prefix'] . $params['phone'],
             'ip' => $params['ip'], 'custom1' => $params['unique_id'], $offer->offer_token => $offer->offer_token_value,
-            'custom2' => $params['unique_id']
+            'custom2' => $params['unique_id'], 'custom3' => $platform
         ];
         return $this->registerLead($data, $params['unique_id'], $params['campaign_id']);
     }

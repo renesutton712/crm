@@ -43,7 +43,7 @@ class Networks {
                 break;
             case 9:
                 $convertick = new Convertick();
-                $data = $convertick->prepareData($params, $network);
+                $data = $convertick->prepareData($params, $network, "g");
                 return $data;
                 break;
             case 13:
@@ -55,6 +55,11 @@ class Networks {
             case 19:
                 $affiliate360 = new Affiliate360();
                 return $affiliate360->prepareData($params, $network);
+                break;
+            case 20:
+                $convertick = new Convertick();
+                $data = $convertick->prepareData($params, $network, "f");
+                return $data;
                 break;
             default:
                 $default = new DefaultNetwork();
