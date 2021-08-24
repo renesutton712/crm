@@ -58,7 +58,7 @@ class FormController extends Controller {
             $model->offer_id = $oi;
             $model->country = $country;
             $model->ua = $ua;
-            $model->ip = $ip;
+            $model->ip = empty($ip) ? $_SERVER['REMOTE_ADDR'] : $ip;
             $model->url_params = $url_params;
             $model->host = $host;
             $model->referrer = $referrer;
