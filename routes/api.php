@@ -62,6 +62,7 @@ Route::middleware(['auth:api', 'role'])->group(function () {
 //Form
 Route::post('form/click', 'FormController@click');
 Route::post('form/lead', 'FormController@lead');
+Route::post('form/log', 'FormController@log');
 Route::post('form/lang', 'FormController@getLang');
 //Postback reciever
 Route::get('postback/event/{unique_id}/{payout}', 'PostbackController@store');

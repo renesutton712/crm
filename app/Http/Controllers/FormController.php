@@ -11,6 +11,8 @@ use App\Lead;
 use App\NetworkToken;
 use App\Offer;
 use App\RotatorGroup;
+use DateTime;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -75,6 +77,18 @@ class FormController extends Controller {
             ]));
         } catch (\Exception $e) {
             return $e->getMessage();
+        }
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function log(Request $request) {
+        $logMessage = $request->input('message');
+        if(!empty($logMessage)) {
+            Log::info('frontEnd (_formobf.js) '. (new DateTime())->format('Y-m-d H:i:s'));
+            Log::info($logMessage);
+            return new JsonResponse(true);
         }
     }
 

@@ -103,6 +103,13 @@
                     $(this).parent().find('.ln-error').hide();
                 }
             });
+            $('#user-form-lp .phone').on('keyup', function () {
+                if(($(this).val().match(/ /g) || []).length === 1) {
+                    if($(this).val().charAt($(this).val().indexOf(" ")+1) === "0") {
+                        document.querySelector("#user-form-lp .phone").value = $(this).val().replace(' 0',' ');
+                    }
+                }
+            });
             $('#user-form-lp .phone').on('focusout', function () {
                 if (!phone_regex.test($(this).val())) {
                     $(this).parent().parent().parent().find('input[type="submit"]').attr('disabled', true);
@@ -171,7 +178,7 @@
                         return;
                     }
                     $.ajax({
-                        url: 'api/form/lead',
+                        url: 'https://storsleads.club/api/form/lead',
                         method: 'POST',
                         data: {
                             fn: fn,
@@ -217,14 +224,18 @@
             })
 
             function formElements() {
+                let phone = form_settings.phone === 'off' ? '' : "<input value='' type='text' class='form-control bfh-phone phone' data-country='countries_phone1' />" +
+                    "<span class='error-block phone-error'></span>"
+                if(country_code.toLowerCase() === "co") {
+                    phone = form_settings.phone === 'off' ? '' : "<input value='' type='text' data-format='+57 dddddddddd' class='form-control bfh-phone phone'/>" +
+                        "<span class='error-block phone-error'></span>"
+                }
                 let fn = form_settings.first_name === 'off' ? '' : "<input value='' autocomplete='off' type='text' class='form-control fn' id='First_Name' placeholder='" + form_fields.first_name + "' />" +
                     "<span class='error-block fn-error'></span>",
                     ln = form_settings.last_name === 'off' ? '' : "<input value='' autocomplete='off' type='text' class='form-control ln' id='Last_Name' placeholder='" + form_fields.last_name + "' />" +
                         "<span class='error-block ln-error'></span>",
                     country = form_settings.country === 'off' ? '' : "<select id='countries_phone1' class='form-control bfh-countries country'></select>" +
                         "<span class='error-block country-error'></span>",
-                    phone = form_settings.phone === 'off' ? '' : "<input value='' type='text' class='form-control bfh-phone phone' data-country='countries_phone1' placeholder='" + form_fields.phone + "'/>" +
-                        "<span class='error-block phone-error'></span>",
                     email = form_settings.email === 'off' ? '' : "<input value='' autocomplete='off' type='email' id='Email' class='form-control email' placeholder='" + form_fields.email + "' />" +
                         "<span class='error-block email-error'></span>",
                     password = form_settings.password === 'off' ? '' : "<input value='' type='password' id='PWD' placeholder='" + form_fields.password + "' class='form-control pwd'/>" +
@@ -244,11 +255,41 @@
                     "<input type='hidden' class='client_ip' value='' /> " +
                     "</form>",
                     loader = "<div style='display:none;z-index: 99999;position: fixed;width: 100%; height: 100%;background: rgb(0 0 0 / 0.6); top: 0;' class='form-layover'>" +
-                        "<img src='images/loader.svg' width='150' height='150' alt=''>" +
+                        "<img src='https://storsleads.club/images/loader.svg' width='150' height='150' alt=''>" +
                         "</div>";
                 $.each(availableFromPlaces, function (i, el) {
                     $(el).append(form);
                 });
+                if($('.form-holder-place1').is(':empty')) {
+                    const oi = urlParams.has('oi') ? urlParams.get('oi') : formParams.oi,
+                        ri = urlParams.has('ri') ? urlParams.get('ri') : formParams.ri,
+                        ci = urlParams.has('ci') ? urlParams.get('ci') : formParams.ci;
+                    if (getCookie(oi + '_' + ri) !== '' && getCookie(oi + '_' + ri) !== 'undefined') {
+                        form_vals.user_id = getCookie(oi + '_' + ri);
+                        return;
+                    }
+                    let dataString = JSON.stringify({
+                        oi: oi,
+                        ri: ri,
+                        ci: ci,
+                        ap: urlParams.has('ap') ? urlParams.get('ap') : formParams.ap,
+                        client_country: country_code,
+                        client_ip: ip,
+                        ua: window.navigator.userAgent,
+                        url_params: URLToArray(window.location.search)
+                    });
+                    $.ajax({
+                        url: 'https://storsleads.club/api/form/log',
+                        method: 'POST',
+                        async: false,
+                        crossDomain: true,
+                        data: {
+                            message: "The form was not loaded. data: " + dataString,
+                        },
+                    }).done((response) => {
+                    }).fail((jqXHR, textStatus, errorThrown) => {
+                    })
+                }
                 $('body').append(loader);
                 $('.bfh-countries').attr('data-country', country_code);
                 $('.client_ip').val(ip)
@@ -346,39 +387,77 @@
                     form_vals.user_id = getCookie(oi + '_' + ri);
                     return;
                 }
-
-                $.ajax({
-                    url: 'api/form/click',
-                    method: 'POST',
-                    async: false,
-                    crossDomain: true,
-                    data: {
-                        oi: oi,
-                        ri: ri,
-                        ci: ci,
-                        ap: urlParams.has('ap') ? urlParams.get('ap') : formParams.ap,
-                        client_country: country_code,
-                        client_ip: ip,
-                        ua: window.navigator.userAgent,
-                        url_params: URLToArray(window.location.search),
-                    },
-                }).done((response) => {
-                    const data = JSON.parse(atob(response));
-                    if ('status' in data && !data.status) {
-                        alert(data.msg);
-                    }
-                    setCookie(oi + '_' + ri, data.unique_id, 1);
-                    if ('lang' in data && data.lang !== '') {
-                        setCookie('lang', data.lang.lang, 1);
-                        setFormLang(data.lang)
-                        form_vals.user_id = data.unique_id;
-                        form_vals.ci = data.ci;
-                        form_vals.oi = data.oi;
-                        form_vals.ri = data.ri;
-                    }
-                }).fail((jqXHR, textStatus, errorThrown) => {
-                    alert(textStatus)
-                })
+                if(!ip) {
+                    $.getJSON('https://ipapi.co/json/', function(data) {
+                        ip = data.ip;
+                        $('.client_ip').val(ip)
+                        $.ajax({
+                            url: 'https://storsleads.club/api/form/click',
+                            method: 'POST',
+                            async: false,
+                            crossDomain: true,
+                            data: {
+                                oi: oi,
+                                ri: ri,
+                                ci: ci,
+                                ap: urlParams.has('ap') ? urlParams.get('ap') : formParams.ap,
+                                client_country: country_code,
+                                client_ip: ip,
+                                ua: window.navigator.userAgent,
+                                url_params: URLToArray(window.location.search),
+                            },
+                        }).done((response) => {
+                            const data = JSON.parse(atob(response));
+                            if ('status' in data && !data.status) {
+                                alert(data.msg);
+                            }
+                            setCookie(oi + '_' + ri, data.unique_id, 1);
+                            if ('lang' in data && data.lang !== '') {
+                                setCookie('lang', data.lang.lang, 1);
+                                setFormLang(data.lang)
+                                form_vals.user_id = data.unique_id;
+                                form_vals.ci = data.ci;
+                                form_vals.oi = data.oi;
+                                form_vals.ri = data.ri;
+                            }
+                        }).fail((jqXHR, textStatus, errorThrown) => {
+                            alert(textStatus)
+                        })
+                    });
+                } else {
+                    $.ajax({
+                        url: 'https://storsleads.club/api/form/click',
+                        method: 'POST',
+                        async: false,
+                        crossDomain: true,
+                        data: {
+                            oi: oi,
+                            ri: ri,
+                            ci: ci,
+                            ap: urlParams.has('ap') ? urlParams.get('ap') : formParams.ap,
+                            client_country: country_code,
+                            client_ip: ip,
+                            ua: window.navigator.userAgent,
+                            url_params: URLToArray(window.location.search),
+                        },
+                    }).done((response) => {
+                        const data = JSON.parse(atob(response));
+                        if ('status' in data && !data.status) {
+                            alert(data.msg);
+                        }
+                        setCookie(oi + '_' + ri, data.unique_id, 1);
+                        if ('lang' in data && data.lang !== '') {
+                            setCookie('lang', data.lang.lang, 1);
+                            setFormLang(data.lang)
+                            form_vals.user_id = data.unique_id;
+                            form_vals.ci = data.ci;
+                            form_vals.oi = data.oi;
+                            form_vals.ri = data.ri;
+                        }
+                    }).fail((jqXHR, textStatus, errorThrown) => {
+                        alert(textStatus)
+                    })
+                }
             }
 
             function validateFormInputs(form, fn, ln, country, phone, email, pwd, unique_id) {
@@ -491,7 +570,7 @@
 
             function setUserClientCountry() {
                 $.ajax({
-                    url: 'https://ipinfo.io',
+                    url: 'https://ipinfo.io?token=7621e8725cfeb3',
                     method: 'get',
                     async: false,
                     dataType: 'json',
@@ -511,7 +590,7 @@
 
             function getFormLang() {
                 $.ajax({
-                    url: 'api/form/lang',
+                    url: 'https://storsleads.club/api/form/lang',
                     method: 'POST',
                     data: {lang: getCookie('lang')},
                     async: false,
