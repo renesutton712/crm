@@ -2,6 +2,7 @@
 
 namespace App\Http\Networks;
 
+use DateTime;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Facades\Log;
@@ -54,6 +55,16 @@ class Convertick extends NetworkFactory {
                 ],
                 'form_params' => $params
             ]);
+            try {
+                Log::info('registerLead (Convertik) '. (new DateTime())->format('Y-m-d H:i:s'));
+                Log::info([
+                    'headers' => [
+                        'Api-Key' => $this->getApiKey()
+                    ],
+                    'form_params' => $params
+                ]);
+                Log::info('response status (Convertik): ' . $res->getStatusCode());
+            } catch (\Exception $exception) {}
             if ($res->getStatusCode() !== 200) {
                 throw new \Exception('Url not found');
             }
