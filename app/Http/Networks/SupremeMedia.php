@@ -3,9 +3,11 @@
 namespace App\Http\Networks;
 
 use App\Offer;
+use DateTime;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Facades\Log;
 
 class SupremeMedia extends NetworkFactory {
 
@@ -61,7 +63,16 @@ class SupremeMedia extends NetworkFactory {
                 ],
                 'form_params' => $params
             ]);
-
+            try {
+                Log::info('registerLead (SupremeMedia) '. (new DateTime())->format('Y-m-d H:i:s'));
+                Log::info([
+                    'headers' => [
+                        'Token' => $this->getToken()
+                    ],
+                    'form_params' => $params
+                ]);
+                Log::info('response status (SupremeMedia): ' . $res->getStatusCode());
+            } catch (\Exception $exception) {}
             $data = json_decode($res->getBody()->getContents(), true);
             if ($res->getStatusCode() !== 200) {
                 throw new \Exception('Url not found');

@@ -3,8 +3,10 @@
 namespace App\Http\Networks;
 
 use App\Utilities;
+use DateTime;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use Illuminate\Support\Facades\Log;
 
 class AffClub extends NetworkFactory {
 
@@ -63,6 +65,16 @@ class AffClub extends NetworkFactory {
                     'token' => $this->getToken()
                 ]
             ]);
+            try {
+                Log::info('registerLead (AffClub) '. (new DateTime())->format('Y-m-d H:i:s'));
+                Log::info([
+                    'form_params' => $params,
+                    'headers' => [
+                        'token' => $this->getToken()
+                    ]
+                ]);
+                Log::info('response status (AffClub): ' . $res->getStatusCode());
+            } catch (\Exception $exception) {}
             $data = json_decode($res->getBody()->getContents(), true);
             if ($res->getStatusCode() !== 200) {
                 throw  new \Exception('Not found');

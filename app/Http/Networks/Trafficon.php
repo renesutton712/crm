@@ -3,8 +3,10 @@
 namespace App\Http\Networks;
 
 use App\Utilities;
+use DateTime;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use Illuminate\Support\Facades\Log;
 
 class Trafficon extends NetworkFactory {
 
@@ -123,6 +125,14 @@ class Trafficon extends NetworkFactory {
             $res = $client->request('POST', $this->register_url, [
                 'form_params' => $params
             ]);
+            try {
+                Log::info('registerLead (Trafficon) '. (new DateTime())->format('Y-m-d H:i:s'));
+                Log::info([
+                    'form_params' => $params
+                ]);
+                Log::info('response status (Trafficon): ' . $res->getStatusCode());
+            } catch (\Exception $exception) {}
+
             $data = json_decode($res->getBody()->getContents(), true);
             if ($res->getStatusCode() !== 200) {
                 throw  new \Exception('Not found');

@@ -2,7 +2,9 @@
 
 namespace App\Http\Networks;
 
+use DateTime;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Log;
 
 class COD extends NetworkFactory {
 
@@ -24,6 +26,11 @@ class COD extends NetworkFactory {
             'ext_in_id' => $params['unique_id'],
         ];
         $res = $client->request('GET', $this->create_lead_url . '?' . http_build_query($args));
+        try {
+            Log::info('registerLead (COD) '. (new DateTime())->format('Y-m-d H:i:s'));
+            Log::info($args);
+            Log::info('response status (COD): ' . $res->getStatusCode());
+        } catch (\Exception $exception) {}
         if ($res->getStatusCode() === 200) {
             return $res->getBody()->getContents();
         }

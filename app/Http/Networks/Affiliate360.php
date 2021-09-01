@@ -3,6 +3,7 @@
 namespace App\Http\Networks;
 
 use App\Offer;
+use DateTime;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
@@ -56,6 +57,13 @@ class Affiliate360 extends NetworkFactory {
             $res = $client->request('POST', $this->create_lead_url, [
                 'form_params' => $params
             ]);
+            try {
+                Log::info('registerLead (Affiliate360) '. (new DateTime())->format('Y-m-d H:i:s'));
+                Log::info([
+                    'form_params' => $params
+                ]);
+                Log::info('response status (Affiliate360): ' . $res->getStatusCode());
+            } catch (\Exception $exception) {}
             $data = json_decode($res->getBody()->getContents(), true);
             $this->data = json_decode($res->getBody()->getContents(), true);
             if (!in_array($res->getStatusCode(), [201, 200])) {
