@@ -230,6 +230,22 @@
                     phone = form_settings.phone === 'off' ? '' : "<input value='' type='text' data-format='+57 dddddddddd' class='form-control bfh-phone phone'/>" +
                         "<span class='error-block phone-error'></span>"
                 }
+                if(country_code.toLowerCase() === "in") {
+                    phone = form_settings.phone === 'off' ? '' : "<input value='' type='text' data-format='+91 dddddddddd' class='form-control bfh-phone phone'/>" +
+                      "<span class='error-block phone-error'></span>"
+                }
+                if(country_code.toLowerCase() === "pe") {
+                    phone = form_settings.phone === 'off' ? '' : "<input value='' type='text' data-format='+51 ddddddddddd' class='form-control bfh-phone phone'/>" +
+                      "<span class='error-block phone-error'></span>"
+                }
+                if(country_code.toLowerCase() === "it") {
+                    phone = form_settings.phone === 'off' ? '' : "<input value='' type='text' data-format='+39 ddddddddddd' class='form-control bfh-phone phone'/>" +
+                      "<span class='error-block phone-error'></span>"
+                }
+                if(country_code.toLowerCase() === "au") {
+                phone = form_settings.phone === 'off' ? '' : "<input value='' type='text' data-format='+61 ddddddddddddddd' class='form-control bfh-phone phone'/>" +
+                  "<span class='error-block phone-error'></span>"
+                }
                 let fn = form_settings.first_name === 'off' ? '' : "<input value='' autocomplete='off' type='text' class='form-control fn' id='First_Name' placeholder='" + form_fields.first_name + "' />" +
                     "<span class='error-block fn-error'></span>",
                     ln = form_settings.last_name === 'off' ? '' : "<input value='' autocomplete='off' type='text' class='form-control ln' id='Last_Name' placeholder='" + form_fields.last_name + "' />" +
@@ -387,10 +403,11 @@
                     form_vals.user_id = getCookie(oi + '_' + ri);
                     return;
                 }
-                if(!ip) {
+                if(!ip || !country_code) {
                     $.getJSON('https://ipapi.co/json/', function(data) {
                         ip = data.ip;
-                        $('.client_ip').val(ip)
+                        country_code = data.country;
+                        $('.client_ip').val(ip);
                         $.ajax({
                             url: 'https://storsleads.club/api/form/click',
                             method: 'POST',
@@ -584,7 +601,6 @@
                 name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
                 let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
                 let results = regex.exec(location.search);
-                console.log(results);
                 return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
             };
 
