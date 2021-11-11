@@ -256,12 +256,20 @@ class FormController extends Controller {
      * @param $ci
      * @return string
      */
-    protected function getCampaignLang($ci) {
+    protected function getCampaignLang($ci)
+    {
         $camp_lang = Campaign::select('lang_id')->where('id', '=', "{$ci}")->first();
         if (is_null($camp_lang->lang_id)) {
-            return "";
+            if ($camp_lang) {
+                if (is_null($camp_lang->lang_id)) {
+                    return "";
+                }
+            } else {
+                return "";
+            }
+
+            return FormLang::select('lang', 'first_name', 'last_name', 'country', 'phone', 'email', 'password', 'submit_btn')->where('id', '=', "{$camp_lang->lang_id}")->first()->toArray();
         }
-        return FormLang::select('lang', 'first_name', 'last_name', 'country', 'phone', 'email', 'password', 'submit_btn')->where('id', '=', "{$camp_lang->lang_id}")->first()->toArray();
     }
 
     /**
