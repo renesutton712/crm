@@ -49,6 +49,11 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 |
 */
 
+ini_set('memory_limit', '1024M');
+
+
+
+
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
 $response = $kernel->handle(
