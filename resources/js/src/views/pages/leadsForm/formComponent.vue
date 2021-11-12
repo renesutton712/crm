@@ -404,8 +404,8 @@ function myJQueryCode() {
         return;
       }
       let clickId = null;
-      if (clickIdParam) {
-        clickId = {clid: clickIdParam};
+      if (typeof clickIdParam !== 'undefined') {
+        clickId = {cid: clickIdParam};
       }
       if (!ip || !country_code) {
         $.getJSON('https://ipapi.co/json/', function (data) {
