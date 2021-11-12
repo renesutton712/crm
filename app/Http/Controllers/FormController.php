@@ -259,7 +259,7 @@ class FormController extends Controller {
     protected function getCampaignLang($ci)
     {
         $camp_lang = Campaign::select('lang_id')->where('id', '=', "{$ci}")->first();
-        if ($camp_lang && count($camp_lang) > 0) {
+        if (!empty($camp_lang)) {
             if (is_null($camp_lang->lang_id)) {
                 return "";
             }
