@@ -102,6 +102,9 @@ class FormController extends Controller {
             return json_encode(['status' => false, 'msg' => 'Phone field is required']);
         }
         $unique_id = filter_var(strip_tags($request->input('user')), FILTER_SANITIZE_STRING);
+        if(!$unique_id) {
+            $unique_id = filter_var(strip_tags($request->input('unique_id')), FILTER_SANITIZE_STRING);
+        }
         $fn = filter_var(strip_tags($request->input('fn')), FILTER_SANITIZE_STRING);
         $ln = filter_var(strip_tags($request->input('ln')), FILTER_SANITIZE_STRING);
         $email = filter_var(strip_tags($request->input('email')), FILTER_SANITIZE_URL);
