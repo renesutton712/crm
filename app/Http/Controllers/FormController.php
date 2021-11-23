@@ -188,6 +188,7 @@ class FormController extends Controller {
         }
         $rotator_offers = '';
         if ($ri === 'null' || $ri == 0) {
+            Log::info($unique_id. (new DateTime())->format('Y-m-d H:i:s'));
             $byOffer = Lead::where('unique_id', '=', $unique_id)->first();
             $networkByOffer = Offer::where('offer_id', '=', "{$byOffer->offer_id}")->first();
             $tokens = NetworkToken::where('network_id', '=', "{$networkByOffer->network_id}")->first()->toArray();

@@ -404,9 +404,11 @@ function myJQueryCode() {
         return;
       }
       let clickId = null;
+      let mappedUrlParameters = URLToArray(window.location.search);
       if (typeof clickIdParam !== 'undefined') {
         clickId = {cid: clickIdParam};
       }
+      console.log(clickId);
       if (!ip || !country_code) {
         $.getJSON('https://ipapi.co/json/', function (data) {
           ip = data.ip;
@@ -425,8 +427,7 @@ function myJQueryCode() {
               client_country: country_code,
               client_ip: ip,
               ua: window.navigator.userAgent,
-              url_params: URLToArray(window.location.search),
-              ...clickId
+              url_params: {...mappedUrlParameters, ...clickId}
             },
           }).done((response) => {
             const data = JSON.parse(atob(response));
@@ -460,8 +461,7 @@ function myJQueryCode() {
             client_country: country_code,
             client_ip: ip,
             ua: window.navigator.userAgent,
-            url_params: URLToArray(window.location.search),
-            ...clickId
+            url_params: {...mappedUrlParameters, ...clickId}
           },
         }).done((response) => {
           const data = JSON.parse(atob(response));
