@@ -76,6 +76,7 @@ class Convertick extends NetworkFactory {
                 throw new \Exception($data['messages']);
             }
             $pixel_res = $this->sendPixel($unique_id);
+            Log::info('in pixel' . $pixel_res);
             if (isset($pixel_res['status']) && !$pixel_res['status']) {
                 throw new \Exception($pixel_res['msg']);
             }
