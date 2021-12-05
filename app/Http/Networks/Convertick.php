@@ -64,14 +64,17 @@ class Convertick extends NetworkFactory {
                     'form_params' => $params
                 ]);
                 Log::info('response status (Convertik): ' . $res->getStatusCode());
-                Log::info('response status (Convertik): ' . $res->getBody());
+                Log::info('getBody status (Convertik): ' . $res->getBody());
             } catch (\Exception $exception) {}
             if ($res->getStatusCode() !== 200) {
                 throw new \Exception('Url not found');
             }
             $content = $res->getBody()->getContents();
+            Log::info('getContents status (Convertik): ' . $res->getBody());
             $content = $this->cleanJson($content);
+            Log::info('cleanJson status (Convertik): ' . $res->getBody());
             $data = json_decode($content, true);
+            Log::info('after json_decode status (Convertik): ' . $res->getBody());
             if (!isset($data['data'])) {
                 throw new \Exception($data['messages']);
             }
