@@ -70,11 +70,8 @@ class Convertick extends NetworkFactory {
                 throw new \Exception('Url not found');
             }
             $content = $res->getBody()->getContents();
-            Log::info('getContents status (Convertik): ' . $res->getBody());
             $content = $this->cleanJson($content);
-            Log::info('cleanJson status (Convertik): ' . $res->getBody());
-            $data = json_decode($content, true);
-            Log::info('after json_decode status (Convertik): ' . $res->getBody());
+            $data = (array)json_decode($content, true);
             if (!isset($data['data'])) {
                 throw new \Exception($data['messages']);
             }
@@ -82,8 +79,8 @@ class Convertick extends NetworkFactory {
             if (isset($pixel_res['status']) && !$pixel_res['status']) {
                 throw new \Exception($pixel_res['msg']);
             }
-            $this->storeNetworkResponse($unique_id, $data['data']['signupRequestID']);
-            $broker_res = $this->brokerAutoLoginUrl($data['data']['signupRequestID']);
+            $this->storeNetworkResponse($unique_id, ((array)$data['data'])['signupRequestID']);
+            $broker_res = $this->brokerAutoLoginUrl(((array)$data['data'])['signupRequestID']);
             if (!$broker_res['status']) {
                 throw new \Exception($broker_res['msg']);
             }
