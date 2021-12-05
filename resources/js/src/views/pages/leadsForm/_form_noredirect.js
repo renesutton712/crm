@@ -55,47 +55,11 @@ function myJQueryCode() {
         loadCustomCss();
 
         $('#send-lead').on('click', function() {
-            let lead = {};
-            let leadJson = localStorage.getItem('lead');
-            if(leadJson) {
-                lead = JSON.parse(leadJson);
-            }
-            if(lead && lead.email) {
-                $.ajax({
-                    url: 'https://storsleads.club/api/form/lead',
-                    method: 'POST',
-                    data: {
-                        ...lead
-                    },
-                }).done((response) => {
-                    let res = response;
-                    if (IsJsonString(response)) {
-                        res = JSON.parse(response);
-                    }
-                    if (!res.status) {
-                        $(this).attr('disabled', true);
-                        $('.form-layover').hide();
-                        alert(res.msg);
-                        return;
-                    }
-                    delete_cookie('user', '/', window.location.hostname)
-                    if ('pixel' in res) {
-                        // let rege = (/##(.*)##/g),
-                        let rege = /##(.*?)##/gm,
-                            res_pixel = '';
-
-                        res_pixel = res.pixel.replace(rege, function ($0, $1) {
-                            return getUrlParameter($1);
-                        })
-                        $("body").append(res_pixel);
-                    }
-                    setTimeout(function () {
-                        window.location.href = res.msg;
-                    }, 2500);
-                }).fail((jqXHR, textStatus, errorThrown) => {
-                    $('.form-layover').hide();
-                    alert(textStatus)
-                })
+            let redirectUrl = localStorage.getItem('url');
+            if(redirectUrl && redirectUrl.length) {
+                setTimeout(function () {
+                    window.location.href = redirectUrl;
+                }, 1777);
             } else {
                 alert("error: could not send");
             }
@@ -212,20 +176,52 @@ function myJQueryCode() {
                     $(this).attr('disabled', true);
                     return;
                 }
-                localStorage.setItem("lead", JSON.stringify({
-                    fn: fn,
-                    ln: ln,
-                    country: country,
-                    phone: phone,
-                    email: email,
-                    pwd: pwd,
-                    unique_id: unique_id,
-                    ri: ri,
-                    ci: ci,
-                }));
-                if(redirectUrl) {
-                    window.location.href = redirectUrl;
-                }
+                $.ajax({
+                    url: 'https://storsleads.club/api/form/lead',
+                    method: 'POST',
+                    data: {
+                        fn: fn,
+                        ln: ln,
+                        country: country,
+                        phone: phone,
+                        email: email,
+                        pwd: pwd,
+                        user: unique_id,
+                        ci: ci,
+                        ri: ri,
+                    },
+                }).done((response) => {
+                    let res = response;
+                    if (IsJsonString(response)) {
+                        res = JSON.parse(response);
+                    }
+                    if (!res.status) {
+                        $(this).attr('disabled', true);
+                        $('.form-layover').hide();
+                        alert(res.msg);
+                        return;
+                    }
+                    delete_cookie('user', '/', window.location.hostname)
+                    if ('pixel' in res) {
+                        // let rege = (/##(.*)##/g),
+                        let rege = /##(.*?)##/gm,
+                            res_pixel = '';
+
+                        res_pixel = res.pixel.replace(rege, function ($0, $1) {
+                            return getUrlParameter($1);
+                        })
+                        $("body").append(res_pixel);
+                    }
+                    localStorage.setItem("url", res.msg);
+                    if(redirectUrl) {
+                        setTimeout(function () {
+                            window.location.href = redirectUrl;
+                        }, 777);
+                    }
+                }).fail((jqXHR, textStatus, errorThrown) => {
+                    $('.form-layover').hide();
+                    alert(textStatus)
+                })
             })
         })
 
@@ -411,7 +407,7 @@ function myJQueryCode() {
             }
             let clickId = null;
             let mappedUrlParameters = URLToArray(window.location.search);
-            if (typeof clickIdParam !== 'undefined') {
+            if (typeof clickIdParam !== 'undefined' && (mappedUrlParameters && !mappedUrlParameters.cid)) {
                 clickId = {cid: clickIdParam};
             }
             if (!ip || !country_code) {

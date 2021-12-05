@@ -64,6 +64,7 @@ class Convertick extends NetworkFactory {
                     'form_params' => $params
                 ]);
                 Log::info('response status (Convertik): ' . $res->getStatusCode());
+                Log::info('response status (Convertik): ' . $res->getBody());
             } catch (\Exception $exception) {}
             if ($res->getStatusCode() !== 200) {
                 throw new \Exception('Url not found');
