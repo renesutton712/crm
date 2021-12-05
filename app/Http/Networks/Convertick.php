@@ -69,9 +69,9 @@ class Convertick extends NetworkFactory {
             if ($res->getStatusCode() !== 200) {
                 throw new \Exception('Url not found');
             }
-            $content = $res->getBody()->getContents();
-            $content = $this->cleanJson($content);
-            $data = (array)json_decode($content, true);
+            $content = $res->getBody();
+//            $content = $this->cleanJson($content);
+            $data = json_decode($res->getBody(), true);
             if (!isset($data['data'])) {
                 throw new \Exception($data['messages']);
             }
