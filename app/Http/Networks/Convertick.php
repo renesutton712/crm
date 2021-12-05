@@ -69,14 +69,13 @@ class Convertick extends NetworkFactory {
             if ($res->getStatusCode() !== 200) {
                 throw new \Exception('Url not found');
             }
-            $content = $res->getBody();
+//            $content = $res->getBody();
 //            $content = $this->cleanJson($content);
             $data = json_decode($res->getBody(), true);
             if (!isset($data['data'])) {
                 throw new \Exception($data['messages']);
             }
             $pixel_res = $this->sendPixel($unique_id);
-            Log::info('in pixel' . $pixel_res);
             if (isset($pixel_res['status']) && !$pixel_res['status']) {
                 throw new \Exception($pixel_res['msg']);
             }
