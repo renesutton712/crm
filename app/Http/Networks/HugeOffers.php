@@ -31,8 +31,8 @@ class HugeOffers
         }
         $this->setToken($network->T);
         $data = [
-            'first_name' => $params['first_name'],
-            'last_name' => $params['last_name'],
+            'firstname' => $params['first_name'],
+            'lastname' => $params['last_name'],
             'email' => $params['email'],
             'phone_code' => $params['prefix'],
             'phone_number' => $params['phone'],
