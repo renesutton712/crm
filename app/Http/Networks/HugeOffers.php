@@ -101,7 +101,7 @@ class HugeOffers
             if ($response === null) {
                 return json_encode(['status' => false, 'msg' => $e->getMessage()]);
             }
-            return json_encode(['status' => false, 'msg' => $response->message]);
+            return json_encode(['status' => false, 'msg' => (object)$response->message]);
         } catch (\Exception $e) {
             return json_encode(['status' => false, 'msg' => $e->getMessage()]);
         }
