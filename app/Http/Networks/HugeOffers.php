@@ -21,8 +21,11 @@ class HugeOffers
      * @return array|false|string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
+
+
     public function prepareData(array $params, $network)
     {
+        $offer = $this->getOffer($params['offer_id']);
         if (!isset($params['offer_id'])) {
             return ['status' => false, 'msg' => 'No offer id supplied'];
         }
@@ -38,9 +41,16 @@ class HugeOffers
             'language' => "en-UK",
             'aff_sub5' => $params['unique_id'],
             "tc" => "FB",
-            "p4" => $params['p4'],
+            $offer->offer_token => $offer->offer_token_value,
         ];
         return $this->hugeOffersLead($data, $params['unique_id'], $params['campaign_id']);
+    }
+
+    protected function getOffer($offer_id) {
+        if (empty($offer_id)) {
+            return ['status' => false, 'msg' => 'No offer found'];
+        }
+        return Offer::where('offer_id', '=', "{$offer_id}")->first();
     }
 
     /**
