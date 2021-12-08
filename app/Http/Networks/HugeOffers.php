@@ -9,7 +9,7 @@ use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Log;
 
-class HugeOffers
+class HugeOffers extends NetworkFactory
 {
     private $create_lead_url = "https://track.w-trk10.com/lds/affiliate/registration?lds-token=06fed0e1-23a2-41fb-b5a5-c0c4dc968840";
     private $token = null;
