@@ -88,7 +88,7 @@ class HugeOffers extends NetworkFactory
                 throw new \Exception($pixel_res['msg']);
             }
             $response = ['status' => true, 'msg' => $data['redirect_url']];
-            $this->storeNetworkResponse($unique_id, 'lead_id ' . $data['lead']['id']);
+            $this->storeNetworkResponse($unique_id, 'lead_id ' . $data['click_id']);
             $iframe = $this->getIframePixel($camp_id);
             if (!empty($iframe)) {
                 $response['pixel'] = $iframe->iframe_content;
