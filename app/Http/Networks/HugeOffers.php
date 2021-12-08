@@ -27,7 +27,6 @@ class HugeOffers
             return ['status' => false, 'msg' => 'No offer id supplied'];
         }
         $this->setToken($network->T);
-        $offer = $this->getOffer($params['offer_id']);
         $data = [
             'first_name' => $params['first_name'],
             'last_name' => $params['last_name'],
