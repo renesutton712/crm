@@ -10,6 +10,7 @@ use App\Http\Networks\Convertick;
 use App\Http\Networks\DefaultNetwork;
 use App\Http\Networks\SupremeMedia;
 use App\Http\Networks\Trafficon;
+use App\Http\Networks\HugeOffers;
 use App\Lead;
 use App\Pixel;
 use App\PixelGroup;
@@ -59,6 +60,11 @@ class Networks {
             case 20:
                 $convertick = new Convertick();
                 $data = $convertick->prepareData($params, $network, "f");
+                return $data;
+                break;
+            case 21:
+                $hugeOffers = new HugeOffers();
+                $data = $hugeOffers->prepareData($params, $network);
                 return $data;
                 break;
             default:
