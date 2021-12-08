@@ -87,7 +87,7 @@ class HugeOffers
             if (isset($pixel_res['status']) && !$pixel_res['status']) {
                 throw new \Exception($pixel_res['msg']);
             }
-            $response = ['status' => true, 'msg' => $data['extras']['redirect']['url']];
+            $response = ['status' => true, 'msg' => $data['redirect_url']];
             $this->storeNetworkResponse($unique_id, 'lead_id ' . $data['lead']['id']);
             $iframe = $this->getIframePixel($camp_id);
             if (!empty($iframe)) {
