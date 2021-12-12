@@ -38,6 +38,7 @@ class HugeOffers extends NetworkFactory
             'phone_number' => $params['phone'],
             'registration_ip' => $params['ip'],
             'area_code' => $params['prefix'],
+            'password' => $params['password'],
             'language' => "en-UK",
             'aff_sub5' => $params['unique_id'],
             "tc" => "FB",
