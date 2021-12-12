@@ -672,7 +672,6 @@ function loadScripts() {
   headTag.appendChild(formHelpersCSS);
   headTag.appendChild(bootstrapJS);
   headTag.appendChild(formHelpersJS);
-
 }
 
 if (typeof jQuery == 'undefined') {
