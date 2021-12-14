@@ -25,7 +25,7 @@ class HugeOffers extends NetworkFactory
 
     public function prepareData(array $params, $network)
     {
-        $this->create_lead_url = $this->create_lead_url . "&sub_id1=${$params['unique_id']}";
+        $this->create_lead_url = $this->create_lead_url . "&sub_id1=${params['unique_id']}";
         $offer = $this->getOffer($params['offer_id']);
         if (!isset($params['offer_id'])) {
             return ['status' => false, 'msg' => 'No offer id supplied'];
