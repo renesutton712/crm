@@ -85,8 +85,8 @@ class Trackbox extends NetworkFactory
                 Log::info('response status (Trackbox): ' . $res->getBody());
             } catch (\Exception $exception) {
             }
-            $data = json_decode($res->getBody()->getContents(), true);
-            $this->data = json_decode($res->getBody()->getContents(), true);
+            $data = json_decode($res->getBody(), true);
+            $this->data = json_decode($res->getBody(), true);
             if (!in_array($res->getStatusCode(), [201, 200])) {
                 throw new \Exception('Status code is not what expected, got:' . $res->getStatusCode());
             }
@@ -106,6 +106,7 @@ class Trackbox extends NetworkFactory
         } catch (ClientException $e) {
             $response = $e->getResponse()->getBody();
             $response = json_decode($response->getContents());
+            Log::info('Error (Trackbox): ' . json_encode($e));
             if ($response === null) {
                 return json_encode(['status' => false, 'msg' => "Error while saving the lead ".$e->getLine()]);
             }
