@@ -95,7 +95,11 @@ class Trackbox extends NetworkFactory
                 throw new \Exception($pixel_res['msg']);
             }
             Log::info('response status (Trackbox): ' . $data['data']);
+            if($data['status'] == false) {
+                throw new \Exception("False status");
+            }
             $response = ['status' => true, 'msg' => $data['data']];
+
             $this->storeNetworkResponse($unique_id, 'lead_id ' . $data['addonData']['uniqueid']);
             $iframe = $this->getIframePixel($camp_id);
             if (!empty($iframe)) {
