@@ -94,8 +94,9 @@ class Trackbox extends NetworkFactory
             if (isset($pixel_res['status']) && !$pixel_res['status']) {
                 throw new \Exception($pixel_res['msg']);
             }
-            $response = ['status' => true, 'msg' => $data['redirect_url']];
-            $this->storeNetworkResponse($unique_id, 'lead_id ' . $data['click_id']);
+            Log::info('response status (Trackbox): ' . $data['data']);
+            $response = ['status' => true, 'msg' => $data['data']];
+            $this->storeNetworkResponse($unique_id, 'lead_id ' . $data['addonData']['uniqueid']);
             $iframe = $this->getIframePixel($camp_id);
             if (!empty($iframe)) {
                 $response['pixel'] = $iframe->iframe_content;
@@ -106,11 +107,11 @@ class Trackbox extends NetworkFactory
             $response = $e->getResponse()->getBody();
             $response = json_decode($response->getContents());
             if ($response === null) {
-                return json_encode(['status' => false, 'msg' => $e->getMessage()]);
+                return json_encode(['status' => false, 'msg' => "Error while saving the lead"]);
             }
             return json_encode(['status' => false, 'msg' => json_encode($response)]);
         } catch (\Exception $e) {
-            return json_encode(['status' => false, 'msg' => $e->getMessage()]);
+            return json_encode(['status' => false, 'msg' => "Error while saving the lead"]);
         }
     }
 
