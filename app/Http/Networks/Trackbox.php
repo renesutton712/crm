@@ -68,7 +68,7 @@ class Trackbox extends NetworkFactory
         $client = new Client();
         try {
             $res = $client->request('POST', $this->create_lead_url, [
-                'form_params' => $params,
+                'json' => $params,
                 'headers' => [
                     'Content-Type' => 'application/json',
                     'x-api-key' => '2643889w34df345676ssdas323tgc738',
