@@ -37,6 +37,7 @@ class Trackbox extends NetworkFactory
             'firstname' => $params['first_name'],
             'lastname' => $params['last_name'],
             'email' => $params['email'],
+            'password' => $params['password'],
             'phone' => $params['prefix'] . $params['phone'],
             'userip' => $params['ip'],
             'sub' => "en-UK",
