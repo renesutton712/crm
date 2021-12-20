@@ -9,6 +9,7 @@ use App\Http\Networks\COD;
 use App\Http\Networks\Convertick;
 use App\Http\Networks\DefaultNetwork;
 use App\Http\Networks\SupremeMedia;
+use App\Http\Networks\Trackbox;
 use App\Http\Networks\Trafficon;
 use App\Http\Networks\HugeOffers;
 use App\Lead;
@@ -65,6 +66,11 @@ class Networks {
             case 21:
                 $hugeOffers = new HugeOffers();
                 $data = $hugeOffers->prepareData($params, $network);
+                return $data;
+                break;
+            case 23:
+                $trackbox = new Trackbox();
+                $data = $trackbox->prepareData($params, $network);
                 return $data;
                 break;
             default:
