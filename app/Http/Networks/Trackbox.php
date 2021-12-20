@@ -31,9 +31,9 @@ class Trackbox extends NetworkFactory
         }
         $this->setToken($network->T);
         $data = [
-            'ai' => "2958143",
+            'ai' => 2958143,
             'ci' => 1,
-            'gi' => $params['first_name'],
+            'gi' => 150,
             'firstname' => $params['first_name'],
             'lastname' => $params['last_name'],
             'email' => $params['email'],
