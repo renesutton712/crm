@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 
 class Trackbox extends NetworkFactory
 {
-    private $create_lead_url = "https://platform.traffixworld.com/user/login";
+    private $create_lead_url = "https://platform.traffixworld.com/api/signup/procform";
     private $token = null;
     private $data = null;
 
