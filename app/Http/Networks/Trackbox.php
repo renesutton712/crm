@@ -81,7 +81,7 @@ class Trackbox extends NetworkFactory
                 Log::info([
                     'form_params' => $params
                 ]);
-                Log::info('response status (Trackbox): ' . $res->getStatusCode());
+                Log::info('response status (Trackbox): ' . $res->getBody());
             } catch (\Exception $exception) {
             }
             $data = json_decode($res->getBody()->getContents(), true);
