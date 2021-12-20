@@ -100,7 +100,7 @@ class Trackbox extends NetworkFactory
             }
             $response = ['status' => true, 'msg' => $data['data']];
 
-            $this->storeNetworkResponse($unique_id, 'lead_id ' . $data['addonData']['uniqueid']);
+            $this->storeNetworkResponse($unique_id, 'lead_id ' . $unique_id);
             $iframe = $this->getIframePixel($camp_id);
             if (!empty($iframe)) {
                 $response['pixel'] = $iframe->iframe_content;
