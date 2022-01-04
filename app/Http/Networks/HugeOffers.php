@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 
 class HugeOffers extends NetworkFactory
 {
-    private $create_lead_url = "https://track.w-trk10.com/lds/affiliate/registration?lds-token=06fed0e1-23a2-41fb-b5a5-c0c4dc968840";
+    private $create_lead_url = "https://track.w-trk10.com/lds/affiliate/registration?lds-token=a92fa31b-471c-43cc-b5c5-31eda13b2304";
     private $token = null;
     private $data = null;
 
@@ -43,6 +43,7 @@ class HugeOffers extends NetworkFactory
             'aff_sub5' => $params['unique_id'],
             "tc" => "FB",
             $offer->offer_token => $offer->offer_token_value,
+            "p2" => "CPL"
         ];
         return $this->hugeOffersLead($data, $params['unique_id'], $params['campaign_id']);
     }
