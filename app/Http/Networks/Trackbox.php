@@ -96,7 +96,7 @@ class Trackbox extends NetworkFactory
             }
             Log::info('response status (Trackbox): ' . $data['data']);
             if($data['status'] == false) {
-                throw new \Exception("False status");
+                throw new \Exception($data['data']);
             }
             $response = ['status' => true, 'msg' => $data['data']];
 
@@ -112,11 +112,11 @@ class Trackbox extends NetworkFactory
             $response = json_decode($response->getContents());
             Log::info('Error (Trackbox): ' . json_encode($e));
             if ($response === null) {
-                return json_encode(['status' => false, 'msg' => "Error while saving the lead ".$e->getLine()]);
+                return json_encode(['status' => false, 'msg' => $e->getMessage() . ' ' . $e->getLine()]);
             }
             return json_encode(['status' => false, 'msg' => json_encode($response)]);
         } catch (\Exception $e) {
-            return json_encode(['status' => false, 'msg' => "Error while saving the lead ".$e->getLine()]);
+            return json_encode(['status' => false, 'msg' => "Error while saving the lead ".$e->getMessage() . ' ' . $e->getLine()]);
         }
     }
 
