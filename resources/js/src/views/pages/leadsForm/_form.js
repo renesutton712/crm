@@ -234,6 +234,10 @@ function myJQueryCode() {
                 phone = form_settings.phone === 'off' ? '' : "<input value='' type='text' data-format='+52 dddddddddddd' class='form-control bfh-phone phone'/>" +
                     "<span class='error-block phone-error'></span>"
             }
+            if (country_code.toLowerCase() === "hu") {
+                phone = form_settings.phone === 'off' ? '' : "<input value='' type='text' data-format='+36 dddddddddddd' class='form-control bfh-phone phone'/>" +
+                    "<span class='error-block phone-error'></span>"
+            }
             let fn = form_settings.first_name === 'off' ? '' : "<input value='' autocomplete='off' type='text' class='form-control fn' id='First_Name' placeholder='" + form_fields.first_name + "' />" +
                     "<span class='error-block fn-error'></span>",
                 ln = form_settings.last_name === 'off' ? '' : "<input value='' autocomplete='off' type='text' class='form-control ln' id='Last_Name' placeholder='" + form_fields.last_name + "' />" +
