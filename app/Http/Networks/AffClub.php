@@ -30,6 +30,7 @@ class AffClub extends NetworkFactory {
 //        $tokens_name = explode(',', $network->TN);
         $tokens = explode(',', $network->T);
         $this->setToken($tokens[0]);
+        $offer = $this->getOffer($params['offer_id']);
         $data = [
             'firstname' => $params['first_name'],
             'lastname' => $params['last_name'],
@@ -40,6 +41,7 @@ class AffClub extends NetworkFactory {
             'country_code' => $params['country'],
             'source' => isset($urlParams['source']) ? $urlParams['source'] : '',
             'aff_sub' => $params['unique_id'],
+            $offer->offer_token => $offer->offer_token_value,
             'aff_sub1' => isset($urlParams['aff_sub1']) ? $urlParams['aff_sub1'] : '',
             'aff_sub2' => isset($urlParams['aff_sub2']) ? $urlParams['aff_sub2'] : '',
             'aff_sub3' => isset($urlParams['aff_sub3']) ? $urlParams['aff_sub3'] : '',
