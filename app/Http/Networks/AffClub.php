@@ -76,6 +76,7 @@ class AffClub extends NetworkFactory {
                     ]
                 ]);
                 Log::info('response status (AffClub): ' . $res->getStatusCode());
+                Log::info('full response (AffClub): ' . $res->getBody());
             } catch (\Exception $exception) {}
             $data = json_decode($res->getBody(), true);
             if ($res->getStatusCode() !== 200) {
