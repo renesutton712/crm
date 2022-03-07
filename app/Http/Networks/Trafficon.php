@@ -104,12 +104,12 @@ class Trafficon extends NetworkFactory {
             'ip' => "{$params['ip']}",
             'country' => "{$params['country_full']}", 'iso' => "{$params['country']}",
             'aff_sub1' => "{$params['unique_id']}",
+            'offer_url' => $offer->offer_url,
+            'offer_name' => $offer->offer_name,
             'aff_sub2' => isset($urlParams['aff_sub2']) ? $urlParams['aff_sub2'] : '',
             'aff_sub3' => isset($urlParams['aff_sub3']) ? $urlParams['aff_sub3'] : '',
             'aff_sub4' => isset($urlParams['aff_sub4']) ? $urlParams['aff_sub4'] : '',
-            'aff_sub5' => isset($urlParams['aff_sub5']) ? $urlParams['aff_sub5'] : '',
-            'offer_url' => $offer->offer_url,
-            'offer_name' => $offer->offer_url
+            'aff_sub5' => isset($urlParams['aff_sub5']) ? $urlParams['aff_sub5'] : ''
         ];
         return $this->TrafficonLead($data, $params['unique_id'], $params['campaign_id']);
     }
