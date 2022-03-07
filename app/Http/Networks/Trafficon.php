@@ -2,6 +2,7 @@
 
 namespace App\Http\Networks;
 
+use App\Offer;
 use App\Utilities;
 use DateTime;
 use GuzzleHttp\Client;
@@ -106,7 +107,9 @@ class Trafficon extends NetworkFactory {
             'aff_sub2' => isset($urlParams['aff_sub2']) ? $urlParams['aff_sub2'] : '',
             'aff_sub3' => isset($urlParams['aff_sub3']) ? $urlParams['aff_sub3'] : '',
             'aff_sub4' => isset($urlParams['aff_sub4']) ? $urlParams['aff_sub4'] : '',
-            'aff_sub5' => isset($urlParams['aff_sub5']) ? $urlParams['aff_sub5'] : ''
+            'aff_sub5' => isset($urlParams['aff_sub5']) ? $urlParams['aff_sub5'] : '',
+            'offer_url' => $offer->offer_url,
+            'offer_name' => $offer->offer_url
         ];
         return $this->TrafficonLead($data, $params['unique_id'], $params['campaign_id']);
     }
