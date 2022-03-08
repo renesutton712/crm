@@ -1,8 +1,8 @@
 <?php
 
+require __DIR__ . '../../../vendor/autoload.php';
 use GuzzleHttp\Client;
 
-require __DIR__ . '../../../vendor/autoload.php';
 
 function login() {
     $client = new Client();
