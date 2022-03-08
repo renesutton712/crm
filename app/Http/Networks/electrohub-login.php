@@ -1,7 +1,6 @@
 <?php
 
 use GuzzleHttp\Client;
-
 function login() {
     $client = new Client();
     $res = $client->request('POST', "https://api.electra-hub.com/api/affiliates/register/user/login", [
@@ -22,3 +21,4 @@ function login() {
     fclose($fp);
     return true;
 }
+login();
