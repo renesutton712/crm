@@ -8,7 +8,7 @@ function login() {
     $client = new Client();
     $res = $client->request('POST', "https://api.electra-hub.com/api/affiliates/register/user/login", [
         'form_params' => [
-            "email" => "cherrypop_live@gmai.com",
+            "email" => "cherrypop_live@gmail.com",
             "password" => "SLh8KCMA9q"
         ],
         'headers' => [
