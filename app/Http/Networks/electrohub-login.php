@@ -7,7 +7,7 @@ use GuzzleHttp\Client;
 function login() {
     $client = new Client();
     $res = $client->request('POST', "https://api.electra-hub.com/api/affiliates/register/user/login", [
-        'json' => json_decode(
+        'form_params' => json_decode(
             `{
                     "email": "cherrypop_live@gmai.com",
                     "password": "SLh8KCMA9q"
