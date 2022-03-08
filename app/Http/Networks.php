@@ -8,6 +8,7 @@ use App\Http\Networks\Affiliate360;
 use App\Http\Networks\COD;
 use App\Http\Networks\Convertick;
 use App\Http\Networks\DefaultNetwork;
+use App\Http\Networks\ElectraHub;
 use App\Http\Networks\HugeOffers2;
 use App\Http\Networks\SupremeMedia;
 use App\Http\Networks\Trackbox;
@@ -77,6 +78,11 @@ class Networks {
             case 24:
                 $hugeOffers2 = new HugeOffers2();
                 $data = $hugeOffers2->prepareData($params, $network);
+                return $data;
+                break;
+            case 25:
+                $electraHub = new ElectraHub();
+                $data = $electraHub->prepareData($params, $network);
                 return $data;
                 break;
             default:

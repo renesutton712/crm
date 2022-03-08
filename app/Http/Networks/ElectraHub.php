@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 
 class ElectraHub extends NetworkFactory
 {
-    private $login = "https://api.electra-hub.com/api/affiliates/register/user/login";
+    private $login = "https://api.electra-hub.com/api/user/login";
     private $create_lead_url = "https://api.electra-hub.com/api/affiliates/register";
     private $token = null;
     private $data = null;
@@ -21,15 +21,13 @@ class ElectraHub extends NetworkFactory
      * @throws GuzzleException
      */
 
-    public function login() {
+    function login() {
         $client = new Client();
-        $res = $client->request('POST', $this->login, [
-            'json' => json_decode(
-                `{
-                    "email": "cherrypop_live@gmai.com",
-                    "password": "SLh8KCMA9q"
-                }`
-            ),
+        $res = $client->request('POST', "https://api.electra-hub.com/api/user/login", [
+            'form_params' => [
+                "email" => "cherrypop_live@gmai.com",
+                "password" => "SLh8KCMA9q"
+            ],
             'headers' => [
                 'Content-Type' => 'application/x-www-form-urlencoded',
             ],
@@ -51,26 +49,25 @@ class ElectraHub extends NetworkFactory
 
     public function prepareData(array $params, $network)
     {
-//        $this->login();
-//        $offer = $this->getOffer($params['offer_id']);
-//        if (!isset($params['offer_id'])) {
-//            return ['status' => false, 'msg' => 'No offer id supplied'];
-//        }
-//        $this->setToken($network->T);
-//        $data = [
-//            'fname' => $params['first_name'],
-//            'lname' => $params['last_name'],
-//            'email' => $params['email'],
-//            'phone_dialcode' => $params['prefix'],
-//            'phone' => $params['phone'],
-//            'country' => $params['country'],
-//            'passwrd' => $params['password'],
-//            'entity' => "rnn",
-//            'userIP' => $params['ip'],
-//            'xparam' => $offer->offer_name,
-//            $offer->offer_token => $offer->offer_token_value,
-//        ];
-//        return $this->ElectraHubLead($data, $params['unique_id'], $params['campaign_id']);
+        $offer = $this->getOffer($params['offer_id']);
+        if (!isset($params['offer_id'])) {
+            return ['status' => false, 'msg' => 'No offer id supplied'];
+        }
+        $this->setToken($network->T);
+        $data = [
+            'fname' => $params['first_name'],
+            'lname' => $params['last_name'],
+            'email' => $params['email'],
+            'phone_dialcode' => $params['prefix'],
+            'phone' => $params['phone'],
+            'country' => $params['country'],
+            'passwrd' => $params['password'],
+            'entity' => "rnn",
+            'userIP' => $params['ip'],
+            'xparam' => $offer->offer_name,
+            $offer->offer_token => $offer->offer_token_value,
+        ];
+        return $this->ElectraHubLead($data, $params['unique_id'], $params['campaign_id']);
     }
 
     protected function getOffer($offer_id) {
@@ -97,10 +94,8 @@ class ElectraHub extends NetworkFactory
             $res = $client->request('POST', $this->create_lead_url, [
                 'json' => $params,
                 'headers' => [
-                    'Content-Type' => 'application/json',
-                    'x-api-key' => '2643889w34df345676ssdas323tgc738',
-                    'x-trackbox-username' => 'cherrypop',
-                    'x-trackbox-password' => 'Cherrypop1234',
+                    'Content-Type' => 'application/x-www-form-urlencoded',
+                    'X-access-token' => 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjY5LCJpaWQiOiJkZjkyN2FlMi04NDM3LTQ3OTUtOTNkZS04OGFkZWYzYTZlZmUiLCJ1c2VybmFtZSI6ImNoZXJyeXBvcF9saXZlQGdtYWkuY29tIiwiYWZmaWxpYXRlX2lkIjoyMDAzNSwiZmlyc3RfbmFtZSI6IkFmZmlsaWF0ZSIsImxhc3RfbmFtZSI6IkFwaSIsImVtYWlsIjoiY2hlcnJ5cG9wX2xpdmVAZ21haS5jb20iLCJ0b2tlbiI6bnVsbCwicGhvbmUiOm51bGwsInBpY3R1cmUiOm51bGwsImlwIjoiMTQyLjkzLjIzNi4xMzUiLCJpcF9maWx0ZXIiOjEsInJvbGUiOiJSZWdpc3RlcmVkIiwidGltZV9jcmVhdGVkIjoxNjQ2NjQzNTQwNDYwLCJ0aW1lX3VwZGF0ZWQiOm51bGwsImVtYWlsX3ZhbGlkYXRpb24iOjEsInRya19zeXNfaWQiOm51bGwsImluY192YWx1ZSI6bnVsbCwiaWF0IjoxNjQ2NzMyODA3LCJleHAiOjE2NDY3NTA4MDd9.VYQk2WE7xpi2lf84mwbIpSQyFWNaZY-7-UNHfZnVIJ8',
                 ],
             ]);
             try {
@@ -120,11 +115,13 @@ class ElectraHub extends NetworkFactory
             if (isset($pixel_res['status']) && !$pixel_res['status']) {
                 throw new \Exception($pixel_res['msg']);
             }
-            Log::info('response status (ElectraHub): ' . $data['data']);
-            if($data['status'] == false) {
+            if(isset($data['data'])) {
+                Log::info('response status (ElectraHub): ' . $data['data']);
+            }
+            if(!$data['status']) {
                 throw new \Exception($data['data']);
             }
-            $response = ['status' => true, 'msg' => $data['data']];
+            $response = ['status' => true, 'msg' => $data['finaly_url']];
 
             $this->storeNetworkResponse($unique_id, 'lead_id ' . $unique_id);
             $iframe = $this->getIframePixel($camp_id);
