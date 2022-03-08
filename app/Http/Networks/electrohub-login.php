@@ -1,6 +1,9 @@
 <?php
 
 use GuzzleHttp\Client;
+
+require __DIR__ . '../../../vendor/autoload.php';
+
 function login() {
     $client = new Client();
     $res = $client->request('POST', "https://api.electra-hub.com/api/affiliates/register/user/login", [
