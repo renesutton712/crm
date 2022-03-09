@@ -75,7 +75,7 @@ class ElectraHub extends NetworkFactory
             $offer->offer_token => $offer->offer_token_value,
         ];
         $token = $this->login();
-        return $this->ElectraHubLead($data, $params['unique_id'], $params['campaign_id'], $token);
+        return $this->ElectraHubLead($data, $params['unique_id'], $token, $params['campaign_id']);
     }
 
     protected function getOffer($offer_id) {
@@ -95,7 +95,7 @@ class ElectraHub extends NetworkFactory
      * @throws GuzzleException
      * @throws \Exception
      */
-    protected function ElectraHubLead(array $params, $unique_id, $camp_id = null, $token)
+    protected function ElectraHubLead(array $params, $unique_id, $token, $camp_id = null)
     {
         $client = new Client();
         try {
