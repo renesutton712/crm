@@ -92,7 +92,7 @@ class ElectraHub extends NetworkFactory
         $client = new Client();
         try {
             $res = $client->request('POST', $this->create_lead_url, [
-                'json' => $params,
+                'form_params' => $params,
                 'headers' => [
                     'Content-Type' => 'application/x-www-form-urlencoded',
                     'X-access-token' => 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjY5LCJpaWQiOiJkZjkyN2FlMi04NDM3LTQ3OTUtOTNkZS04OGFkZWYzYTZlZmUiLCJ1c2VybmFtZSI6ImNoZXJyeXBvcF9saXZlQGdtYWkuY29tIiwiYWZmaWxpYXRlX2lkIjoyMDAzNSwiZmlyc3RfbmFtZSI6IkFmZmlsaWF0ZSIsImxhc3RfbmFtZSI6IkFwaSIsImVtYWlsIjoiY2hlcnJ5cG9wX2xpdmVAZ21haS5jb20iLCJ0b2tlbiI6bnVsbCwicGhvbmUiOm51bGwsInBpY3R1cmUiOm51bGwsImlwIjoiMTQyLjkzLjIzNi4xMzUiLCJpcF9maWx0ZXIiOjEsInJvbGUiOiJSZWdpc3RlcmVkIiwidGltZV9jcmVhdGVkIjoxNjQ2NjQzNTQwNDYwLCJ0aW1lX3VwZGF0ZWQiOm51bGwsImVtYWlsX3ZhbGlkYXRpb24iOjEsInRya19zeXNfaWQiOm51bGwsImluY192YWx1ZSI6bnVsbCwiaWF0IjoxNjQ2NzMyODA3LCJleHAiOjE2NDY3NTA4MDd9.VYQk2WE7xpi2lf84mwbIpSQyFWNaZY-7-UNHfZnVIJ8',
