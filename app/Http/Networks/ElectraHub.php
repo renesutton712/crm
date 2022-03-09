@@ -21,7 +21,8 @@ class ElectraHub extends NetworkFactory
      * @throws GuzzleException
      */
 
-    function login() {
+    public function login()
+    {
         $client = new Client();
         $res = $client->request('POST', "https://api.electra-hub.com/api/user/login", [
             'form_params' => [
@@ -32,12 +33,18 @@ class ElectraHub extends NetworkFactory
                 'Content-Type' => 'application/x-www-form-urlencoded',
             ],
         ]);
-        $content = $res->getBody();
-        $this_directory = dirname(__FILE__);
-        $fp = fopen($this_directory . "/electra-token.txt", "w");
-        fwrite($fp, $content);
-        fclose($fp);
-        return true;
+        if($res->getBody()) {
+            $content = json_decode($res->getBody());
+            if(isset($content->token) && strlen($content->token)) {
+                return $content->token;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
     }
 
     /**
@@ -67,7 +74,8 @@ class ElectraHub extends NetworkFactory
             'xparam' => $offer->offer_name,
             $offer->offer_token => $offer->offer_token_value,
         ];
-        return $this->ElectraHubLead($data, $params['unique_id'], $params['campaign_id']);
+        $token = $this->login();
+        return $this->ElectraHubLead($data, $params['unique_id'], $params['campaign_id'], $token);
     }
 
     protected function getOffer($offer_id) {
@@ -87,15 +95,19 @@ class ElectraHub extends NetworkFactory
      * @throws GuzzleException
      * @throws \Exception
      */
-    protected function ElectraHubLead(array $params, $unique_id, $camp_id = null)
+    protected function ElectraHubLead(array $params, $unique_id, $camp_id = null, $token)
     {
         $client = new Client();
         try {
+            if(!$token) {
+                Log::info('token error (ElectraHub)');
+                throw new \Exception("token error");
+            }
             $res = $client->request('POST', $this->create_lead_url, [
                 'form_params' => $params,
                 'headers' => [
                     'Content-Type' => 'application/x-www-form-urlencoded',
-                    'X-access-token' => 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjY5LCJpaWQiOiJkZjkyN2FlMi04NDM3LTQ3OTUtOTNkZS04OGFkZWYzYTZlZmUiLCJ1c2VybmFtZSI6ImNoZXJyeXBvcF9saXZlQGdtYWkuY29tIiwiYWZmaWxpYXRlX2lkIjoyMDAzNSwiZmlyc3RfbmFtZSI6IkFmZmlsaWF0ZSIsImxhc3RfbmFtZSI6IkFwaSIsImVtYWlsIjoiY2hlcnJ5cG9wX2xpdmVAZ21haS5jb20iLCJ0b2tlbiI6bnVsbCwicGhvbmUiOm51bGwsInBpY3R1cmUiOm51bGwsImlwIjoiMTQyLjkzLjIzNi4xMzUiLCJpcF9maWx0ZXIiOjEsInJvbGUiOiJSZWdpc3RlcmVkIiwidGltZV9jcmVhdGVkIjoxNjQ2NjQzNTQwNDYwLCJ0aW1lX3VwZGF0ZWQiOm51bGwsImVtYWlsX3ZhbGlkYXRpb24iOjEsInRya19zeXNfaWQiOm51bGwsImluY192YWx1ZSI6bnVsbCwiaWF0IjoxNjQ2NzMyODA3LCJleHAiOjE2NDY3NTA4MDd9.VYQk2WE7xpi2lf84mwbIpSQyFWNaZY-7-UNHfZnVIJ8',
+                    'X-access-token' => $token,
                 ],
             ]);
             try {
