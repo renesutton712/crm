@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Log;
 
 class AffClub extends NetworkFactory {
 
-    private $register_url = "https://af34trkapi.com/v2/affiliates/lead/create";
+    private $register_url = "https://af34trkapi.com/v3/affiliates/lead/create";
     private $token;
     private $id = 154;
 
@@ -36,11 +36,13 @@ class AffClub extends NetworkFactory {
             'lastname' => $params['last_name'],
             'email' => $params['email'],
             'password' => $params['password'],
-            'phone' => $params['prefix'] . $params['phone'],
+            'phone' => $params['phone'],
+            'area_code' =>  $params['prefix'],
             'ip' => $params['ip'],
             'country_code' => $params['country'],
             'source' => isset($urlParams['source']) ? $urlParams['source'] : '',
             'aff_sub' => $params['unique_id'],
+            'referrer_url' => $offer->offer_url,
             $offer->offer_token => $offer->offer_token_value,
             'aff_sub1' => isset($urlParams['aff_sub1']) ? $urlParams['aff_sub1'] : '',
             'aff_sub2' => isset($urlParams['aff_sub2']) ? $urlParams['aff_sub2'] : '',
