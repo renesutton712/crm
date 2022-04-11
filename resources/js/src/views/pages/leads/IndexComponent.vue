@@ -132,7 +132,13 @@
                                     <vs-list-item title="IP" :subtitle="data[indextr].ip"></vs-list-item>
                                     <vs-list-item title="Created" :subtitle="data[indextr].created_at"></vs-list-item>
                                     <vs-list-item title="Updated" :subtitle="data[indextr].updated_at"></vs-list-item>
+                                    <vs-list-item v-if="data[indextr].network_response" title="Resend to Network" subtitle="Resend a leads to the same network">
+                                        <vs-button @click="sendLeads(data[indextr].unique_id, data[indextr].network_id)" color="primary" type="border">
+                                          <i class="feather icon-send"></i>
+                                        </vs-button>
+                                    </vs-list-item>
                                 </vs-list>
+                              <br>
                             </template>
                         </vs-tr>
                     </template>
@@ -347,9 +353,10 @@
                 }
                 return str.substring(0, length) + '...';
             },
-            sendLeads: function () {
+            sendLeads: function (uniqueId, network_id) {
                 this.$vs.loading();
-                axios.post('leads/resend', this.resend)
+                let network = this.networks_list.filter(({id}) => id === network_id);
+                axios.post('leads/resend', {uniqueId, network, network_name: network[0].network_name, network_id: network[0].id})
                     .then((response) => {
                         if (!response.data.status) {
                             throw response.data.msg;
@@ -361,6 +368,7 @@
                             icon: 'icon-smile',
                             color: 'success'
                         })
+                        this.getLeads();
                         this.$vs.loading.close();
                     })
                     .then(() => {

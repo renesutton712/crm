@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Networks;
 use App\Lead;
+use App\Network;
 use App\User;
 use App\Utilities;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class LeadsController extends Controller {
 
@@ -63,26 +65,32 @@ class LeadsController extends Controller {
     }
 
     public function resend(Request $request) {
-        $network = filter_var(strip_tags($request->input('network')), FILTER_SANITIZE_STRING);
-        $campaign = filter_var(strip_tags($request->input('campaign')), FILTER_SANITIZE_STRING);
-        if (empty($network) or empty($campaign)) {
+//        $network = filter_var(strip_tags($request->input('network')), FILTER_SANITIZE_STRING);
+//        $campaign = filter_var(strip_tags($request->input('campaign')), FILTER_SANITIZE_STRING);
+        $uniqueId = filter_var(strip_tags($request->input('uniqueId')), FILTER_SANITIZE_STRING);
+        $network = $request->input('network');
+        $network = Network::where('id', '=', "{$network[0]["id"]}")->first();
+        Log::info(json_encode($network));
+        if (empty($uniqueId)) {
             return json_encode(['status' => false, 'msg' => 'All fields required']);
         }
-        $clicks = Lead::where('status', '=', 1)->where('first_name', '!=', null)->get()->toArray();
-        if (empty($clicks)) {
+        $click = Lead::where('unique_id', '=', $uniqueId)->first();
+        if (empty($click)) {
             return json_encode(['status' => false, 'msg' => 'No leads found']);
         }
-        foreach ($clicks as $click) {
-            $country_name = Utilities::getFullCountryName($click['country']);
-            $click['country_full'] = $country_name->country_name;
-            $networks = new Networks();
-            $res = $networks->networksMap($network, $click);
-            $res = json_decode($res);
-            if (!$res->status) {
-                return json_encode(['status' => false, 'msg' => $res['msg']]);
-            }
+
+
+//        $country_name = Utilities::getFullCountryName($click['country']);
+        $networks = new Networks();
+        $res = $networks->networksMap($network, $click);
+        $res = json_decode($res);
+        if (!$res->status) {
+            return json_encode(['status' => false, 'msg' => isset($res['msg']) ?? "Lead was not accepted"]);
+        } else {
+            $click->status = 2;
+            $click->save();
+            return json_encode(['status' => true, 'msg' => "Lead accepted successfully!"]);
         }
-        return json_encode(['status' => true, 'msg' => 'All leads sent successfully']);
     }
 
 }

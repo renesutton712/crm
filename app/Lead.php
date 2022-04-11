@@ -56,7 +56,7 @@ class Lead extends Model {
                          left join rotators ro on l.rotator_id = ro.id
                          join campaigns c on l.campaign_id = c.id
                          left join offers o on l.offer_id = o.offer_id
-                         left join networks n on l.network_id = n.id
+                         left join networks n on o.network_id = n.id
                 WHERE (nullif(:campaign_id, '') is null or l.campaign_id = :campaign_id_2)
                       AND (nullif(:network_id, '') is null or l.network_id = :network_id_2)
                       AND (nullif(:rotator_id, '') is null or l.rotator_id = :rotator_id_2)
