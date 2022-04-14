@@ -179,6 +179,13 @@ class FormController extends Controller {
         }
     }
 
+    public function offerId(Request $request, $id) {
+        if(isset($id)) {
+            return new JsonResponse($id);
+        }
+        return new JsonResponse(777);
+    }
+
     /**
      * @param null $ci
      * @param null $ri

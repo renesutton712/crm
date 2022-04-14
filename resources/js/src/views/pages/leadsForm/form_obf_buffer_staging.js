@@ -42,8 +42,6 @@ function myJQueryCode() {
             phone_regex = /[2-9]{1}\d{2}/,
             password_regex = /^.*(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/,
             email_regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        const offer = await $.get(`https://storsleads.club/api/offers/get/${urlParams.get('oi')}`);
-        console.log(offer);
         //Utilities
         loadScripts()
         setUserClientCountry();
@@ -54,6 +52,10 @@ function myJQueryCode() {
         formElements();
         appendReturnedValues(form_vals);
         loadCustomCss();
+
+        const offer = await $.get(`https://storsleads.club/api/form/get/offer/z51Wrscb`);
+        console.log(offer);
+
 
         //inputs validation before submit
         $('#user-form-lp .fn').on('focusout', function () {
