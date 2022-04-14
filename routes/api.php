@@ -31,7 +31,6 @@ Route::middleware(['auth:api', 'role'])->group(function () {
     Route::post('networks/store', 'NetworksController@store');
     //Offers
     Route::get('offers/get', 'OffersController@get');
-    Route::get('offers/get/{id}', 'OffersController@getOffer');
     Route::get('offers/delete/{id}', 'OffersController@delete');
     Route::post('offers/store', 'OffersController@store');
     //Leads
@@ -60,6 +59,7 @@ Route::middleware(['auth:api', 'role'])->group(function () {
     Route::get('lang/get', 'LanguageController@get');
 });
 //Form
+Route::get('offers/get/{id}', 'OffersController@getOffer');
 Route::post('form/click', 'FormController@click');
 Route::post('form/lead', 'FormController@lead');
 Route::post('form/log', 'FormController@log');
