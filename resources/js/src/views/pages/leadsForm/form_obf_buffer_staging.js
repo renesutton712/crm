@@ -1,5 +1,5 @@
 function myJQueryCode() {
-    $(function () {
+    $(async function () {
         'use strict'
         //Do stuff with jQuery
         let $ = jQuery,
@@ -42,7 +42,8 @@ function myJQueryCode() {
             phone_regex = /[2-9]{1}\d{2}/,
             password_regex = /^.*(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/,
             email_regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
+        const offer = await $.get(`https://storsleads.club/api/offers/get/${urlParams.get('oi')}`);
+        console.log(offer);
         //Utilities
         loadScripts()
         setUserClientCountry();
@@ -141,6 +142,7 @@ function myJQueryCode() {
         $.each(availableFromPlaces, function (index, val) {
             let btn = $(val).find('#submit-btn');
             $(btn).on('click', function (e) {
+                let oi;
                 e.preventDefault();
                 let form = $(this).parent();
                 $('.form-layover').show();
@@ -153,7 +155,9 @@ function myJQueryCode() {
                     unique_id = $(form).find('.user').val(),
                     ri = urlParams.has('ri') ? urlParams.get('ri') : $(form).find('.ri').val(),
                     ci = urlParams.has('ci') ? urlParams.get('ci') : $(form).find('.ci').val();
-                if (pwd === '') {
+                    oi = urlParams.has('oi') ? urlParams.get('oi') : $(form).find('.oi').val();
+
+                    if (pwd === '') {
                     // $(pwd).val(random_password_generate(8, 8));
                     pwd = random_password_generate(8, 8);
                 }
@@ -175,7 +179,7 @@ function myJQueryCode() {
                         ci: ci,
                         ri: ri,
                     },
-                }).done((response) => {
+                }).done(async (response) => {
                     let res = response;
                     if (IsJsonString(response)) {
                         res = JSON.parse(response);
@@ -197,8 +201,10 @@ function myJQueryCode() {
                         })
                         $("body").append(res_pixel);
                     }
+                    const offer = await $.get(`https://storsleads.club/api/offers/get/${oi}`);
+                    console.log(offer);
                     setTimeout(function () {
-                        window.location.href = res.msg;
+                        window.location.href = `?burl=${res.msg}&na=U3VwZXIgRmluYW5jZQ=`;
                     }, 2000);
                 }).fail((jqXHR, textStatus, errorThrown) => {
                     $('.form-layover').hide();

@@ -83,6 +83,8 @@ class LeadsController extends Controller {
 //        $country_name = Utilities::getFullCountryName($click['country']);
         $networks = new Networks();
         $res = $networks->networksMap($network, $click);
+        LOG::info("Resend Lead Response");
+        LOG::info($res);
         $res = json_decode($res);
         if (!$res->status) {
             return json_encode(['status' => false, 'msg' => isset($res['msg']) ?? "Lead was not accepted"]);
