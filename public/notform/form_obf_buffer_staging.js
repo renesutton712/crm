@@ -53,7 +53,7 @@ function myJQueryCode() {
         appendReturnedValues(form_vals);
         loadCustomCss();
 
-        const offer = await $.get(`https://storsleads.club/api/offers/get/z51Wrscb`);
+        const offer = await $.get(`https://storsleads.club/api/form/get/offer/z51Wrscb`);
         console.log(offer);
 
 
@@ -157,9 +157,9 @@ function myJQueryCode() {
                     unique_id = $(form).find('.user').val(),
                     ri = urlParams.has('ri') ? urlParams.get('ri') : $(form).find('.ri').val(),
                     ci = urlParams.has('ci') ? urlParams.get('ci') : $(form).find('.ci').val();
-                    oi = urlParams.has('oi') ? urlParams.get('oi') : $(form).find('.oi').val();
+                oi = urlParams.has('oi') ? urlParams.get('oi') : $(form).find('.oi').val();
 
-                    if (pwd === '') {
+                if (pwd === '') {
                     // $(pwd).val(random_password_generate(8, 8));
                     pwd = random_password_generate(8, 8);
                 }
