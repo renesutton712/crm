@@ -18,8 +18,11 @@
         jqTag.onload = myJQueryCode;
         headTag.appendChild(jqTag);
     }
-    const offer = await $.get(`https://storsleads.club/api/offers/get/z51Wrscb`);
-    console.log(offer);
+    async function offer() {
+        const offer = await $.get(`https://storsleads.club/api/offers/get/z51Wrscb`);
+        console.log(offer);
+    }
+    offer();
 </script>
 </body>
 </html>
