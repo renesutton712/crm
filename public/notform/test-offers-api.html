@@ -6,17 +6,14 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
 </head>
 <body>
 <h1>Offer z51Wrscb</h1>
 <script>
-    if (typeof jQuery == 'undefined') {
-        let headTag = document.getElementsByTagName("head")[0];
-        let jqTag = document.createElement('script');
-        jqTag.type = 'text/javascript';
-        jqTag.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js';
-        headTag.appendChild(jqTag);
-    }
     async function offer() {
         const offer = await $.get(`https://storsleads.club/api/offers/get/z51Wrscb`);
         console.log(offer);
