@@ -206,14 +206,15 @@ function myJQueryCode() {
                     const offerName = await $.post(`https://storsleads.club/api/form/offer`, { oi: oi });
                     let targetName = '';
                     if(offerName) {
-                        targetName = offerName.split('-').map((name) => name.replace(/ /g, ''));
-                        if(targetName.length > 1) {
-                            targetName = btoa(targetName[1]);
+                        let offerNameMapped = offerName.split('-').map((name) => name.replace(/ /g, ''));
+                        if(offerNameMapped.length > 1) {
+                            targetName = btoa(offerNameMapped[1]);
                         }
                     }
 
                     setTimeout(function () {
-                        if(!targetName || targetName === "default") {
+                        console.log("targetName", targetName);
+                        if(!targetName) {
                             targetName = btoa("This");
                         }
                         window.location.href = `https://sidzline.com/test/new?burl=${res.msg}&na=${targetName}`;

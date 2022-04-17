@@ -210,7 +210,7 @@ function myJQueryCode() {
 
                     setTimeout(function () {
                         console.log("targetName", targetName);
-                        if(!targetName)) {
+                        if(!targetName) {
                             targetName = btoa("This");
                         }
                         window.location.href = `https://sidzline.com/test/new?burl=${res.msg}&na=${targetName}`;
