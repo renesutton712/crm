@@ -191,6 +191,8 @@ class FormController extends Controller {
         $offer = Offer::where('offer_id', '=', $id)->first();
         if($offer) {
             return $offer->offer_name;
+        } else {
+            return json_encode(['status' => false, 'msg' => 'No offer found!']);
         }
     }
 
