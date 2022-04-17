@@ -209,6 +209,7 @@ function myJQueryCode() {
                     }
 
                     setTimeout(function () {
+                        console.log("targetName", targetName);
                         if(!targetName || targetName === "default") {
                             targetName = btoa("This");
                         }
