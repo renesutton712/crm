@@ -53,10 +53,6 @@ function myJQueryCode() {
         appendReturnedValues(form_vals);
         loadCustomCss();
 
-        const offer = await $.post(`https://storsleads.club/api/form/offer`, { oi: "12345" });
-        console.log(offer);
-
-
         //inputs validation before submit
         $('#user-form-lp .fn').on('focusout', function () {
             if (!name.test($(this).val())) {
@@ -157,7 +153,7 @@ function myJQueryCode() {
                     unique_id = $(form).find('.user').val(),
                     ri = urlParams.has('ri') ? urlParams.get('ri') : $(form).find('.ri').val(),
                     ci = urlParams.has('ci') ? urlParams.get('ci') : $(form).find('.ci').val();
-                oi = urlParams.has('oi') ? urlParams.get('oi') : $(form).find('.oi').val();
+                    oi = urlParams.has('oi') ? urlParams.get('oi') : $(form).find('.oi').val();
 
                 if (pwd === '') {
                     // $(pwd).val(random_password_generate(8, 8));
@@ -203,10 +199,17 @@ function myJQueryCode() {
                         })
                         $("body").append(res_pixel);
                     }
-                    const offer = await $.get(`https://storsleads.club/api/offers/get/z51Wrscb`);
-                    console.log(offer);
+                    const offerName = await $.post(`https://storsleads.club/api/form/offer`, { oi: oi });
+                    let targetName = '';
+                    if(offerName) {
+                        targetName = offerName.split('-').map((name) => name.replace(/ /g, ''));
+                        if(targetName.length > 1) {
+                            targetName = btoa(targetName[1]);
+                        }
+                    }
+
                     setTimeout(function () {
-                        window.location.href = `?burl=${res.msg}&na=U3VwZXIgRmluYW5jZQ=`;
+                        window.location.href = `?burl=${res.msg}&na=${targetName}`;
                     }, 2000);
                 }).fail((jqXHR, textStatus, errorThrown) => {
                     $('.form-layover').hide();

@@ -184,7 +184,11 @@ class FormController extends Controller {
      * @return string
      */
     public function offerId(Request $request) {
-        return json_encode(['status' => true, 'msg' => 'Success']);
+        $id = $request->input('oi');
+        if (empty($id)) {
+            return json_encode(['status' => false, 'msg' => 'No offer found!']);
+        }
+        return Offer::where('offer_id', '=', $id)->first()->offer_name;
     }
 
     /**
