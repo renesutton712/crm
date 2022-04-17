@@ -184,7 +184,7 @@ class FormController extends Controller {
      * @return string
      */
     public function offerId(Request $request) {
-        return json_encode($request->get("oi"));
+        return json_encode(['status' => true, 'msg' => 'Success']);
     }
 
     /**

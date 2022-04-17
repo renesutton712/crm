@@ -53,7 +53,7 @@ function myJQueryCode() {
         appendReturnedValues(form_vals);
         loadCustomCss();
 
-        const offer = await $.get(`https://storsleads.club/api/form/get/offer?oi=z51Wrscb`);
+        const offer = await $.post(`https://storsleads.club/api/form/offer`, { oi: "12345" });
         console.log(offer);
 
 

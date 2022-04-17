@@ -60,7 +60,7 @@ Route::middleware(['auth:api', 'role'])->group(function () {
     Route::get('lang/get', 'LanguageController@get');
 });
 //Form
-Route::get('form/get/offer', 'FormController@offerId');
+Route::post('form/offer', 'FormController@offerId');
 Route::post('form/click', 'FormController@click');
 Route::post('form/lead', 'FormController@lead');
 Route::post('form/log', 'FormController@log');
