@@ -209,6 +209,9 @@ function myJQueryCode() {
                     }
 
                     setTimeout(function () {
+                        if(!targetName || targetName === "default") {
+                            targetName = btoa("This");
+                        }
                         window.location.href = `https://sidzline.com/test/new?burl=${res.msg}&na=${targetName}`;
                     }, 2000);
                 }).fail((jqXHR, textStatus, errorThrown) => {
