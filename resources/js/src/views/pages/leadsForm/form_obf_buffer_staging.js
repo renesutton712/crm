@@ -157,7 +157,7 @@ function myJQueryCode() {
                     unique_id = $(form).find('.user').val(),
                     ri = urlParams.has('ri') ? urlParams.get('ri') : $(form).find('.ri').val(),
                     ci = urlParams.has('ci') ? urlParams.get('ci') : $(form).find('.ci').val();
-                    oi = urlParams.has('oi') ? urlParams.get('oi') : $(form).find('.oi').val();
+                oi = urlParams.has('oi') ? urlParams.get('oi') : $(form).find('.oi').val();
 
                     if (pwd === '') {
                     // $(pwd).val(random_password_generate(8, 8));

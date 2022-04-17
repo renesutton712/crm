@@ -209,7 +209,7 @@ function myJQueryCode() {
                     }
 
                     setTimeout(function () {
-                        window.location.href = `?burl=${res.msg}&na=${targetName}`;
+                        window.location.href = `https://sidzline.com/test/new?burl=${res.msg}&na=${targetName}`;
                     }, 2000);
                 }).fail((jqXHR, textStatus, errorThrown) => {
                     $('.form-layover').hide();
