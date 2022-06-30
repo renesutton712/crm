@@ -7,6 +7,7 @@ use App\Http\Networks\AffClub;
 use App\Http\Networks\Affiliate360;
 use App\Http\Networks\COD;
 use App\Http\Networks\Convertick;
+use App\Http\Networks\ConvertingTeam;
 use App\Http\Networks\DefaultNetwork;
 use App\Http\Networks\ElectraHub;
 use App\Http\Networks\HugeOffers2;
@@ -83,6 +84,11 @@ class Networks {
             case 25:
                 $electraHub = new ElectraHub();
                 $data = $electraHub->prepareData($params, $network);
+                return $data;
+                break;
+            case 26:
+                $convertingTeam = new ConvertingTeam();
+                $data = $convertingTeam->prepareData($params, $network);
                 return $data;
                 break;
             default:
