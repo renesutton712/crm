@@ -10,8 +10,7 @@ use phpDocumentor\Reflection\Project;
 
 class ConvertingTeam extends NetworkFactory {
 
-    private $register_lead_url = "https://trkgods.com/api/v1/signups/add.php";
-    private $broker_request = "https://trkgods.com/api/v1/brokers/login/details.php?signupID=";
+    private $register_lead_url = "https://api-brokers.com/registration";
     private $api_key = null;
 
     /**
