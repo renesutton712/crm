@@ -114,30 +114,6 @@ class ConvertingTeam extends NetworkFactory {
         return stripslashes($data);
     }
 
-    private function brokerAutoLoginUrl($signupId) {
-        $client = new Client();
-        try {
-            $res = $client->request('GET', $this->broker_request . "{$signupId}", [
-                'headers' => [
-                    'Api-Key' => $this->getApiKey()
-                ],
-            ]);
-            if ($res->getStatusCode() !== 200) {
-                throw new \Exception('Url not found');
-            }
-            $content = $res->getBody()->getContents();
-            $data = json_decode($content, true);
-            if (!isset($data['data'])) {
-                throw new \Exception($data['messages']);
-            }
-            return [
-                'status' => true, 'msg' => "{$data['data']['url']}"
-            ];
-        } catch (\Exception $e) {
-            return json_encode(['status' => false, 'msg' => $e->getMessage()]);
-        }
-    }
-
     /**
      * @return null
      */
