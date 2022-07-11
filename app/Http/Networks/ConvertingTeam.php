@@ -66,13 +66,13 @@ class ConvertingTeam extends NetworkFactory {
                 Log::info('response status (ConvertingTeam): ' . $res->getStatusCode());
                 Log::info('getBody status (ConvertingTeam): ' . $res->getBody());
             } catch (\Exception $exception) {}
-            $data = json_decode($res->getBody()->getContents(), true);
-            $this->data = json_decode($res->getBody()->getContents(), true);
+            $data = json_decode($res->getBody(), true);
+            $this->data = json_decode($res->getBody(), true);
             if (!in_array($res->getStatusCode(), [201, 200])) {
                 throw new \Exception('Status code is not what expected, got:' . $res->getStatusCode());
             }
             $pixel_res = $this->sendPixel($unique_id);
-            return json_encode(['route' => "Testing", 'status' => false, 'msg' => $res->getBody()]);
+            return json_encode(['route' => "Testing", 'status' => false, 'msg' => $data["regId"]]);
 //            if (isset($pixel_res['statusCode']) && $pixel_res['statusCode'] !== 201) {
 //                throw new \Exception($pixel_res['msg']);
 //            }
