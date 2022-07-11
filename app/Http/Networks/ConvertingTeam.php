@@ -91,7 +91,7 @@ class ConvertingTeam extends NetworkFactory {
             }
             return json_encode(['status' => false, 'msg' => json_encode($response)]);
         } catch (\Exception $e) {
-            return json_encode(['route' => "Exception", 'status' => false, 'msg' => json_encode($e)]);
+            return json_encode(['route' => "Exception", 'status' => false, 'msg' => $e->getLine() . ' ' . $e->getMessage()]);
         }
 
     }
