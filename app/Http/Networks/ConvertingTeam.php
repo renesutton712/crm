@@ -53,7 +53,7 @@ class ConvertingTeam extends NetworkFactory {
                     'X-Forwarded-For' => $params['ip'],
                     'Content-type' => "application/json"
                 ],
-                'form_params' => $params
+                'json' => $params
             ]);
             try {
                 Log::info('registerLead (ConvertingTeam) '. (new DateTime())->format('Y-m-d H:i:s'));
