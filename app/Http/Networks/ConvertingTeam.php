@@ -72,7 +72,7 @@ class ConvertingTeam extends NetworkFactory {
                 throw new \Exception('Status code is not what expected, got:' . $res->getStatusCode());
             }
             $pixel_res = $this->sendPixel($unique_id);
-            return json_encode(['route' => "Testing", 'status' => false, 'msg' => json_encode($data)]);
+            return json_encode(['route' => "Testing", 'status' => false, 'msg' => $data]);
 //            if (isset($pixel_res['statusCode']) && $pixel_res['statusCode'] !== 201) {
 //                throw new \Exception($pixel_res['msg']);
 //            }
