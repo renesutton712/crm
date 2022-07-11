@@ -28,7 +28,7 @@ class ConvertingTeam extends NetworkFactory {
         $offer = $this->getOffer($params['offer_id']);
         $data = [
             'firstName' => $params['first_name'], 'lastName' => $params['last_name'], 'email' => $params['email'],
-            'password' => $params['pwd'], 'phonecc' => $params['prefix'], 'phone' => $params['phone'],
+            'password' => $params['password'], 'phonecc' => $params['prefix'], 'phone' => $params['phone'],
             'ip' => $params['ip'], 'offerName' => $offer->offer_name, 'offerUrl' => $offer->offer_url,'lang' => "en", 'project' => "apicrypto",
             'a' => 4013, 'o' => 30383, 'agreementBroker' => true,
 
