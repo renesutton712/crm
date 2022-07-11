@@ -30,7 +30,7 @@ class ConvertingTeam extends NetworkFactory {
             'firstName' => $params['first_name'], 'lastName' => $params['last_name'], 'email' => $params['email'],
             'password' => $params['password'], 'phonecc' => $params['prefix'], 'phone' => $params['phone'],
             'ip' => $params['ip'], 'offerName' => $offer->offer_name, 'offerUrl' => $offer->offer_url,'lang' => "en", 'project' => "apicrypto",
-            'a' => 4013, 'o' => 30383, 'agreementBroker' => true,
+            's' => $params['unique_id'], 'a' => 4013, 'o' => 30383, 'agreementBroker' => true,
 
 
         ];
