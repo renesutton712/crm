@@ -72,17 +72,18 @@ class ConvertingTeam extends NetworkFactory {
                 throw new \Exception('Status code is not what expected, got:' . $res->getStatusCode());
             }
             $pixel_res = $this->sendPixel($unique_id);
-            if (isset($pixel_res['statusCode']) && $pixel_res['statusCode'] !== 201) {
-                throw new \Exception($pixel_res['msg']);
-            }
-            $response = ['status' => true, 'msg' => $data['target']['url']];
-            $this->storeNetworkResponse($unique_id, 'lead_id ' . $data['regId']);
-            $iframe = $this->getIframePixel($camp_id);
-            if (!empty($iframe)) {
-                $response['pixel'] = $iframe->iframe_content;
-            }
-            $this->updateToLead($unique_id);
-            return $response;
+            return json_encode(['route' => "Testing", 'status' => false, 'msg' => json_encode($data)]);
+//            if (isset($pixel_res['statusCode']) && $pixel_res['statusCode'] !== 201) {
+//                throw new \Exception($pixel_res['msg']);
+//            }
+//            $response = ['status' => true, 'msg' => $data['target']['url']];
+//            $this->storeNetworkResponse($unique_id, 'lead_id ' . $data['regId']);
+//            $iframe = $this->getIframePixel($camp_id);
+//            if (!empty($iframe)) {
+//                $response['pixel'] = $iframe->iframe_content;
+//            }
+//            $this->updateToLead($unique_id);
+//            return $response;
         } catch (ClientException $e) {
             $response = $e->getResponse()->getBody();
             $response = json_decode($response->getContents());
