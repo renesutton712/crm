@@ -13,6 +13,7 @@ use App\Http\Networks\ElectraHub;
 use App\Http\Networks\HugeOffers2;
 use App\Http\Networks\SupremeMedia;
 use App\Http\Networks\Trackbox;
+use App\Http\Networks\TrafficIsland;
 use App\Http\Networks\Trafficon;
 use App\Http\Networks\HugeOffers;
 use App\Lead;
@@ -89,6 +90,11 @@ class Networks {
             case 26:
                 $convertingTeam = new ConvertingTeam();
                 $data = $convertingTeam->prepareData($params, $network);
+                return $data;
+                break;
+            case 27:
+                $trafficIsland = new TrafficIsland();
+                $data = $trafficIsland->prepareData($params, $network);
                 return $data;
                 break;
             default:
