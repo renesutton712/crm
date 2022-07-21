@@ -44,7 +44,7 @@ class HugeOffers2 extends NetworkFactory
             "tc" => "FB",
             $offer->offer_token => $offer->offer_token_value,
             "p2" => "CPL",
-            "p4" => $offer->offer_name
+            "p4" => $params['offer_id']
         ];
         return $this->hugeOffersLead($data, $params['unique_id'], $params['campaign_id']);
     }
