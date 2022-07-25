@@ -50,9 +50,9 @@ class TrafficIsland extends NetworkFactory {
         try {
             $res = $client->request('POST', $this->register_lead_url, [
                 'headers' => [
-                    'Content-type' => "application/json"
+                    'Content-type' => "application/x-www-form-urlencoded"
                 ],
-                'json' => $params
+                'form_params' => $params
             ]);
             try {
                 Log::info('registerLead (TrafficIsland) '. (new DateTime())->format('Y-m-d H:i:s'));
