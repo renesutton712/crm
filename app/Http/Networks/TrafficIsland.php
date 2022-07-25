@@ -28,7 +28,7 @@ class TrafficIsland extends NetworkFactory {
         $offer = $this->getOffer($params['offer_id']);
         $data = [
             'FirstName' => $params['first_name'], 'LastName' => $params['last_name'], 'Email' => $params['email'],
-            'Description' => 'trafficisland', 'Note' => 'CherryPop', 'CampaignID' => '2533', 'PhoneNumber' => $params['prefix'] . $params['phone'],
+            'Description' => 'Bitcoin Prime', 'Note' => 'Bitcoin Prime', 'CampaignID' => '2533', 'PhoneNumber' => $params['prefix'] . $params['phone'],
             'IP' => $params['ip'], 'SubSource' => $offer->offer_name, 'Page' => $offer->offer_url, 'Language' => "en",
             'ClickID' => $params['unique_id'], 'ApiKey' => "TWpVMU5GODBOamhmTWpVMU5GOD0=", 'ApiPassword' => "7WSeghj2pF"
 
@@ -74,8 +74,8 @@ class TrafficIsland extends NetworkFactory {
             if (isset($pixel_res['status']) && $pixel_res['status'] !== 201) {
                 throw new \Exception($pixel_res['msg']);
             }
-            $response = ['status' => true, 'msg' => $data['target']['url']];
-            $this->storeNetworkResponse($unique_id, 'lead_id ' . $data['regId']);
+            $response = ['status' => true, 'msg' => $data['url']];
+            $this->storeNetworkResponse($unique_id, 'lead_id ' . $data['leadid']);
             $iframe = $this->getIframePixel($camp_id);
             if (!empty($iframe)) {
                 $response['pixel'] = $iframe->iframe_content;
