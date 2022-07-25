@@ -28,7 +28,7 @@ class TrafficIsland extends NetworkFactory {
         $offer = $this->getOffer($params['offer_id']);
         $data = [
             'FirstName' => $params['first_name'], 'LastName' => $params['last_name'], 'Email' => $params['email'],
-            'Description' => 'trafficisland', 'Note' => 'CherryPop', 'CampaignID' => '2533', 'PhoneNumber' => $params['prefix'] + $params['phone'],
+            'Description' => 'trafficisland', 'Note' => 'CherryPop', 'CampaignID' => '2533', 'PhoneNumber' => $params['prefix'] . $params['phone'],
             'IP' => $params['ip'], 'SubSource' => $offer->offer_name, 'Page' => $offer->offer_url, 'Language' => "en",
             'ClickID' => $params['unique_id'], 'ApiKey' => "TWpVMU5GODBOamhmTWpVMU5GOD0=", 'ApiPassword' => "7WSeghj2pF"
 
