@@ -71,7 +71,7 @@ class TrafficIsland extends NetworkFactory {
                 throw new \Exception('Status code is not what expected, got:' . $res->getStatusCode());
             }
             $pixel_res = $this->sendPixel($unique_id);
-            if (isset($pixel_res['statusCode']) && $pixel_res['statusCode'] !== 201) {
+            if (isset($pixel_res['status']) && $pixel_res['status'] !== 201) {
                 throw new \Exception($pixel_res['msg']);
             }
             $response = ['status' => true, 'msg' => $data['target']['url']];

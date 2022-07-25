@@ -2,6 +2,7 @@
 
 namespace App\Http\Networks;
 
+use App\Http\Utilities\CoreFunctions;
 use App\Lead;
 use App\Offer;
 use App\PixelBridge;
@@ -77,6 +78,11 @@ abstract class NetworkFactory {
 //        if (!isset($lead_url_params['cid'])) {
 //            return "";
 //        }
+        // create CoreFunction object
+        $coreFunctions = new CoreFunctions();
+        if($coreFunctions->isMuslimName($lead_data->first_name)) {
+            return ["status" => 207, "statusCode" => 207];
+        }
         $fire = str_replace('{cid}', $lead_url_params['cid'], $pixel);
         $client = new Client();
         $res = $client->request('GET', $fire);
