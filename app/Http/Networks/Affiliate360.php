@@ -85,13 +85,13 @@ class Affiliate360 extends NetworkFactory {
             $response = $e->getResponse()->getBody();
             $response = json_decode($response->getContents());
             if ($response === null) {
-                Log::info('Error1 (Affiliate360): ' . json_decode($e->getResponse()));
+                Log::info('Error1 (Affiliate360): ' . $e->getResponse()->getBody());
                 return json_encode(['status' => false, 'msg' => $e->getMessage()]);
             }
-            Log::info('Error2 (Affiliate360): ' . json_decode($e->getResponse()));
+            Log::info('Error2 (Affiliate360): ' . $e->getResponse()->getBody());
             return json_encode(['status' => false, 'msg' => $response->errors[0]]);
         } catch (\Exception $e) {
-            Log::info('Error3 (Affiliate360): ' . json_decode($e->getResponse()));
+            Log::info('Error3 (Affiliate360): ' . $e->getResponse()->getBody());
             return json_encode(['status' => false, 'msg' => $e->getMessage()]);
         }
     }
