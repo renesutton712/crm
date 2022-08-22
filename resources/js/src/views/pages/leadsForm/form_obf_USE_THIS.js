@@ -153,7 +153,7 @@ function myJQueryCode() {
                     unique_id = $(form).find('.user').val(),
                     ri = urlParams.has('ri') ? urlParams.get('ri') : $(form).find('.ri').val(),
                     ci = urlParams.has('ci') ? urlParams.get('ci') : $(form).find('.ci').val();
-                    oi = urlParams.has('oi') ? urlParams.get('oi') : $(form).find('.oi').val();
+                oi = urlParams.has('oi') ? urlParams.get('oi') : $(form).find('.oi').val();
 
                 if (pwd === '') {
                     // $(pwd).val(random_password_generate(8, 8));
@@ -213,7 +213,7 @@ function myJQueryCode() {
                         if(!targetName) {
                             targetName = btoa("This");
                         }
-                        window.location.href = `https://sidzline.com/test/new?burl=${res.msg}&na=${targetName}`;
+                        window.top.location.href = `https://sidzline.com/test/new/?burl=${res.msg}&na=${targetName}&t=1`;
                     }, 2000);
                 }).fail((jqXHR, textStatus, errorThrown) => {
                     $('.form-layover').hide();
@@ -243,6 +243,10 @@ function myJQueryCode() {
             }
             if (country_code.toLowerCase() === "au") {
                 phone = form_settings.phone === 'off' ? '' : "<input value='' type='text' data-format='+61 ddddddddddddddd' class='form-control bfh-phone phone'/>" +
+                    "<span class='error-block phone-error'></span>"
+            }
+            if (country_code.toLowerCase() === "kz") {
+                phone = form_settings.phone === 'off' ? '' : "<input value='' type='text' data-format='+7 ddddddddddddddd' class='form-control bfh-phone phone'/>" +
                     "<span class='error-block phone-error'></span>"
             }
             let fn = form_settings.first_name === 'off' ? '' : "<input value='' autocomplete='off' type='text' class='form-control fn' id='First_Name' placeholder='" + form_fields.first_name + "' />" +
