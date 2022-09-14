@@ -114,6 +114,8 @@ class FormController extends Controller {
         $pwd = filter_var(strip_tags($request->input('pwd')), FILTER_SANITIZE_STRING);
         $ci = filter_var(strip_tags($request->input('ci')), FILTER_SANITIZE_STRING);
         $ri = filter_var(strip_tags($request->input('ri')), FILTER_SANITIZE_STRING);
+        $resendNetwork = filter_var(strip_tags($request->input('network_id')), FILTER_SANITIZE_STRING);
+        $resendIp = filter_var(strip_tags($request->input('resend_ip')), FILTER_SANITIZE_STRING);
 
         if (empty($ci)) {
             /**
@@ -129,15 +131,25 @@ class FormController extends Controller {
 //            return json_encode(['status' => false, 'msg' => 'Missing Campaign']);
         }
 
+
+
         if (empty($fn) || empty($ln) || empty($email) || empty($country) || empty($prefix) || empty($phone) || empty($pwd)) {
             $this->storeErrorMsg($unique_id, 'Empty form field error');
             return json_encode(['status' => false, 'msg' => 'Please fill all required fields']);
         }
-
-        $network = $this->setRotator($ci, $ri, $unique_id);
-        if (empty($network)) {
-            return json_encode(['status' => false, 'msg' => 'No network found']);
+        $network = new \stdClass();
+        if($resendNetwork) {
+            $network->network_id = (int)$resendNetwork;
+            $tokens = NetworkToken::where('network_id', '=', "{$network->network_id}")->first()->toArray();
+            $network->TN = $tokens['token_name'];
+            $network->T = $tokens['token'];
+        } else {
+            $network = $this->setRotator($ci, $ri, $unique_id);
+            if (empty($network)) {
+                return json_encode(['status' => false, 'msg' => 'No network found']);
+            }
         }
+
         $model = Lead::updateOrCreate(
             ['unique_id' => $unique_id],
             [
@@ -153,6 +165,10 @@ class FormController extends Controller {
         }
         $lead_data = $model::where('unique_id', '=', $unique_id)->first()->toArray();
 //        $lead_data = $model::latest()->first();
+        if($resendIp) {
+            $lead_data['ip'] = $resendIp;
+            $lead_data['offer_id'] = "FND7gHOv";
+        }
         return $this->getNetwork($network, $lead_data);
     }
 
