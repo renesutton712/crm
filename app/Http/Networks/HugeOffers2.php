@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 
 class HugeOffers2 extends NetworkFactory
 {
-    private $create_lead_url = "https://track.w-trk10.com/lds/affiliate/registration?lds-token=a92fa31b-471c-43cc-b5c5-31eda13b2304";
+    private $create_lead_url = "https://track.w-trk10.com/lds/affiliate/registration?lds-token=2ec9df1d-75f7-448f-adda-5029635be9a2";
     private $token = null;
     private $data = null;
 
@@ -71,7 +71,10 @@ class HugeOffers2 extends NetworkFactory
         $client = new Client();
         try {
             $res = $client->request('POST', $this->create_lead_url, [
-                'form_params' => $params
+                'form_params' => $params,
+                'headers' => [
+                    'Authorization' => "Bearer 1OCbPggCJgmkym0xomLHGdnVj36WyM9Glvm3Dt6VA1Lkp4e_PmSC4TOUvSBebTXH",
+                ],
             ]);
             try {
                 Log::info('registerLead (HugeOffers) ' . (new DateTime())->format('Y-m-d H:i:s'));
