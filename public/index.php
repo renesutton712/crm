@@ -49,7 +49,7 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 |
 */
 
-ini_set('memory_limit', '1024M');
+ini_set('memory_limit', '8192M');
 
 
 
